@@ -1,41 +1,68 @@
+/* eslint-disable @next/next/no-img-element */
 /** @jsxImportSource @emotion/react */
 import { GapVertical } from './GapVertical';
 import { mq } from '../styles/mq';
-import { FC, Fragment } from 'react';
+import { FC } from 'react';
 import { motion } from 'framer-motion';
-import { BsVolumeUpFill, BsVolumeMuteFill } from 'react-icons/bs';
+import { AiOutlineDownCircle } from 'react-icons/ai';
+import { computeGridSize } from '../styles/grid';
 
-interface HomeHeaderProps {
-  elapsedLoadTime: number;
-  mutedReel: boolean;
-  handleMute: () => void;
-}
+interface HomeHeaderProps {}
 
-export const HomeHeader: FC<HomeHeaderProps> = ({
-  elapsedLoadTime,
-  mutedReel,
-  handleMute,
-}) => {
+export const HomeHeader: FC<HomeHeaderProps> = () => {
   return (
-    <Fragment>
-      <motion.div
-        animate={{ opacity: 1 }}
-        initial={{ opacity: elapsedLoadTime === 5 ? 1 : 0 }}
-        transition={{ duration: 2 }}
-        css={{
+    <motion.div
+      css={mq({
+        display: 'flex',
+        flexDirection: ['column', 'row', 'row'],
+        alignItems: 'center',
+        width: '100%',
+        minHeight: '100vh',
+        overflow: 'hidden',
+      })}
+    >
+      <div
+        css={mq({
+          width: ['65%', '50%', '50%'],
+          height: ['60vh', '100vh', '100vh'],
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          position: 'relative',
+          justifyContent: 'center',
+          paddingTop: ['48px', '0px', '0px'],
+        })}
+      >
+        <img
+          src="/dp.png"
+          alt="Vir Srinivas Photo"
+          css={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+          }}
+        />
+      </div>
+      <motion.div
+        animate={{
+          opacity: 1,
         }}
+        transition={{ duration: 2 }}
+        css={mq({
+          flexDirection: 'column',
+          display: 'flex',
+          alignItems: 'center',
+          width: ['100%', '50%', '50%'],
+          paddingTop: ['48px', '0px', '0px'],
+          minHeight: ['50vh', '100%', '100%'],
+        })}
       >
         <h1
           css={mq({
             fontWeight: 400,
-            fontSize: ['80px'],
+            fontSize: ['48px', '70px', '80px'],
             margin: 0,
             zIndex: 2,
-            color: elapsedLoadTime === 5 ? 'white' : 'black',
+            color: 'black',
           })}
         >
           VIR SRINIVAS
@@ -45,7 +72,7 @@ export const HomeHeader: FC<HomeHeaderProps> = ({
           css={mq({
             height: ['3px'],
             width: ['32px'],
-            background: elapsedLoadTime === 5 ? 'white' : 'black',
+            background: 'black',
             zIndex: 2,
           })}
         />
@@ -53,85 +80,84 @@ export const HomeHeader: FC<HomeHeaderProps> = ({
         <p
           css={mq({
             margin: 0,
-            fontSize: ['32px'],
+            fontSize: ['20px', '32px', '32px'],
             fontWeight: 200,
             zIndex: 2,
-            color: elapsedLoadTime === 5 ? 'white' : 'black',
+            color: 'black',
           })}
         >
           Filmmaker
         </p>
-        {elapsedLoadTime === 5 ? (
-          <Fragment>
-            <div
-              css={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                position: 'absolute',
-                zIndex: 2,
-                bottom: '-48px',
-              }}
-            >
-              {mutedReel ? (
-                <BsVolumeUpFill
-                  css={{
-                    zIndex: 2,
-                    width: '36px',
-                    height: '36px',
-                    cursor: 'pointer',
-                    ':hover': {
-                      width: '40px',
-                      height: '40px',
-                      bottom: '-54px',
-                    },
-                  }}
-                  color="white"
-                  onClick={handleMute}
-                />
-              ) : (
-                <BsVolumeMuteFill
-                  css={{
-                    zIndex: 2,
-                    width: '36px',
-                    height: '36px',
-                    cursor: 'pointer',
-                    ':hover': {
-                      width: '40px',
-                      height: '40px',
-                      bottom: '-54px',
-                    },
-                  }}
-                  color="white"
-                  onClick={handleMute}
-                />
-              )}
-            </div>
-          </Fragment>
-        ) : null}
-      </motion.div>
-      {elapsedLoadTime === 5 ? (
-        <motion.div
-          animate={{ opacity: 1 }}
-          initial={{ opacity: 0 }}
-          transition={{ type: 'spring', damping: 100, duration: 2 }}
+        <GapVertical times={8} />
+        <p
+          css={mq({
+            margin: 0,
+            fontSize: ['12px', '16px', '16px'],
+            fontWeight: 300,
+            zIndex: 2,
+            color: 'black',
+            fontFamily: 'Rubik',
+            textAlign: 'center',
+            width: ['75%', '70%', '45%'],
+            lineHeight: '180%',
+          })}
         >
-          <video
+          Vir is a young award-winning feature film writer, producer and
+          director based in Sydney, Australia. He was trained at Sydney Film
+          School, where he gained a Diploma of Screen and Media in 2021.
+          <br />
+          <br />
+          Vir’s credits include Orders from Above (feature) and The Proselyte
+          (short), which have screened and won awards at numerous film festivals
+          worldwide.
+        </p>
+        <div
+          css={mq({
+            marginBottom: [
+              computeGridSize(10),
+              computeGridSize(0),
+              computeGridSize(0),
+            ],
+          })}
+        />
+        <div
+          css={mq({
+            position: ['relative', 'absolute', 'absolute'],
+            bottom: '36px',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '90px',
+            color: 'black',
+            cursor: 'pointer',
+            fontSize: '20px',
+            ':hover': {
+              fontSize: '24px',
+              bottom: '38px',
+              '& > svg': {
+                width: '32px',
+                height: '32px',
+              },
+            },
+          })}
+          onClick={() =>
+            window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })
+          }
+        >
+          <p css={{ margin: 0, fontWeight: 300 }}>WORK</p>
+          <GapVertical times={2} />
+          <AiOutlineDownCircle
             css={{
-              position: 'absolute',
-              zIndex: 1,
-              width: '100vw',
-              height: '100vh',
-              top: '0px',
-              left: '0px',
+              width: '28px',
+              height: '28px',
+              borderRadius: '50%',
+              marginBottom: '-4px',
             }}
-            autoPlay
-            muted={mutedReel}
-            loop
-            src={'/showreel-compressed.mp4'}
           />
-        </motion.div>
-      ) : null}
-    </Fragment>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 };
