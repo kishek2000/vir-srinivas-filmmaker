@@ -94,12 +94,12 @@ export const WorkSection: FC<WorkSectionProps> = () => {
       <div
         css={mq({
           textAlign: 'center',
+          fontSize: '20px',
           display: ['none', 'flex', 'flex'],
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
           cursor: 'pointer',
-          fontSize: '20px',
           ':hover': {
             transform: 'scale(1.05)',
           },

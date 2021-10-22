@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { FC } from "react";
+import { FC } from 'react';
 
 export interface GapProps {
   times: number;

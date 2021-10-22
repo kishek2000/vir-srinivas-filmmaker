@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
 import { FC } from 'react';
-import { AiOutlineDownCircle } from 'react-icons/ai';
 import { computeGridSize } from '../styles/grid';
 import { mq } from '../styles/mq';
 import { GapVertical } from './GapVertical';
@@ -59,11 +58,11 @@ export const MediaSection: FC = () => {
             boxShadow: '0px 0px 24px rgba(0, 0, 0, 0.05)',
             display: 'flex',
             flexDirection: 'column',
-            width: ['80%', computeGridSize(80), computeGridSize(100)],
+            width: ['80%', computeGridSize(85), computeGridSize(110)],
             height: [
-              computeGridSize(90),
-              computeGridSize(85),
-              computeGridSize(100),
+              computeGridSize(92),
+              computeGridSize(87.5),
+              computeGridSize(110),
             ],
             alignItems: 'center',
             justifyContent: 'center',
@@ -95,7 +94,7 @@ export const MediaSection: FC = () => {
                 fontWeight: 300,
                 textAlign: 'center',
                 width: '80%',
-                fontSize: ['14px', '14px', '16px'],
+                fontSize: ['16px', '16px', '18px'],
               })}
             >
               Vir Srinivas, 20, wins at Cannes with debut film Orders From Above
@@ -108,7 +107,8 @@ export const MediaSection: FC = () => {
                 textAlign: 'center',
                 width: '80%',
                 fontFamily: 'Rubik',
-                fontSize: ['12px', '12px', '13px'],
+                fontSize: ['14px', '14px', '16px'],
+                lineHeight: '150%',
               })}
             >
               Vir settled on a story that was interesting, yet possible to be
@@ -164,9 +164,6 @@ export const MediaSection: FC = () => {
         <p
           css={{
             margin: 0,
-            // fontWeight: 300,
-            // fontFamily: 'Rubik',
-            // fontSize: '14px',
           }}
         >
           Contact

@@ -157,7 +157,7 @@ export const AwardsSection = () => {
                     margin: 0,
                     fontWeight: 200,
                     fontFamily: 'Rubik',
-                    fontSize: ['13px', '12px', '13px'],
+                    fontSize: ['14px', '14px', '16px'],
                   })}
                 >
                   <strong>{award.awarder}</strong>
@@ -195,7 +195,7 @@ export const AwardsSection = () => {
                     margin: 0,
                     fontWeight: 200,
                     fontFamily: 'Rubik',
-                    fontSize: ['13px', '12px', '13px'],
+                    fontSize: ['14px', '14px', '16px'],
                   })}
                 >
                   <strong>{award.awarder}</strong>

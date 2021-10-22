@@ -253,13 +253,12 @@ export const VideoForWork: FC<VideoForWorkProps> = ({
           margin: 0,
           fontSize: ['24px', '28px', '36px'],
           fontWeight: 300,
-          // textAlign: 'center',
         })}
       >
         {title}
       </h2>
       <GapVertical times={3} />
-      <p css={{ margin: 0, fontWeight: 200 }}>{subtitle}</p>
+      <p css={{ margin: 0, fontWeight: 200, fontSize: '20px' }}>{subtitle}</p>
     </div>
   );
 };
