@@ -72,14 +72,14 @@ export const WorkSection: FC<WorkSectionProps> = () => {
             ],
           })}
         >
-          <img alt="" src="ofa-poster.jpeg" css={{ height: '55vh' }} />
+          <img alt="" src="ofa-poster.jpeg" css={{ height: '60vh' }} />
           <div css={mq({ display: ['none', 'flex', 'flex'] })}>
             <GapHorizontal times={12} />
           </div>
           <div css={mq({ display: ['flex', 'none', 'none'] })}>
             <GapVertical times={12} />
           </div>
-          <img alt="" src="proselyte-poster.jpeg" css={{ height: '55vh' }} />
+          <img alt="" src="proselyte-poster.jpeg" css={{ height: '60vh' }} />
         </div>
       </div>
       <div css={mq({ display: ['none', 'none', 'flex'] })}>

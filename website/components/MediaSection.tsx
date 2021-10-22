@@ -164,11 +164,12 @@ export const MediaSection: FC = () => {
         <p
           css={{
             margin: 0,
+            fontWeight: 300,
           }}
         >
-          Contact
+          Contact Vir at <strong>virsrinivasfilmmaker@gmail.com</strong>
         </p>
-        <GapVertical times={4} />
+        <GapVertical times={6} />
         <div
           css={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
         >
@@ -184,14 +185,7 @@ export const MediaSection: FC = () => {
               backgroundColor: '#f6c802',
               cursor: 'pointer',
             }}
-          />
-          <GapHorizontal times={2} />
-          <SocialIcon
-            url="mailto:virsrinivasfilmmaker@gmail.com"
-            css={{
-              maxWidth: computeGridSize(9),
-              maxHeight: computeGridSize(9),
-            }}
+            onClick={() => window.open('http://www.imdb.com/name/nm12504238')}
           />
           <GapHorizontal times={2} />
           <SocialIcon
@@ -203,7 +197,7 @@ export const MediaSection: FC = () => {
           />
           <GapHorizontal times={2} />
           <SocialIcon
-            url="https://twitter.com"
+            url="https://twitter.com/VirSrinivas"
             css={{
               maxWidth: computeGridSize(9),
               maxHeight: computeGridSize(9),

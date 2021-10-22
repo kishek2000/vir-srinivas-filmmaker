@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
+import { Fragment } from 'react';
 import { AiOutlineDownCircle } from 'react-icons/ai';
 import { mq } from '../styles/mq';
 import { GapHorizontal } from './GapHorizontal';
@@ -136,7 +137,7 @@ export const AwardsSection = () => {
             display: 'flex',
             flexDirection: 'column',
             overflowX: 'auto',
-            width: ['80%', '55%', '55%'],
+            width: ['80%', '65%', '65%'],
           })}
         >
           <h3>Orders from Above</h3>
@@ -145,27 +146,32 @@ export const AwardsSection = () => {
               display: 'flex',
               flexDirection: 'column',
               flexWrap: ['unset', 'wrap', 'wrap'],
-              height: ['', '40vh', '45vh'],
+              height: ['', '50vh', '45vh'],
               width: '100%',
               gridColumnGap: '36px',
             })}
           >
             {ofaAwards.map((award, index) => (
-              <div key={index}>
-                <p
-                  css={mq({
-                    margin: 0,
-                    fontWeight: 200,
-                    fontFamily: 'Rubik',
-                    fontSize: ['14px', '14px', '16px'],
-                  })}
+              <Fragment key={index}>
+                <div
+                  key={index}
+                  css={{ display: 'flex', flexDirection: 'column' }}
                 >
-                  <strong>{award.awarder}</strong>
-                  <br />
-                  {award.award}
-                </p>
-                <GapVertical times={4} />
-              </div>
+                  <p
+                    css={mq({
+                      margin: 0,
+                      fontWeight: 200,
+                      fontFamily: 'Rubik',
+                      fontSize: ['14px', '14px', '16px'],
+                    })}
+                  >
+                    <strong>{award.awarder}</strong>
+                    <GapVertical times={1.5} />
+                    {award.award}
+                  </p>
+                </div>
+                <GapVertical times={6} />
+              </Fragment>
             ))}
           </div>
         </div>
@@ -177,33 +183,38 @@ export const AwardsSection = () => {
             width: ['80%', 'unset', 'unset'],
           })}
         >
-          <h3>Proselyte</h3>
+          <h3>The Proselyte</h3>
           <div
             css={mq({
               display: 'flex',
               flexDirection: 'column',
               flexWrap: ['unset', 'wrap', 'wrap'],
-              height: ['', '40vh', '45vh'],
+              height: ['', '50vh', '45vh'],
               width: '100%',
               gridColumnGap: '36px',
             })}
           >
             {proselyteAwards.map((award, index) => (
-              <div key={index}>
-                <p
-                  css={mq({
-                    margin: 0,
-                    fontWeight: 200,
-                    fontFamily: 'Rubik',
-                    fontSize: ['14px', '14px', '16px'],
-                  })}
+              <Fragment key={index}>
+                <div
+                  key={index}
+                  css={{ display: 'flex', flexDirection: 'column' }}
                 >
-                  <strong>{award.awarder}</strong>
-                  <br />
-                  {award.award}
-                </p>
-                <GapVertical times={4} />
-              </div>
+                  <p
+                    css={mq({
+                      margin: 0,
+                      fontWeight: 200,
+                      fontFamily: 'Rubik',
+                      fontSize: ['14px', '14px', '16px'],
+                    })}
+                  >
+                    <strong>{award.awarder}</strong>
+                    <GapVertical times={1.5} />
+                    {award.award}
+                  </p>
+                </div>
+                <GapVertical times={6} />
+              </Fragment>
             ))}
           </div>
         </div>
