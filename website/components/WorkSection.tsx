@@ -72,14 +72,74 @@ export const WorkSection: FC<WorkSectionProps> = () => {
             ],
           })}
         >
-          <img alt="" src="ofa-poster.jpeg" css={{ height: '60vh' }} />
+          <div
+            css={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <img
+              alt=""
+              src="ofa-poster.jpeg"
+              css={mq({ height: ['45vh', '60vh', '60vh'] })}
+            />
+            <GapVertical times={3} />
+            <button
+              css={{
+                border: 'none',
+                fontWeight: 400,
+                borderRadius: '4px',
+                outline: 'none',
+                padding: '12px 20px',
+                textTransform: 'uppercase',
+                // fontWeight: 200,
+                background: '#f6c802',
+                cursor: 'pointer',
+                fontSize: '16px',
+              }}
+              onClick={() => window.open('www.imdb.com/title/tt14858134')}
+            >
+              IMDB
+            </button>
+          </div>
           <div css={mq({ display: ['none', 'flex', 'flex'] })}>
             <GapHorizontal times={12} />
           </div>
           <div css={mq({ display: ['flex', 'none', 'none'] })}>
             <GapVertical times={12} />
+          </div>{' '}
+          <div
+            css={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <img
+              alt=""
+              src="proselyte-poster.jpeg"
+              css={mq({ height: ['45vh', '60vh', '60vh'] })}
+            />
+            <GapVertical times={3} />
+            <button
+              css={{
+                border: 'none',
+                fontWeight: 400,
+                borderRadius: '4px',
+                outline: 'none',
+                padding: '12px 20px',
+                textTransform: 'uppercase',
+                // fontWeight: 200,
+                background: '#f6c802',
+                cursor: 'pointer',
+                fontSize: '16px',
+              }}
+              onClick={() => window.open('www.imdb.com/title/tt14755002')}
+            >
+              IMDB
+            </button>
           </div>
-          <img alt="" src="proselyte-poster.jpeg" css={{ height: '60vh' }} />
         </div>
       </div>
       <div css={mq({ display: ['none', 'none', 'flex'] })}>
