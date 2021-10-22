@@ -1,6 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
+import { AwardsSection } from '../components/AwardsSection';
+import { GapVertical } from '../components/GapVertical';
 import { HomeHeader } from '../components/HomeHeader';
+import { MediaSection } from '../components/MediaSection';
+import { VideoSection } from '../components/VideoSection';
 import { WorkSection } from '../components/WorkSection';
 
 export default function Home() {
@@ -19,6 +23,10 @@ export default function Home() {
     >
       <HomeHeader />
       <WorkSection />
+      <AwardsSection />
+      <VideoSection />
+      <MediaSection />
+      <GapVertical times={12} />
     </main>
   );
 }

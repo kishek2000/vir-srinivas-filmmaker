@@ -23,7 +23,7 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
     >
       <div
         css={mq({
-          width: ['65%', '50%', '50%'],
+          width: ['80%', '50%', '50%'],
           height: ['60vh', '100vh', '100vh'],
           display: 'flex',
           flexDirection: 'column',
@@ -59,7 +59,7 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
         <h1
           css={mq({
             fontWeight: 400,
-            fontSize: ['48px', '70px', '80px'],
+            fontSize: ['44px', '48px', '56px'],
             margin: 0,
             zIndex: 2,
             color: 'black',
@@ -80,7 +80,7 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
         <p
           css={mq({
             margin: 0,
-            fontSize: ['20px', '32px', '32px'],
+            fontSize: ['16px', '18px', '20px'],
             fontWeight: 200,
             zIndex: 2,
             color: 'black',
@@ -92,7 +92,7 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
         <p
           css={mq({
             margin: 0,
-            fontSize: ['12px', '16px', '16px'],
+            fontSize: ['12px', '14px', '16px'],
             fontWeight: 300,
             zIndex: 2,
             color: 'black',
@@ -120,12 +120,15 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
             ],
           })}
         />
+        <div css={mq({ display: ['flex', 'none', 'none'] })}>
+          <GapVertical times={16} />
+        </div>
         <div
           css={mq({
             position: ['relative', 'absolute', 'absolute'],
             bottom: '36px',
             textAlign: 'center',
-            display: 'flex',
+            display: ['none', 'flex', 'flex'],
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
