@@ -98,7 +98,9 @@ export const WorkSection: FC<WorkSectionProps> = () => {
                 cursor: 'pointer',
                 fontSize: '16px',
               }}
-              onClick={() => window.open('www.imdb.com/title/tt14858134')}
+              onClick={() =>
+                window.open('http://www.imdb.com/title/tt14858134')
+              }
             >
               IMDB
             </button>
@@ -135,7 +137,9 @@ export const WorkSection: FC<WorkSectionProps> = () => {
                 cursor: 'pointer',
                 fontSize: '16px',
               }}
-              onClick={() => window.open('www.imdb.com/title/tt14755002')}
+              onClick={() =>
+                window.open('http://www.imdb.com/title/tt14755002')
+              }
             >
               IMDB
             </button>
