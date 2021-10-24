@@ -110,6 +110,9 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
           Vir’s credits include Orders from Above (feature) and The Proselyte
           (short), which have screened and won awards at numerous film festivals
           worldwide.
+          <br />
+          <br />
+          He is a member of the Australian Writers&apos; Guild.
         </p>
         <div
           css={mq({
