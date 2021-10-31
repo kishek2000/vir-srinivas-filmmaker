@@ -80,6 +80,10 @@ const ofaAwards = [
 
 const proselyteAwards = [
   {
+    awarder: 'Sanctuary International Film Festival',
+    award: 'Official Selection',
+  },
+  {
     awarder: 'Changing Face International Film Festival',
     award: 'Monthly Finalist',
   },

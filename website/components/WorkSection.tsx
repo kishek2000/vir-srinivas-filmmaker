@@ -102,7 +102,7 @@ export const WorkSection: FC<WorkSectionProps> = () => {
                 window.open('http://www.imdb.com/title/tt14858134')
               }
             >
-              IMDB
+              View on IMDB
             </button>
           </div>
           <div css={mq({ display: ['none', 'flex', 'flex'] })}>
@@ -141,7 +141,7 @@ export const WorkSection: FC<WorkSectionProps> = () => {
                 window.open('http://www.imdb.com/title/tt14755002')
               }
             >
-              IMDB
+              View on IMDB
             </button>
           </div>
         </div>
