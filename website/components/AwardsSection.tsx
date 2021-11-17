@@ -70,6 +70,12 @@ const ofaAwards = [
     awarder: 'Flickers’ Rhode Island International Film Festival',
     award: 'Semi-Finalist',
   },
+  {
+    awarder: 'Changing Face International Film Festival',
+    award: 'Bi-Annual Semi-Finalist',
+  },
+  { awarder: 'Sydney Lift-Off Film Festival', award: 'Official Selection' },
+  { awarder: 'Melbourne Lift-Off Film Festival', award: 'Official Selection' },
   { awarder: 'First-Time Filmmaker Sessions', award: 'Official Selection' },
   { awarder: 'FLICKERFAIR Film Festival', award: 'Official Selection' },
   {
