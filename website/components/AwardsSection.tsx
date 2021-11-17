@@ -21,7 +21,7 @@ const ofaAwards = [
   },
   {
     awarder: 'Las Vegas International Film & Screenwriting Festival',
-    award: 'Best Historical - Period Piece',
+    award: 'Winner - Best Historical - Period Piece',
   },
   {
     awarder: 'Istanbul Film Awards',
