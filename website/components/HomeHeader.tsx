@@ -112,7 +112,8 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
           worldwide.
           <br />
           <br />
-          He is a member of the Australian Writers&apos; Guild.
+          He is a member of the Australian Directors&apos; Guild and the
+          Australian Writers&apos; Guild.
         </p>
         <div
           css={mq({

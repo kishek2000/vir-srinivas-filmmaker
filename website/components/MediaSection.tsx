@@ -125,6 +125,14 @@ export const MediaSection: FC = () => {
           />
           <GapHorizontal times={2} />
           <SocialIcon
+            url="https://instagram.com/virsrinivas"
+            css={{
+              maxWidth: computeGridSize(9),
+              maxHeight: computeGridSize(9),
+            }}
+          />
+          <GapHorizontal times={2} />
+          <SocialIcon
             url="https://twitter.com/VirSrinivas"
             css={{
               maxWidth: computeGridSize(9),

@@ -20,6 +20,10 @@ const ofaAwards = [
     award: 'Winner – Best Feature War Film',
   },
   {
+    awarder: 'Las Vegas International Film & Screenwriting Festival',
+    award: 'Best Historical - Period Piece',
+  },
+  {
     awarder: 'Istanbul Film Awards',
     award: 'Winner – Best First Time Director',
   },
@@ -69,10 +73,6 @@ const ofaAwards = [
   { awarder: 'First-Time Filmmaker Sessions', award: 'Official Selection' },
   { awarder: 'FLICKERFAIR Film Festival', award: 'Official Selection' },
   {
-    awarder: 'Las Vegas International Film & Screenwriting Festival',
-    award: 'Official Selection',
-  },
-  {
     awarder: 'International Police Award Arts Film Festival',
     award: 'Official Selection',
   },
@@ -81,6 +81,14 @@ const ofaAwards = [
 const proselyteAwards = [
   {
     awarder: 'Sanctuary International Film Festival',
+    award: 'Nominee - Best Australian Short',
+  },
+  {
+    awarder: 'Sydney Lift-Off Film Festival',
+    award: 'Official Selection',
+  },
+  {
+    awarder: 'Melbourne Lift-Off Film Festival',
     award: 'Official Selection',
   },
   {
@@ -152,7 +160,7 @@ export const AwardsSection = () => {
               flexWrap: ['unset', 'wrap', 'wrap'],
               height: ['', '50vh', '45vh'],
               width: '100%',
-              gridColumnGap: '36px',
+              gridColumnGap: '24px',
             })}
           >
             {ofaAwards.map((award, index) => (
@@ -170,7 +178,7 @@ export const AwardsSection = () => {
                     })}
                   >
                     <strong>{award.awarder}</strong>
-                    <GapVertical times={1.5} />
+                    <GapVertical times={1.25} />
                     {award.award}
                   </p>
                 </div>
@@ -195,7 +203,7 @@ export const AwardsSection = () => {
               flexWrap: ['unset', 'wrap', 'wrap'],
               height: ['', '50vh', '45vh'],
               width: '100%',
-              gridColumnGap: '36px',
+              gridColumnGap: '24px',
             })}
           >
             {proselyteAwards.map((award, index) => (
@@ -213,7 +221,7 @@ export const AwardsSection = () => {
                     })}
                   >
                     <strong>{award.awarder}</strong>
-                    <GapVertical times={1.5} />
+                    <GapVertical times={1.25} />
                     {award.award}
                   </p>
                 </div>
