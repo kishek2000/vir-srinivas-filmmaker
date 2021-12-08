@@ -65,6 +65,7 @@ const ofaAwards = [
     awarder: 'Cannes World Film Festival',
     award: 'Nominee – Best First Time Filmmaker',
   },
+  { awarder: 'Near Nazareth Festival', award: 'Finalist' },
   { awarder: 'Ventotene Film Festival', award: 'Finalist' },
   {
     awarder: 'Flickers’ Rhode Island International Film Festival',
@@ -78,6 +79,7 @@ const ofaAwards = [
   { awarder: 'Melbourne Lift-Off Film Festival', award: 'Official Selection' },
   { awarder: 'First-Time Filmmaker Sessions', award: 'Official Selection' },
   { awarder: 'FLICKERFAIR Film Festival', award: 'Official Selection' },
+  { awarder: 'RED Movie Awards', award: 'Official Selection' },
   {
     awarder: 'International Police Award Arts Film Festival',
     award: 'Official Selection',
@@ -104,6 +106,17 @@ const proselyteAwards = [
   {
     awarder: 'World Distribution Award',
     award: 'Honourable Mention',
+  },
+];
+
+const gunsAtCowraAwards = [
+  {
+    awarder: 'Fade In Awards First Ten Pages Competition',
+    award: 'Semi-Finalist',
+  },
+  {
+    awarder: 'StoryPros International Screenplay Contest',
+    award: 'Quarterfinalist',
   },
 ];
 
@@ -147,7 +160,7 @@ export const AwardsSection = () => {
           flexDirection: ['column', 'row', 'row'],
           alignItems: 'center',
           justifyContent: 'center',
-          width: '100%',
+          width: '85%',
         })}
       >
         <div
@@ -213,6 +226,49 @@ export const AwardsSection = () => {
             })}
           >
             {proselyteAwards.map((award, index) => (
+              <Fragment key={index}>
+                <div
+                  key={index}
+                  css={{ display: 'flex', flexDirection: 'column' }}
+                >
+                  <p
+                    css={mq({
+                      margin: 0,
+                      fontWeight: 200,
+                      fontFamily: 'Rubik',
+                      fontSize: ['14px', '14px', '16px'],
+                    })}
+                  >
+                    <strong>{award.awarder}</strong>
+                    <GapVertical times={1.25} />
+                    {award.award}
+                  </p>
+                </div>
+                <GapVertical times={6} />
+              </Fragment>
+            ))}
+          </div>
+        </div>
+        <GapHorizontal times={12} />
+        <div
+          css={mq({
+            display: 'flex',
+            flexDirection: 'column',
+            width: ['80%', 'unset', 'unset'],
+          })}
+        >
+          <h3>The Guns at Cowra (screenplay)</h3>
+          <div
+            css={mq({
+              display: 'flex',
+              flexDirection: 'column',
+              flexWrap: ['unset', 'wrap', 'wrap'],
+              height: ['', '50vh', '45vh'],
+              width: '100%',
+              gridColumnGap: '24px',
+            })}
+          >
+            {gunsAtCowraAwards.map((award, index) => (
               <Fragment key={index}>
                 <div
                   key={index}
