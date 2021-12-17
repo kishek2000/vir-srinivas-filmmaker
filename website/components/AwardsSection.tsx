@@ -100,16 +100,16 @@ const proselyteAwards = [
     award: 'Semi-Finalist',
   },
   {
+    awarder: 'Changing Face International Film Festival',
+    award: 'Monthly Finalist',
+  },
+  {
     awarder: 'Sydney Lift-Off Film Festival',
     award: 'Official Selection',
   },
   {
     awarder: 'Melbourne Lift-Off Film Festival',
     award: 'Official Selection',
-  },
-  {
-    awarder: 'Changing Face International Film Festival',
-    award: 'Monthly Finalist',
   },
   {
     awarder: 'World Distribution Award',
