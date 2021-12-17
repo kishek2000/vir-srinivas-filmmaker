@@ -224,6 +224,7 @@ export const AwardsSection = () => {
             display: 'flex',
             flexDirection: 'column',
             width: ['80%', 'unset', 'unset'],
+            overflowX: 'auto',
           })}
         >
           <h3>The Proselyte</h3>
@@ -267,6 +268,7 @@ export const AwardsSection = () => {
             display: 'flex',
             flexDirection: 'column',
             width: ['80%', 'unset', 'unset'],
+            overflowX: 'auto',
           })}
         >
           <h3>The Guns at Cowra (screenplay)</h3>
