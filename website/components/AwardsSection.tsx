@@ -13,11 +13,11 @@ const ofaAwards = [
   },
   {
     awarder: 'Mannheim Arts and Film Festival',
-    award: 'Winner – Best History Film',
+    award: 'Winner - Best History Film',
   },
   {
     awarder: 'International Symbolic Art Film Festival',
-    award: 'Winner – Best Feature War Film',
+    award: 'Winner - Best Feature War Film',
   },
   {
     awarder: 'Las Vegas International Film & Screenwriting Festival',
@@ -25,33 +25,33 @@ const ofaAwards = [
   },
   {
     awarder: 'Istanbul Film Awards',
-    award: 'Winner – Best First Time Director',
+    award: 'Winner - Best First Time Director',
   },
-  { awarder: 'Istanbul Film Awards', award: 'Winner – Best Jewish' },
-  { awarder: 'Kiez Berlin Film Festival', award: 'Winner – Best History Film' },
+  { awarder: 'Istanbul Film Awards', award: 'Winner - Best Jewish' },
+  { awarder: 'Kiez Berlin Film Festival', award: 'Winner - Best History Film' },
   {
     awarder: '​Brussels Capital Film Festival',
-    award: 'Winner – Best Historical',
+    award: 'Winner - Best Historical',
   },
   { awarder: 'Berlin Indie Film Festival', award: 'Winner - Best Historical' },
   { awarder: 'Accolade Global Film Competition', award: 'Winner - Jewish' },
   {
     awarder: 'HALO International Film Festival',
-    award: 'Winner – Best War Film',
+    award: 'Winner - Best War Film',
   },
   {
     awarder: 'HALO International Film Festival',
-    award: 'Winner – Best Director Debut​',
+    award: 'Winner - Best Director Debut​',
   },
   {
     awarder: 'Cannes World Film Festival',
-    award: 'Winner – Best Historical Film',
+    award: 'Winner - Best Historical Film',
   },
   {
     awarder: 'Cannes World Film Festival',
-    award: 'Winner – Best Black & White Film',
+    award: 'Winner - Best Black & White Film',
   },
-  { awarder: 'Cannes World Film Festival', award: 'Winner – Best Jewish Film' },
+  { awarder: 'Cannes World Film Festival', award: 'Winner - Best Jewish Film' },
   { awarder: 'Los Angeles Film Awards', award: 'Winner - Best Docudrama' },
   {
     awarder: 'Los Angeles Film Awards',
@@ -59,11 +59,11 @@ const ofaAwards = [
   },
   {
     awarder: 'Cannes World Film Festival',
-    award: 'Nominee – Best Biographical Feature Film',
+    award: 'Nominee - Best Biographical Feature Film',
   },
   {
     awarder: 'Cannes World Film Festival',
-    award: 'Nominee – Best First Time Filmmaker',
+    award: 'Nominee - Best First Time Filmmaker',
   },
   { awarder: 'Near Nazareth Festival', award: 'Finalist' },
   { awarder: 'Ventotene Film Festival', award: 'Finalist' },
@@ -116,7 +116,11 @@ const gunsAtCowraAwards = [
   },
   {
     awarder: 'StoryPros International Screenplay Contest',
-    award: 'Quarterfinalist',
+    award: 'Quarter-Finalist',
+  },
+  {
+    awarder: 'Miami Screenplay Awards',
+    award: 'Quarter-Finalist',
   },
 ];
 
