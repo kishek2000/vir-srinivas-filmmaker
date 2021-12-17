@@ -72,6 +72,10 @@ const ofaAwards = [
     award: 'Semi-Finalist',
   },
   {
+    awarder: 'Lonely Wolf International Film Festival',
+    award: 'Semi-Finalist',
+  },
+  {
     awarder: 'Changing Face International Film Festival',
     award: 'Bi-Annual Semi-Finalist',
   },
@@ -90,6 +94,10 @@ const proselyteAwards = [
   {
     awarder: 'Sanctuary International Film Festival',
     award: 'Nominee - Best Australian Short',
+  },
+  {
+    awarder: 'Lonely Wolf International Film Festival',
+    award: 'Semi-Finalist',
   },
   {
     awarder: 'Sydney Lift-Off Film Festival',
