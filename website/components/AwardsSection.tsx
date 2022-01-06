@@ -104,6 +104,10 @@ const proselyteAwards = [
     award: 'Monthly Finalist',
   },
   {
+    awarder: 'Perth Independent Film Festival',
+    award: 'Official Selection',
+  },
+  {
     awarder: 'Sydney Lift-Off Film Festival',
     award: 'Official Selection',
   },
