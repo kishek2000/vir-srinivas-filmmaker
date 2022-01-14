@@ -123,6 +123,10 @@ const proselyteAwards = [
 
 const gunsAtCowraAwards = [
   {
+    awarder: 'Discovery Int Fest of Film & Story',
+    award: 'Winner',
+  },
+  {
     awarder: 'Fade In Awards True Story/Biopic Competition',
     award: '2nd Place',
   },
