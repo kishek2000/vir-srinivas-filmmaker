@@ -142,6 +142,10 @@ const gunsAtCowraAwards = [
     awarder: 'Miami Screenplay Awards',
     award: 'Quarter-Finalist',
   },
+  {
+    awarder: 'Wiki Screenplay Contest',
+    award: 'Quarter-Finalist',
+  },
 ];
 
 export const AwardsSection = () => {
