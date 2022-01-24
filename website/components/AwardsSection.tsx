@@ -93,7 +93,7 @@ const ofaAwards = [
 const proselyteAwards = [
   {
     awarder: 'Perth Independent Film Festival',
-    award: 'Winner - Best Short Film',
+    award: 'Winner - Best Drama',
   },
   {
     awarder: 'Sanctuary International Film Festival',
