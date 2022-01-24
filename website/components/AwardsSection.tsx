@@ -92,6 +92,10 @@ const ofaAwards = [
 
 const proselyteAwards = [
   {
+    awarder: 'Perth Independent Film Festival',
+    award: 'Winner - Best Short Film',
+  },
+  {
     awarder: 'Sanctuary International Film Festival',
     award: 'Nominee - Best Australian Short',
   },
@@ -104,7 +108,7 @@ const proselyteAwards = [
     award: 'Monthly Finalist',
   },
   {
-    awarder: 'Perth Independent Film Festival',
+    awarder: 'North Bellarine Film Festival',
     award: 'Official Selection',
   },
   {
@@ -124,7 +128,7 @@ const proselyteAwards = [
 const gunsAtCowraAwards = [
   {
     awarder: 'Discovery Int Fest of Film & Story',
-    award: 'Winner',
+    award: 'Winner - Best Feature Screenplay',
   },
   {
     awarder: 'Fade In Awards True Story/Biopic Competition',
@@ -144,6 +148,10 @@ const gunsAtCowraAwards = [
   },
   {
     awarder: 'Wiki Screenplay Contest',
+    award: 'Quarter-Finalist',
+  },
+  {
+    awarder: 'Chicago Screenplay Awards',
     award: 'Quarter-Finalist',
   },
 ];
