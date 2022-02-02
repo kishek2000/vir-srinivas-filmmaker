@@ -139,6 +139,10 @@ const gunsAtCowraAwards = [
     award: 'Semi-Finalist',
   },
   {
+    awarder: 'Los Angeles International Screenplay Awards',
+    award: 'Quarter-Finalist',
+  },
+  {
     awarder: 'StoryPros International Screenplay Contest',
     award: 'Quarter-Finalist',
   },
