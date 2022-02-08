@@ -158,6 +158,10 @@ const gunsAtCowraAwards = [
     awarder: 'Chicago Screenplay Awards',
     award: 'Quarter-Finalist',
   },
+  {
+    awarder: 'Script Summit',
+    award: 'Official Selection',
+  },
 ];
 
 export const AwardsSection = () => {
