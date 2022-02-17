@@ -139,6 +139,10 @@ const gunsAtCowraAwards = [
     award: 'Semi-Finalist',
   },
   {
+    awarder: 'Santa Barbara International Screenplay Awards',
+    award: 'Semi-Finalist',
+  },
+  {
     awarder: 'Los Angeles International Screenplay Awards',
     award: 'Quarter-Finalist',
   },
@@ -156,6 +160,10 @@ const gunsAtCowraAwards = [
   },
   {
     awarder: 'Chicago Screenplay Awards',
+    award: 'Quarter-Finalist',
+  },
+  {
+    awarder: '​​Atlanta Film Festival Screenplay Competition',
     award: 'Quarter-Finalist',
   },
   {
