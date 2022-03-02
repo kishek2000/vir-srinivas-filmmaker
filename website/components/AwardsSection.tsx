@@ -167,7 +167,7 @@ const gunsAtCowraAwards = [
     award: 'Quarter-Finalist',
   },
   {
-    awarder: 'Richmond International Film Festival Screenplay Competition  ',
+    awarder: 'Richmond International Film Festival Screenplay Competition',
     award: 'Quarter Finalist',
   },
   {
