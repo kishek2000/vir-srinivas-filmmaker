@@ -147,6 +147,10 @@ const gunsAtCowraAwards = [
     award: 'Semi-Finalist',
   },
   {
+    awarder: 'NYC International Screenplay Awards',
+    award: 'Semi-Finalist',
+  },
+  {
     awarder: 'Los Angeles International Screenplay Awards',
     award: 'Quarter-Finalist',
   },
@@ -172,7 +176,7 @@ const gunsAtCowraAwards = [
   },
   {
     awarder: 'Richmond International Film Festival Screenplay Competition',
-    award: 'Quarter Finalist',
+    award: 'Quarter-Finalist',
   },
   {
     awarder: 'Script Summit',
