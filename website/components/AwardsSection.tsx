@@ -131,6 +131,10 @@ const gunsAtCowraAwards = [
     award: 'Winner - Best Feature Screenplay',
   },
   {
+    awarder: 'Changing Face International Film Festival',
+    award: 'Winner - Screenplay Of The Month',
+  },
+  {
     awarder: 'Fade In Awards True Story/Biopic Competition',
     award: '2nd Place',
   },
