@@ -100,6 +100,10 @@ const proselyteAwards = [
     award: 'Nominee - Best Australian Short',
   },
   {
+    awarder: 'GoldBlink Short Film Awards',
+    award: 'Nominee - Best Indie Short',
+  },
+  {
     awarder: 'Lonely Wolf International Film Festival',
     award: 'Semi-Finalist',
   },
@@ -148,6 +152,10 @@ const gunsAtCowraAwards = [
   },
   {
     awarder: 'NYC International Screenplay Awards',
+    award: 'Semi-Finalist',
+  },
+  {
+    awarder: 'Screenwriters Network Screenplay Competition',
     award: 'Semi-Finalist',
   },
   {
