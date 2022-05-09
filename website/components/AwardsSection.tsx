@@ -65,6 +65,18 @@ const ofaAwards = [
     awarder: 'Cannes World Film Festival',
     award: 'Nominee - Best First Time Filmmaker',
   },
+  {
+    awarder: 'Madrid International Film Festival',
+    award: 'Nominee - Best Cinematography in a Docudrama',
+  },
+  {
+    awarder: 'Madrid International Film Festival',
+    award: 'Nominee - Talented New Director',
+  },
+  {
+    awarder: 'Madrid International Film Festival',
+    award: 'Nominee - Jury Award',
+  },
   { awarder: 'Near Nazareth Festival', award: 'Finalist' },
   { awarder: 'Ventotene Film Festival', award: 'Finalist' },
   {
@@ -121,6 +133,14 @@ const proselyteAwards = [
   },
   {
     awarder: 'Melbourne Lift-Off Film Festival',
+    award: 'Official Selection',
+  },
+  {
+    awarder: 'Cinema4Screen Film Festival',
+    award: 'Official Selection',
+  },
+  {
+    awarder: 'Thessaloniki Free Short Festival',
     award: 'Official Selection',
   },
   {
@@ -187,7 +207,15 @@ const gunsAtCowraAwards = [
     award: 'Quarter-Finalist',
   },
   {
+    awarder: 'Emerging Screenwriters Drama Screenplay Competition',
+    award: 'Quarter-Finalist',
+  },
+  {
     awarder: 'Script Summit',
+    award: 'Official Selection',
+  },
+  {
+    awarder: 'Big Apple Film Festival Screenplay Competition',
     award: 'Official Selection',
   },
 ];

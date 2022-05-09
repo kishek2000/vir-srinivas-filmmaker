@@ -103,8 +103,8 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
           })}
         >
           Vir is a young award-winning feature film writer, producer and
-          director based in Sydney, Australia. He was trained at Sydney Film
-          School, where he gained a Diploma of Screen and Media in 2021.
+          director. He was trained at Sydney Film School, where he gained a
+          Diploma of Screen and Media in 2021.
           <br />
           <br />
           Vir’s credits include Orders from Above (feature) and The Proselyte
