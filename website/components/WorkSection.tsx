@@ -96,6 +96,7 @@ export const WorkSection: FC<WorkSectionProps> = () => {
                 background: '#f6c802',
                 cursor: 'pointer',
                 fontSize: '16px',
+                color: 'black',
               }}
               onClick={() =>
                 window.open('http://www.imdb.com/title/tt14858134')
@@ -135,6 +136,7 @@ export const WorkSection: FC<WorkSectionProps> = () => {
                 background: '#f6c802',
                 cursor: 'pointer',
                 fontSize: '16px',
+                color: 'black',
               }}
               onClick={() =>
                 window.open('http://www.imdb.com/title/tt14755002')
