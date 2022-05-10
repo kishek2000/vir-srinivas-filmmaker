@@ -102,7 +102,7 @@ export const MediaSection: FC = () => {
           css={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
         >
           <div
-            css={{
+            css={mq({
               width: computeGridSize(9),
               height: computeGridSize(9),
               backgroundImage: 'url(/imdb.png)',
@@ -112,32 +112,48 @@ export const MediaSection: FC = () => {
               backgroundPosition: '50% 50%',
               backgroundColor: '#f6c802',
               cursor: 'pointer',
-            }}
+              ':hover': {
+                transform: ['unset', 'scale(1.05)', 'scale(1.05)'],
+              },
+              transition: '0.3s',
+            })}
             onClick={() => window.open('http://www.imdb.com/name/nm12504238')}
           />
           <GapHorizontal times={2} />
           <SocialIcon
             url="https://www.linkedin.com/in/vir-srinivas/"
-            css={{
+            css={mq({
               maxWidth: computeGridSize(9),
               maxHeight: computeGridSize(9),
-            }}
+              ':hover': {
+                transform: ['unset', 'scale(1.05)', 'scale(1.05)'],
+              },
+              transition: '0.3s',
+            })}
           />
           <GapHorizontal times={2} />
           <SocialIcon
             url="https://instagram.com/virsrinivas"
-            css={{
+            css={mq({
               maxWidth: computeGridSize(9),
               maxHeight: computeGridSize(9),
-            }}
+              ':hover': {
+                transform: ['unset', 'scale(1.05)', 'scale(1.05)'],
+              },
+              transition: '0.3s',
+            })}
           />
           <GapHorizontal times={2} />
           <SocialIcon
             url="https://twitter.com/VirSrinivas"
-            css={{
+            css={mq({
               maxWidth: computeGridSize(9),
               maxHeight: computeGridSize(9),
-            }}
+              ':hover': {
+                transform: ['unset', 'scale(1.05)', 'scale(1.05)'],
+              },
+              transition: '0.3s',
+            })}
           />
         </div>
       </div>
