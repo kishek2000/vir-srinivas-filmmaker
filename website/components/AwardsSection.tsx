@@ -280,6 +280,7 @@ export const AwardsSection = () => {
           width: ['70%', '80%', '80%'],
           // flexDirection: 'column',
           rowGap: ['24px', '40px', '64px'],
+          columnGap: ['0px', '40px', '64px'],
           justifyContent: 'center',
         })}
       >
