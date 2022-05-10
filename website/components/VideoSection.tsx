@@ -258,8 +258,8 @@ export const VideoForWork: FC<VideoForWorkProps> = ({
           border: 'none',
           minHeight: ['40vh', '40vh', '40vh'],
           maxHeight: ['40vh', '40vh', '40vh'],
-          minWidth: ['40vw', '40vw', '40vw'],
-          maxWidth: ['40vw', '40vw', '40vw'],
+          minWidth: ['100%', '40vw', '40vw'],
+          maxWidth: ['100%', '40vw', '40vw'],
           zIndex: 1,
           background: 'black',
         })}
@@ -312,6 +312,7 @@ export const VideoForWorkYT: FC<VideoForWorkYTProps> = ({
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
+        width: '100%',
       })}
     >
       <div
@@ -321,8 +322,8 @@ export const VideoForWorkYT: FC<VideoForWorkYTProps> = ({
           zIndex: 1,
           minHeight: '40vh',
           maxHeight: '40vh',
-          minWidth: ['40vw', '40vw', '40vw'],
-          maxWidth: ['40vw', '40vw', '40vw'],
+          minWidth: ['100%', '40vw', '40vw'],
+          maxWidth: ['100%', '40vw', '40vw'],
           position: 'relative',
         })}
       >
