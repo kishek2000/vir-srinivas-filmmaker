@@ -3,7 +3,6 @@
 import { Fragment } from 'react';
 import { AiOutlineDownCircle } from 'react-icons/ai';
 import { mq } from '../styles/mq';
-import { GapHorizontal } from './GapHorizontal';
 import { GapVertical } from './GapVertical';
 
 const ofaAwards = [
@@ -220,6 +219,22 @@ const gunsAtCowraAwards = [
   },
 ];
 
+export const atTheGatesAwards = [
+  {
+    awarder: 'ScreenCraft Screenwriting Fellowship',
+    award: 'Quarter-Finalist',
+  },
+  {
+    awarder: 'Los Angeles International Screenplay Awards',
+    award: 'Quarter-Finalist',
+  },
+  { awarder: 'Filmmatic Inroads Fellowship', award: 'Quarter-Finalist' },
+  {
+    awarder: 'Big Apple Film Festival Screenplay Competition',
+    award: 'Official Selection',
+  },
+];
+
 export const AwardsSection = () => {
   return (
     <section
@@ -257,143 +272,22 @@ export const AwardsSection = () => {
       <div
         css={mq({
           display: 'flex',
-          flexDirection: ['column', 'row', 'row'],
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '85%',
+          // gridTemplateColumns: 'repeat(auto-fill, %)',
+          width: ['70%', '60%', '60%'],
+          flexDirection: 'column',
+          gap: '36px',
         })}
       >
-        <div
-          css={mq({
-            display: 'flex',
-            flexDirection: 'column',
-            overflowX: 'auto',
-            width: ['80%', '65%', '65%'],
-          })}
-        >
-          <h3>Orders from Above</h3>
-          <div
-            css={mq({
-              display: 'flex',
-              flexDirection: 'column',
-              flexWrap: ['unset', 'wrap', 'wrap'],
-              height: ['', '50vh', '45vh'],
-              width: '100%',
-              gridColumnGap: '24px',
-            })}
-          >
-            {ofaAwards.map((award, index) => (
-              <Fragment key={index}>
-                <div
-                  key={index}
-                  css={{ display: 'flex', flexDirection: 'column' }}
-                >
-                  <p
-                    css={mq({
-                      margin: 0,
-                      fontWeight: 200,
-                      fontFamily: 'Rubik',
-                      fontSize: ['14px', '14px', '16px'],
-                    })}
-                  >
-                    <strong>{award.awarder}</strong>
-                    <GapVertical times={1.25} />
-                    {award.award}
-                  </p>
-                </div>
-                <GapVertical times={6} />
-              </Fragment>
-            ))}
-          </div>
-        </div>
-        <GapHorizontal times={12} />
-        <div
-          css={mq({
-            display: 'flex',
-            flexDirection: 'column',
-            width: ['80%', 'unset', 'unset'],
-            overflowX: 'auto',
-          })}
-        >
-          <h3>The Proselyte</h3>
-          <div
-            css={mq({
-              display: 'flex',
-              flexDirection: 'column',
-              flexWrap: ['unset', 'wrap', 'wrap'],
-              height: ['', '50vh', '45vh'],
-              width: '100%',
-              gridColumnGap: '24px',
-            })}
-          >
-            {proselyteAwards.map((award, index) => (
-              <Fragment key={index}>
-                <div
-                  key={index}
-                  css={{ display: 'flex', flexDirection: 'column' }}
-                >
-                  <p
-                    css={mq({
-                      margin: 0,
-                      fontWeight: 200,
-                      fontFamily: 'Rubik',
-                      fontSize: ['14px', '14px', '16px'],
-                    })}
-                  >
-                    <strong>{award.awarder}</strong>
-                    <GapVertical times={1.25} />
-                    {award.award}
-                  </p>
-                </div>
-                <GapVertical times={6} />
-              </Fragment>
-            ))}
-          </div>
-        </div>
-        <GapHorizontal times={12} />
-        <div
-          css={mq({
-            display: 'flex',
-            flexDirection: 'column',
-            width: ['80%', 'unset', 'unset'],
-            overflowX: 'auto',
-          })}
-        >
-          <h3>The Guns at Cowra (screenplay)</h3>
-          <div
-            css={mq({
-              display: 'flex',
-              flexDirection: 'column',
-              flexWrap: ['unset', 'wrap', 'wrap'],
-              height: ['', '50vh', '45vh'],
-              width: '100%',
-              gridColumnGap: '24px',
-            })}
-          >
-            {gunsAtCowraAwards.map((award, index) => (
-              <Fragment key={index}>
-                <div
-                  key={index}
-                  css={{ display: 'flex', flexDirection: 'column' }}
-                >
-                  <p
-                    css={mq({
-                      margin: 0,
-                      fontWeight: 200,
-                      fontFamily: 'Rubik',
-                      fontSize: ['14px', '14px', '16px'],
-                    })}
-                  >
-                    <strong>{award.awarder}</strong>
-                    <GapVertical times={1.25} />
-                    {award.award}
-                  </p>
-                </div>
-                <GapVertical times={6} />
-              </Fragment>
-            ))}
-          </div>
-        </div>
+        <AwardBlock mediaTitle="Orders from Above" awards={ofaAwards} />
+        <AwardBlock mediaTitle="The Proselyte" awards={proselyteAwards} />
+        <AwardBlock
+          mediaTitle="Guns at Cowra (screenplay)"
+          awards={gunsAtCowraAwards}
+        />
+        <AwardBlock
+          mediaTitle="At the Gates (screenplay)"
+          awards={atTheGatesAwards}
+        />
       </div>
       <div css={mq({ display: ['none', 'none', 'flex'] })}>
         <GapVertical times={30} />
@@ -433,5 +327,59 @@ export const AwardsSection = () => {
         />
       </div>
     </section>
+  );
+};
+
+interface AwardBlockProps {
+  mediaTitle: string;
+  awards: {
+    awarder: string;
+    award: string;
+  }[];
+}
+
+const AwardBlock: React.FC<AwardBlockProps> = ({ mediaTitle, awards }) => {
+  return (
+    <div
+      css={mq({
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        overflowY: 'auto',
+        maxHeight: ['', '40vh', '40vh'],
+      })}
+    >
+      <h3>{mediaTitle}</h3>
+      <div
+        css={mq({
+          width: '100%',
+          display: 'grid',
+          gridTemplateColumns: [
+            'repeat(auto-fill, 1fr)',
+            'repeat(auto-fill, 32%)',
+            'repeat(auto-fill, 32%)',
+          ],
+          alignItems: 'center',
+          gap: '20px',
+          // height: '100%',
+        })}
+      >
+        {awards.map((award, index) => (
+          <div
+            key={index}
+            css={mq({
+              margin: 0,
+              fontWeight: 200,
+              fontFamily: 'Rubik',
+              fontSize: ['14px', '14px', '16px'],
+            })}
+          >
+            <strong>{award.awarder}</strong>
+            <GapVertical times={1.25} />
+            <p style={{ margin: 0 }}>{award.award}</p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };

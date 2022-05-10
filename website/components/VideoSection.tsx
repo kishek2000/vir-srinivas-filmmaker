@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { RefObject, useState } from 'react';
+import { ReactElement, RefObject, useState } from 'react';
 import { createRef } from 'react';
 import { FC } from 'react';
 import {
@@ -80,12 +80,37 @@ export const VideoSection: FC<VideoSectionProps> = () => {
           })}
           id="work-videos"
         >
+          <VideoForWorkYT
+            src={
+              <iframe
+                src="https://www.youtube.com/embed/GG48DnCQrEk"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{
+                  position: 'absolute',
+                  width: '100%',
+                  height: '100%',
+                  left: '0px',
+                  top: '0px',
+                }}
+              />
+            }
+            title="The Proselyte | 20 min Short Film"
+            subtitle="A Catholic priest with a dark past wrestles with his faith after he hears a confession from an active serial killer."
+          />
+          <div css={mq({ display: ['none', 'flex', 'flex'] })}>
+            <GapHorizontal times={12} />
+          </div>
+          <div css={mq({ display: ['flex', 'none', 'none'] })}>
+            <GapVertical times={12} />
+          </div>
           <VideoForWork
             src="/orders-from-above-trailer-compressed.mp4"
             title="Orders from Above (Trailer)"
             subtitle="Trailer for the multi award-winning film Orders from Above."
           />
-
           <div css={mq({ display: ['none', 'flex', 'flex'] })}>
             <GapHorizontal times={12} />
           </div>
@@ -231,8 +256,10 @@ export const VideoForWork: FC<VideoForWorkProps> = ({
         css={mq({
           outline: 'none',
           border: 'none',
-          maxWidth: ['100%', '60vw', '60vw'],
-          height: ['40vh', '40vh', '40vh'],
+          minHeight: ['40vh', '40vh', '40vh'],
+          maxHeight: ['40vh', '40vh', '40vh'],
+          minWidth: ['40vw', '40vw', '40vw'],
+          maxWidth: ['40vw', '40vw', '40vw'],
           zIndex: 1,
           background: 'black',
         })}
@@ -247,6 +274,60 @@ export const VideoForWork: FC<VideoForWorkProps> = ({
         }}
         title={title}
       />
+      <GapVertical times={5} />
+      <h2
+        css={mq({
+          margin: 0,
+          fontSize: ['24px', '28px', '36px'],
+          fontWeight: 300,
+        })}
+      >
+        {title}
+      </h2>
+      <GapVertical times={3} />
+      <p css={{ margin: 0, fontWeight: 200, fontSize: '20px' }}>{subtitle}</p>
+    </div>
+  );
+};
+
+interface VideoForWorkYTProps {
+  src: ReactElement;
+  title: string;
+  subtitle: string;
+}
+
+export const VideoForWorkYT: FC<VideoForWorkYTProps> = ({
+  src,
+  title,
+  subtitle,
+}) => {
+  const videoRef: RefObject<HTMLVideoElement> = createRef();
+  const [playing, setPlaying] = useState(false);
+  const [showControls, setShowControls] = useState(false);
+
+  return (
+    <div
+      css={mq({
+        zIndex: 1,
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+      })}
+    >
+      <div
+        css={mq({
+          outline: 'none',
+          border: 'none',
+          zIndex: 1,
+          minHeight: '40vh',
+          maxHeight: '40vh',
+          minWidth: ['40vw', '40vw', '40vw'],
+          maxWidth: ['40vw', '40vw', '40vw'],
+          position: 'relative',
+        })}
+      >
+        {src}
+      </div>
       <GapVertical times={5} />
       <h2
         css={mq({

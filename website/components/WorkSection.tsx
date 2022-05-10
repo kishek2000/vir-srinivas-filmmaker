@@ -81,7 +81,7 @@ export const WorkSection: FC<WorkSectionProps> = () => {
           >
             <img
               alt=""
-              src="ofa-poster.jpeg"
+              src="ofa-poster-2.jpeg"
               css={mq({ height: ['45vh', '60vh', '60vh'] })}
             />
             <GapVertical times={3} />
@@ -93,7 +93,6 @@ export const WorkSection: FC<WorkSectionProps> = () => {
                 outline: 'none',
                 padding: '12px 20px',
                 textTransform: 'uppercase',
-                // fontWeight: 200,
                 background: '#f6c802',
                 cursor: 'pointer',
                 fontSize: '16px',
@@ -120,7 +119,7 @@ export const WorkSection: FC<WorkSectionProps> = () => {
           >
             <img
               alt=""
-              src="proselyte-poster.jpeg"
+              src="proselyte-poster.png"
               css={mq({ height: ['45vh', '60vh', '60vh'] })}
             />
             <GapVertical times={3} />
