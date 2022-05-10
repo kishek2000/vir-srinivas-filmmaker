@@ -277,8 +277,7 @@ export const AwardsSection = () => {
             'repeat(auto-fill, 40%)',
             'repeat(auto-fill, 40%)',
           ],
-          width: ['70%', '80%', '80%'],
-          // flexDirection: 'column',
+          width: ['75%', '85%', '85%'],
           rowGap: ['24px', '40px', '64px'],
           columnGap: ['0px', '40px', '64px'],
           justifyContent: 'center',
@@ -352,7 +351,7 @@ const AwardBlock: React.FC<AwardBlockProps> = ({ mediaTitle, awards }) => {
         flexDirection: 'column',
         width: '100%',
         overflowY: ['unset', 'auto', 'auto'],
-        maxHeight: ['unset', '40vh', '40vh'],
+        maxHeight: ['unset', '30vh', '30vh'],
       })}
     >
       <h3>{mediaTitle}</h3>

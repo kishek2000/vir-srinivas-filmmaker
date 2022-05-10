@@ -24,9 +24,6 @@ export const VideoSection: FC<VideoSectionProps> = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        // color: 'white',
-        // background:
-        //   'radial-gradient(circle, rgba(37,37,37,1) 0%, rgba(18,18,18,1) 50%, rgba(0,0,0,1) 100%)',
         zIndex: 1,
       }}
     >
@@ -142,7 +139,6 @@ export const VideoSection: FC<VideoSectionProps> = () => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          // color: 'white',
           cursor: 'pointer',
           fontSize: '20px',
           ':hover': {
