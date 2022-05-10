@@ -68,7 +68,7 @@ export const VideoSection: FC<VideoSectionProps> = () => {
             display: 'flex',
             flexDirection: ['column', 'row', 'row'],
             width: ['80%', '85%', '90%'],
-            alignItems: 'center',
+            alignItems: ['center', 'flex-start', 'flex-start'],
             overflowX: 'hidden',
             overflowY: 'hidden',
             zIndex: 1,

@@ -271,11 +271,16 @@ export const AwardsSection = () => {
       <GapVertical times={12} />
       <div
         css={mq({
-          display: 'flex',
-          // gridTemplateColumns: 'repeat(auto-fill, %)',
-          width: ['70%', '60%', '60%'],
-          flexDirection: 'column',
-          gap: '36px',
+          display: 'grid',
+          gridTemplateColumns: [
+            'repeat(auto-fill, 100%)',
+            'repeat(auto-fill, 40%)',
+            'repeat(auto-fill, 40%)',
+          ],
+          width: ['70%', '80%', '80%'],
+          // flexDirection: 'column',
+          rowGap: ['24px', '40px', '64px'],
+          justifyContent: 'center',
         })}
       >
         <AwardBlock mediaTitle="Orders from Above" awards={ofaAwards} />
@@ -345,8 +350,8 @@ const AwardBlock: React.FC<AwardBlockProps> = ({ mediaTitle, awards }) => {
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-        overflowY: 'auto',
-        maxHeight: ['', '40vh', '40vh'],
+        overflowY: ['unset', 'auto', 'auto'],
+        maxHeight: ['unset', '40vh', '40vh'],
       })}
     >
       <h3>{mediaTitle}</h3>
@@ -356,8 +361,8 @@ const AwardBlock: React.FC<AwardBlockProps> = ({ mediaTitle, awards }) => {
           display: 'grid',
           gridTemplateColumns: [
             'repeat(auto-fill, 1fr)',
-            'repeat(auto-fill, 32%)',
-            'repeat(auto-fill, 32%)',
+            'repeat(auto-fill, 40%)',
+            'repeat(auto-fill, 28%)',
           ],
           alignItems: 'center',
           gap: '20px',
