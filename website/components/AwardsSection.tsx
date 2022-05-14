@@ -230,6 +230,10 @@ export const atTheGatesAwards = [
   },
   { awarder: 'Filmmatic Inroads Fellowship', award: 'Quarter-Finalist' },
   {
+    awarder: 'Scriptation Showcase Script Competition',
+    award: 'Quarter-Finalist',
+  },
+  {
     awarder: 'Big Apple Film Festival Screenplay Competition',
     award: 'Official Selection',
   },
@@ -286,7 +290,7 @@ export const AwardsSection = () => {
         <AwardBlock mediaTitle="Orders from Above" awards={ofaAwards} />
         <AwardBlock mediaTitle="The Proselyte" awards={proselyteAwards} />
         <AwardBlock
-          mediaTitle="Guns at Cowra (screenplay)"
+          mediaTitle="The Guns at Cowra (screenplay)"
           awards={gunsAtCowraAwards}
         />
         <AwardBlock
