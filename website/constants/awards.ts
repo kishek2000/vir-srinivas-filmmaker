@@ -177,6 +177,10 @@ export const gunsAtCowraAwards = [
     award: 'Quarter-Finalist',
   },
   {
+    awarder: 'The Golden Script Competition',
+    award: 'Quarter-Finalist',
+  },
+  {
     awarder: 'StoryPros International Screenplay Contest',
     award: 'Quarter-Finalist',
   },
@@ -200,7 +204,10 @@ export const gunsAtCowraAwards = [
     awarder: 'Richmond International Film Festival Screenplay Competition',
     award: 'Quarter-Finalist',
   },
-
+  {
+    awarder: 'Table Read My Screenplay Competition',
+    award: 'Quarter-Finalist',
+  },
   {
     awarder: 'Script Summit',
     award: 'Official Selection',
