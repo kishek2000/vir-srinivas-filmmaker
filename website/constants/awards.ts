@@ -157,6 +157,10 @@ export const gunsAtCowraAwards = [
     award: 'Semi-Finalist',
   },
   {
+    awarder: 'The Golden Script Competition',
+    award: 'Semi-Finalist',
+  },
+  {
     awarder: 'Santa Barbara International Screenplay Awards',
     award: 'Semi-Finalist',
   },
@@ -174,10 +178,6 @@ export const gunsAtCowraAwards = [
   },
   {
     awarder: 'Los Angeles International Screenplay Awards',
-    award: 'Quarter-Finalist',
-  },
-  {
-    awarder: 'The Golden Script Competition',
     award: 'Quarter-Finalist',
   },
   {
