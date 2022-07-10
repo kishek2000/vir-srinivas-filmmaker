@@ -11,7 +11,7 @@ interface HomeHeaderProps {}
 
 export const HomeHeader: FC<HomeHeaderProps> = () => {
   return (
-    <motion.div
+    <div
       css={mq({
         display: 'flex',
         flexDirection: ['column', 'row', 'row'],
@@ -42,11 +42,7 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
           }}
         />
       </div>
-      <motion.div
-        animate={{
-          opacity: 1,
-        }}
-        transition={{ duration: 2 }}
+      <div
         css={mq({
           flexDirection: 'column',
           display: 'flex',
@@ -164,7 +160,7 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
             }}
           />
         </div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 };
