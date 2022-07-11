@@ -32,6 +32,7 @@ export const OFAModal: React.FC<{ isOpen: boolean; onClose: VoidFunction }> = ({
         backgroundColor: 'rgba(0, 0, 0, 0.8)',
         fontFamily: 'Oswald',
       })}
+      onClose={onClose}
       PaperProps={{
         style: {
           backgroundColor: 'transparent',
