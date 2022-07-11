@@ -17,7 +17,7 @@ export const OFAMovieInfo = () => {
       css={mq({
         display: 'flex',
         flexDirection: 'column',
-        height: '100%',
+        // height: '100%',
         gap: ['24px', '32px', '36px'],
         width: ['90%', '40%', '40%'],
       })}
@@ -106,7 +106,7 @@ export const OFAMovieInfo = () => {
           height: '100%',
         }}
       >
-        <h3 css={{ margin: 0 }}>Available 19th July On:</h3>
+        <h3 css={{ margin: 0 }}>Available On:</h3>
         <div
           css={{
             display: 'flex',

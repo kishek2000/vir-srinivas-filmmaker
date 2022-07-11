@@ -23,7 +23,7 @@ export const OFAModal: React.FC<{ isOpen: boolean; onClose: VoidFunction }> = ({
         width: '100%',
         height: '100%',
         minHeight: '100vh',
-        background: 'black',
+        background: 'rgba(0,0,0, 0.95)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
