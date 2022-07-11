@@ -11,6 +11,7 @@ import { useDisclosure } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { OFAModal } from '../components/ofa-modal/OFAModal';
 import { AiFillCloseCircle } from 'react-icons/ai';
+import { mq } from '../styles/mq';
 
 export default function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -35,7 +36,7 @@ export default function Home() {
     >
       {showPrompt ? (
         <div
-          css={{
+          css={mq({
             position: 'fixed',
             zIndex: 5,
             right: '36px',
@@ -45,10 +46,10 @@ export default function Home() {
             boxShadow: '0px 0px 24px rgba(0, 0, 0, 0.25)',
             background: 'white',
             cursor: 'pointer',
-            display: 'flex',
+            display: ['none', 'flex', 'flex'],
             flexDirection: 'column',
             alignItems: 'center',
-          }}
+          })}
         >
           <AiFillCloseCircle
             css={{ position: 'absolute', top: '-12px', right: '-12px' }}

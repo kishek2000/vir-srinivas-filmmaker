@@ -29,18 +29,6 @@ export const OFAMovieInfo = () => {
           gap: ['20px', '28px', '32px'],
         })}
       >
-        <div
-          css={mq({
-            padding: '8px 12px',
-            border: '1px solid grey',
-            borderRadius: '8px',
-            fontSize: ['12px', '16px', '16px'],
-            alignSelf: 'flex-start',
-            color: 'grey',
-          })}
-        >
-          Rated M
-        </div>
         <hgroup
           css={{
             display: 'flex',
@@ -127,8 +115,8 @@ export const OFAMovieInfo = () => {
             height: '100%',
           }}
         >
-          <MovieLinks title="Cable (USA)" links={ofaCableLocations} />
           <MovieLinks title="Online" links={ofaOnlineLocations} />
+          <MovieLinks title="Cable (USA)" links={ofaCableLocations} />
           <MovieLinks
             title="Retail and Libraries"
             links={ofaHomeEntertainmentPlatforms}

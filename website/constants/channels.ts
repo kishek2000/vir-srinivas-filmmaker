@@ -51,6 +51,10 @@ export const ofaOnlineLocations = [
     location: 'Coming 19th July...',
   },
   {
+    name: 'Vudu.png',
+    location: 'Coming 19th July...',
+  },
+  {
     name: 'Google Play.png',
     location: 'Coming 19th July...',
   },
