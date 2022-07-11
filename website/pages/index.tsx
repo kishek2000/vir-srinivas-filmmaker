@@ -81,7 +81,7 @@ export default function Home() {
           </span>
         </div>
       ) : null}
-      {isOpen ? <OFAModal isOpen={isOpen} onClose={onClose} /> : null}
+      <OFAModal isOpen={isOpen} onClose={onClose} />
       <HomeHeader />
       <WorkSection onOpen={onOpen} />
       <AwardsSection />

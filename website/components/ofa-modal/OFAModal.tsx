@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 /** @jsxImportSource @emotion/react */
 
+import { Dialog, DialogContent } from '@mui/material';
 import { motion } from 'framer-motion';
 import { mq } from '../../styles/mq';
 import { GapVertical } from '../GapVertical';
@@ -12,18 +13,13 @@ export const OFAModal: React.FC<{ isOpen: boolean; onClose: VoidFunction }> = ({
   onClose,
 }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
+    <Dialog
+      open={isOpen}
       css={mq({
         position: 'fixed',
         left: '0px',
         top: '0px',
-        width: '100%',
-        height: '100%',
         minHeight: '100vh',
-        background: 'rgba(0,0,0, 0.95)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -31,34 +27,62 @@ export const OFAModal: React.FC<{ isOpen: boolean; onClose: VoidFunction }> = ({
         justifyContent: ['normal', 'center', 'center'],
         zIndex: 10,
         overflowY: 'auto',
+        background: 'none',
+        overflowX: 'hidden',
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        fontFamily: 'Oswald',
       })}
-    >
-      <div css={mq({ display: ['flex', 'none', 'none'] })}>
-        <GapVertical times={20} />
-      </div>
-      <OFAModalCloseButton onClose={onClose} />
-      <div
-        css={mq({
-          display: 'flex',
-          flexDirection: ['column', 'row', 'row'],
+      PaperProps={{
+        style: {
+          backgroundColor: 'transparent',
+          boxShadow: 'none',
+          justifyContent: 'center',
+          overflow: 'hidden',
           alignItems: 'center',
-          width: ['95%', '100%', '80%'],
-          height: ['100%', '80%', '80%'],
-          justifyContent: ['normal', 'center', 'center'],
-          gap: ['60px', '100px', '100px'],
-        })}
+        },
+      }}
+      fullScreen
+    >
+      <DialogContent
+        css={{
+          width: '100%',
+          height: '100%',
+          background: 'none',
+          overflowX: 'hidden',
+          color: 'white',
+          alignItems: 'center',
+          justifyContent: 'center',
+          display: 'flex',
+        }}
       >
-        <img
-          src="ofa-poster-2.jpeg"
-          alt=""
+        <div css={mq({ display: ['flex', 'none', 'none'] })}>
+          <GapVertical times={20} />
+        </div>
+        <OFAModalCloseButton onClose={onClose} />
+        <div
           css={mq({
-            height: ['40%', '100%', '100%'],
-            width: ['80%', '40%', '40%'],
-            objectFit: 'contain',
+            display: 'flex',
+            flexDirection: ['column', 'row', 'row'],
+            alignItems: 'center',
+            width: ['95%', '100%', '80%'],
+            height: ['100%', '80%', '80%'],
+            justifyContent: ['normal', 'center', 'center'],
+            gap: ['60px', '100px', '100px'],
+            background: 'transparent',
           })}
-        />
-        <OFAMovieInfo />
-      </div>
-    </motion.div>
+        >
+          <img
+            src="ofa-poster-2.jpeg"
+            alt=""
+            css={mq({
+              height: ['40%', '100%', '100%'],
+              width: ['80%', '40%', '40%'],
+              objectFit: 'contain',
+            })}
+          />
+          <OFAMovieInfo />
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };
