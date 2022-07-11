@@ -7,9 +7,39 @@ import { mq } from '../styles/mq';
 import { GapHorizontal } from './GapHorizontal';
 import { GapVertical } from './GapVertical';
 
-interface WorkSectionProps {}
+interface WorkSectionProps {
+  onOpen: VoidFunction;
+}
 
-export const WorkSection: FC<WorkSectionProps> = () => {
+const prosPoster: { poster: string; links: PosterLink[] } = {
+  poster: 'proselyte-poster.jpeg',
+  links: [
+    {
+      link: 'http://www.imdb.com/title/tt14755002',
+      name: 'View on IMDB',
+    },
+    {
+      link: 'https://www.youtube.com/watch?v=GG48DnCQrEk',
+      name: 'Watch on YouTube',
+    },
+  ],
+};
+
+export const WorkSection: FC<WorkSectionProps> = ({ onOpen }) => {
+  const ofaPoster: { poster: string; links: PosterLink[] } = {
+    poster: 'ofa-poster-2.jpeg',
+    links: [
+      {
+        link: 'http://www.imdb.com/title/tt14858134',
+        name: 'View on IMDB',
+      },
+      {
+        link: onOpen,
+        name: 'View Release Info',
+      },
+    ],
+  };
+
   return (
     <section
       css={{
@@ -70,81 +100,11 @@ export const WorkSection: FC<WorkSectionProps> = () => {
               computeGridSize(0),
               computeGridSize(0),
             ],
+            gap: '48px',
           })}
         >
-          <div
-            css={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <img
-              alt=""
-              src="ofa-poster-2.jpeg"
-              css={mq({ height: ['45vh', '60vh', '60vh'] })}
-            />
-            <GapVertical times={3} />
-            <button
-              css={{
-                border: 'none',
-                fontWeight: 400,
-                borderRadius: '4px',
-                outline: 'none',
-                padding: '12px 20px',
-                textTransform: 'uppercase',
-                background: '#f6c802',
-                cursor: 'pointer',
-                fontSize: '16px',
-                color: 'black',
-              }}
-              onClick={() =>
-                window.open('http://www.imdb.com/title/tt14858134')
-              }
-            >
-              View on IMDB
-            </button>
-          </div>
-          <div css={mq({ display: ['none', 'flex', 'flex'] })}>
-            <GapHorizontal times={12} />
-          </div>
-          <div css={mq({ display: ['flex', 'none', 'none'] })}>
-            <GapVertical times={12} />
-          </div>{' '}
-          <div
-            css={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <img
-              alt=""
-              src="proselyte-poster.png"
-              css={mq({ height: ['45vh', '60vh', '60vh'] })}
-            />
-            <GapVertical times={3} />
-            <button
-              css={{
-                border: 'none',
-                fontWeight: 400,
-                borderRadius: '4px',
-                outline: 'none',
-                padding: '12px 20px',
-                textTransform: 'uppercase',
-                // fontWeight: 200,
-                background: '#f6c802',
-                cursor: 'pointer',
-                fontSize: '16px',
-                color: 'black',
-              }}
-              onClick={() =>
-                window.open('http://www.imdb.com/title/tt14755002')
-              }
-            >
-              View on IMDB
-            </button>
-          </div>
+          <Poster posterProps={ofaPoster} />
+          <Poster posterProps={prosPoster} />
         </div>
       </div>
       <div css={mq({ display: ['none', 'none', 'flex'] })}>
@@ -186,4 +146,94 @@ export const WorkSection: FC<WorkSectionProps> = () => {
       </div>
     </section>
   );
+};
+
+interface PosterLink {
+  link: string | VoidFunction;
+  name: string;
+}
+
+const Poster: React.FC<{
+  posterProps: { poster: string; links: PosterLink[] };
+}> = ({ posterProps }) => {
+  return (
+    <div
+      css={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '16px',
+      }}
+    >
+      <img
+        alt=""
+        src={posterProps.poster}
+        css={mq({
+          maxHeight: ['45vh', '60vh', '60vh'],
+          objectFit: 'contain',
+          width: '100%',
+        })}
+      />
+      <div
+        css={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: '16px',
+        }}
+      >
+        {posterProps.links.map((link, index) => {
+          const isString = typeof link.link === 'string';
+          return (
+            <button
+              key={index}
+              css={{
+                border: 'none',
+                borderRadius: '4px',
+                outline: 'none',
+                padding: '12px 20px',
+                textTransform: 'uppercase',
+                background: posterLinkBG(link.link, isString),
+                cursor: 'pointer',
+                fontSize: '14px',
+                color: posterLinkColor(link.link, isString),
+                fontFamily: 'Rubik',
+              }}
+              onClick={
+                isString
+                  ? () => window.open(link.link as string)
+                  : (link.link as VoidFunction)
+              }
+            >
+              {link.name}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+const posterLinkBG = (link: string | VoidFunction, isString: boolean) => {
+  if (isString) {
+    if ((link as String).includes('imdb')) {
+      return '#f6c802';
+    } else if ((link as String).includes('youtube')) {
+      return 'red';
+    }
+  } else {
+    return 'black';
+  }
+};
+
+const posterLinkColor = (link: string | VoidFunction, isString: boolean) => {
+  if (isString) {
+    if ((link as string).includes('imdb')) {
+      return 'black';
+    } else if ((link as string).includes('youtube')) {
+      return 'white';
+    }
+  } else {
+    return 'white';
+  }
 };

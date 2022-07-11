@@ -10,24 +10,15 @@ import { WorkSection } from '../components/WorkSection';
 import { useDisclosure } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { OFAModal } from '../components/ofa-modal/OFAModal';
+import { AiFillCloseCircle } from 'react-icons/ai';
 
 export default function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [maxHeight, setMaxHeight] = useState('none');
+  const [showPrompt, setShowPrompt] = useState(true);
 
   useEffect(() => {
     onOpen();
   }, [onOpen]);
-
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => {
-        setMaxHeight('100vh');
-      }, 1000);
-    } else {
-      setMaxHeight('none');
-    }
-  }, [isOpen]);
 
   return (
     <div
@@ -40,12 +31,58 @@ export default function Home() {
         justifyContent: 'center',
         fontFamily: 'Oswald',
         overflow: 'hidden',
-        maxHeight: maxHeight,
       }}
     >
+      {showPrompt ? (
+        <div
+          css={{
+            position: 'fixed',
+            zIndex: 5,
+            right: '36px',
+            bottom: '36px',
+            borderRadius: '12px',
+            // height: '36px',
+            boxShadow: '0px 0px 24px rgba(0, 0, 0, 0.25)',
+            background: 'white',
+            cursor: 'pointer',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <AiFillCloseCircle
+            css={{ position: 'absolute', top: '-12px', right: '-12px' }}
+            size={24}
+            onClick={() => setShowPrompt(false)}
+          />
+          <img
+            src="ofa-poster-2.jpeg"
+            css={{
+              width: '96px',
+              objectFit: 'contain',
+              borderTopLeftRadius: '12px',
+              borderTopRightRadius: '12px',
+            }}
+            alt=""
+            onClick={onOpen}
+          />
+          <span
+            css={{
+              fontFamily: 'Rubik',
+              fontSize: '10px',
+              textTransform: 'uppercase',
+              fontWeight: 600,
+              padding: '12px',
+            }}
+            onClick={onOpen}
+          >
+            View Release
+          </span>
+        </div>
+      ) : null}
       {isOpen ? <OFAModal isOpen={isOpen} onClose={onClose} /> : null}
       <HomeHeader />
-      <WorkSection />
+      <WorkSection onOpen={onOpen} />
       <AwardsSection />
       <VideoSection />
       <MediaSection />
