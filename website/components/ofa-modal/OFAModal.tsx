@@ -45,16 +45,16 @@ export const OFAModal: React.FC<{ isOpen: boolean; onClose: VoidFunction }> = ({
       fullScreen
     >
       <DialogContent
-        css={{
+        css={mq({
           width: '100%',
           height: '100%',
           background: 'none',
           overflowX: 'hidden',
           color: 'white',
-          alignItems: 'center',
+          alignItems: ['normal', 'center', 'center'],
           justifyContent: 'center',
           display: 'flex',
-        }}
+        })}
       >
         <div css={mq({ display: ['flex', 'none', 'none'] })}>
           <GapVertical times={20} />
@@ -64,11 +64,11 @@ export const OFAModal: React.FC<{ isOpen: boolean; onClose: VoidFunction }> = ({
           css={mq({
             display: 'flex',
             flexDirection: ['column', 'row', 'row'],
-            // alignItems: 'center',
-            width: ['95%', '100%', '80%'],
-            height: ['100%', '80%', '80%'],
+            alignItems: ['center', 'flex-start', 'flex-start'],
+            width: ['95%', '90%', '80%'],
+            height: ['unset', '80%', '80%'],
             justifyContent: ['normal', 'center', 'center'],
-            gap: '100px',
+            gap: ['80px', '60px', '90px'],
             background: 'transparent',
           })}
         >
@@ -79,7 +79,7 @@ export const OFAModal: React.FC<{ isOpen: boolean; onClose: VoidFunction }> = ({
               alignItems: 'center',
               justifyContent: ['normal', 'center', 'center'],
               height: ['90%', '100%', '100%'],
-              width: ['80%', '40%', '40%'],
+              width: ['80%', '45%', '40%'],
               gap: '24px',
               margin: '0 auto',
               paddingTop: '36px',
@@ -90,7 +90,7 @@ export const OFAModal: React.FC<{ isOpen: boolean; onClose: VoidFunction }> = ({
               alt=""
               css={mq({
                 objectFit: 'contain',
-                width: '90%',
+                width: ['65%', '90%', '90%'],
               })}
             />
             <span>Winner of over 15 international awards</span>

@@ -19,9 +19,11 @@ export const OFAMovieInfo = () => {
         flexDirection: 'column',
         gap: ['24px', '32px', '36px'],
         width: ['90%', '40%', '40%'],
-        overflowY: 'auto',
+        height: '100%',
+        overflowY: ['unset', 'auto', 'auto'],
         paddingRight: ['24px', '32px', '12px'],
         margin: '0 auto',
+        alignItems: ['center', 'normal', 'normal'],
       })}
     >
       <hgroup
@@ -40,7 +42,7 @@ export const OFAMovieInfo = () => {
         >
           <h1
             css={mq({
-              fontSize: ['42px', '48px', '56px'],
+              fontSize: ['42px', '42px', '56px'],
               margin: '0px',
             })}
           >
@@ -150,13 +152,13 @@ const MovieLinks: React.FC<{
         {links.map((channel, index) => (
           <div
             key={index}
-            css={{
-              width: '100px',
-              height: '48px',
+            css={mq({
+              width: ['70px', '80px', '100px'],
+              height: ['28px', '36px', '48px'],
               borderRadius: '8px',
               background: 'white',
               padding: '4px 12px',
-            }}
+            })}
           >
             <img
               src={`logo/${channel.name}`}
