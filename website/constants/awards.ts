@@ -139,6 +139,7 @@ export const proselyteAwards = [
     award: 'Honourable Mention',
   },
 ];
+
 export const gunsAtCowraAwards = [
   {
     awarder: 'Discovery Int Fest of Film & Story',
@@ -153,11 +154,11 @@ export const gunsAtCowraAwards = [
     award: '2nd Place',
   },
   {
-    awarder: 'Fade In Awards First Ten Pages Competition',
-    award: 'Semi-Finalist',
+    awarder: 'The Golden Script Competition',
+    award: 'Finalist',
   },
   {
-    awarder: 'The Golden Script Competition',
+    awarder: 'Fade In Awards First Ten Pages Competition',
     award: 'Semi-Finalist',
   },
   {
@@ -202,6 +203,10 @@ export const gunsAtCowraAwards = [
   },
   {
     awarder: 'Richmond International Film Festival Screenplay Competition',
+    award: 'Quarter-Finalist',
+  },
+  {
+    awarder: 'Nashville Film Festival Screenwriting Competition',
     award: 'Quarter-Finalist',
   },
   {
