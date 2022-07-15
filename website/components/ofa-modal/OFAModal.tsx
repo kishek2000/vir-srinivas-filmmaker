@@ -29,7 +29,11 @@ export const OFAModal: React.FC<{ isOpen: boolean; onClose: VoidFunction }> = ({
         overflowY: 'auto',
         background: 'none',
         overflowX: 'hidden',
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        backgroundColor: [
+          'rgba(0, 0, 0, 0.8)',
+          'rgba(0, 0, 0, 0.99)',
+          'rgba(0, 0, 0, 0.99)',
+        ],
         fontFamily: 'Oswald',
       })}
       onClose={onClose}
