@@ -64,23 +64,37 @@ export const OFAModal: React.FC<{ isOpen: boolean; onClose: VoidFunction }> = ({
           css={mq({
             display: 'flex',
             flexDirection: ['column', 'row', 'row'],
-            alignItems: 'center',
+            // alignItems: 'center',
             width: ['95%', '100%', '80%'],
             height: ['100%', '80%', '80%'],
             justifyContent: ['normal', 'center', 'center'],
-            gap: ['60px', '100px', '100px'],
+            gap: '100px',
             background: 'transparent',
           })}
         >
-          <img
-            src="ofa-poster-2.jpeg"
-            alt=""
+          <div
             css={mq({
-              height: ['40%', '100%', '100%'],
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: ['normal', 'center', 'center'],
+              height: ['90%', '100%', '100%'],
               width: ['80%', '40%', '40%'],
-              objectFit: 'contain',
+              gap: '24px',
+              margin: '0 auto',
+              paddingTop: '36px',
             })}
-          />
+          >
+            <img
+              src="ofa-poster-2.jpeg"
+              alt=""
+              css={mq({
+                objectFit: 'contain',
+                width: '90%',
+              })}
+            />
+            <span>Winner of over 15 international awards</span>
+          </div>
           <OFAMovieInfo />
         </div>
       </DialogContent>

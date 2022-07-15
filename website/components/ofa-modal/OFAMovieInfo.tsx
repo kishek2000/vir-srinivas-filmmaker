@@ -17,9 +17,11 @@ export const OFAMovieInfo = () => {
       css={mq({
         display: 'flex',
         flexDirection: 'column',
-        // height: '100%',
         gap: ['24px', '32px', '36px'],
         width: ['90%', '40%', '40%'],
+        overflowY: 'auto',
+        paddingRight: ['24px', '32px', '12px'],
+        margin: '0 auto',
       })}
     >
       <hgroup
