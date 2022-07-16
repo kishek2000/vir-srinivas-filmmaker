@@ -31,8 +31,8 @@ export const OFAModal: React.FC<{ isOpen: boolean; onClose: VoidFunction }> = ({
         overflowX: 'hidden',
         backgroundColor: [
           'rgba(0, 0, 0, 0.8)',
-          'rgba(0, 0, 0, 0.95)',
-          'rgba(0, 0, 0, 0.95)',
+          'rgba(0, 0, 0, 0.9)',
+          'rgba(0, 0, 0, 0.9)',
         ],
         fontFamily: 'Oswald',
       })}
