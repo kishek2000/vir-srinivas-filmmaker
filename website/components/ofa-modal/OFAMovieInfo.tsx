@@ -2,7 +2,9 @@
 /* eslint-disable @next/next/no-img-element */
 /** @jsxImportSource @emotion/react */
 
+import React from 'react';
 import { AiOutlineClockCircle } from 'react-icons/ai';
+import { RiExternalLinkFill } from 'react-icons/ri';
 import {
   ofaCableLocations,
   ofaHomeEntertainmentPlatforms,
@@ -135,9 +137,15 @@ export const OFAMovieInfo = () => {
 };
 
 const MovieLinks: React.FC<{
-  links: { name: string; location: string }[];
+  links: { name: string; location: string; link?: string }[];
   title: string;
 }> = ({ title, links }) => {
+  const handleRedirect = React.useCallback((channel: { link?: string }) => {
+    if (channel.link) {
+      window.open(channel.link, '_blank');
+    }
+  }, []);
+
   return (
     <div css={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
       <p css={{ margin: 0, fontFamily: 'Rubik' }}>{title}</p>
@@ -158,12 +166,38 @@ const MovieLinks: React.FC<{
               borderRadius: '8px',
               background: 'white',
               padding: '4px 12px',
+              cursor: channel.link ? 'pointer' : 'unset',
+              position: 'relative',
             })}
+            onClick={() => handleRedirect(channel)}
           >
             <img
               src={`logo/${channel.name}`}
               css={{ width: '95%', height: '95%', objectFit: 'contain' }}
             />
+            {channel.link ? (
+              <div
+                css={mq({
+                  position: 'absolute',
+                  right: ['-6px', '-8px', '-8px'],
+                  top: ['-6px', '-8px', '-8px'],
+                  zIndex: 200,
+                  color: 'white',
+                  background: 'rgba(130, 130, 130)',
+                  width: ['20px', '24px', '24px'],
+                  height: ['20px', '24px', '24px'],
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: '50%',
+                })}
+              >
+                <RiExternalLinkFill
+                  css={mq({ width: ['12px', '16px', '16px'] })}
+                />
+              </div>
+            ) : null}
           </div>
         ))}
       </div>

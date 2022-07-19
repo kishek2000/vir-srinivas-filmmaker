@@ -6,6 +6,7 @@ export const ofaCableLocations = [
   {
     name: 'Spectrum.png',
     location: 'Standard Window Only - Cable (USA)',
+    link: 'https://ondemand.spectrum.net/movies/22303828/orders-from-above/',
   },
   {
     name: 'altice.png',
@@ -45,6 +46,7 @@ export const ofaOnlineLocations = [
   {
     name: 'iTunes.png',
     location: 'Coming 19th July...',
+    link: 'https://itunes.apple.com/us/movie/orders-from-above/id1626905864',
   },
   {
     name: 'Amazon Prime.png',
@@ -53,22 +55,27 @@ export const ofaOnlineLocations = [
   {
     name: 'Vudu.png',
     location: 'Coming 19th July...',
+    link: 'https://www.vudu.com/content/movies/details/Orders-From-Above/2045644',
   },
   {
     name: 'Google Play.png',
     location: 'Coming 19th July...',
+    link: 'https://play.google.com/store/movies/details/Orders_from_Above?id=wM48vx2Gz2o.P',
   },
   {
     name: 'YouTube.jpeg',
     location: 'Coming 19th July...',
+    link: 'https://www.youtube.com/watch?v=J65m0Y2dNd4',
   },
   {
     name: 'Microsoft.png',
     location: 'Coming 19th July...',
+    link: 'https://www.microsoft.com/en-us/p/orders-from-above/8d6kgwxzs04r?activetab=pivot:overviewtab',
   },
   {
     name: 'vimeo.png',
     location: 'Coming 19th July...',
+    link: 'https://vimeo.com/ondemand/ordersfromabove',
   },
 ];
 
