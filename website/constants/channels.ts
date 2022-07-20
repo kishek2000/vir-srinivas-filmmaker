@@ -51,6 +51,7 @@ export const ofaOnlineLocations = [
   {
     name: 'Amazon Prime.png',
     location: 'Coming 19th July...',
+    link: 'https://www.amazon.com/gp/video/detail/B09VLHQCCP/ref=atv_dp_share_cu_r',
   },
   {
     name: 'Vudu.png',
@@ -83,6 +84,7 @@ export const ofaHomeEntertainmentPlatforms = [
   {
     name: 'amazon.png',
     location: 'DVD and BD coming soon...',
+    link: 'https://www.amazon.com/dp/B09YKFVXRL',
   },
   {
     name: 'Baker & Taylor.jpeg',
