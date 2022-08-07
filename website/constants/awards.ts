@@ -214,6 +214,10 @@ export const gunsAtCowraAwards = [
     award: 'Quarter-Finalist',
   },
   {
+    awarder: 'CineStory Feature Retreat and Fellowship Competition',
+    award: 'Quarter-Finalist',
+  },
+  {
     awarder: 'Script Summit',
     award: 'Official Selection',
   },

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 /** @jsxImportSource @emotion/react */
 
-import { Dialog, DialogContent } from '@mui/material';
+import { Dialog, DialogContent, Zoom } from '@mui/material';
 import { motion } from 'framer-motion';
 import { mq } from '../../styles/mq';
 import { GapVertical } from '../GapVertical';
@@ -82,7 +82,7 @@ export const OFAModal: React.FC<{ isOpen: boolean; onClose: VoidFunction }> = ({
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: ['normal', 'center', 'center'],
-              height: ['90%', '100%', '100%'],
+              height: ['90%', '90%', '90%'],
               width: ['80%', '45%', '40%'],
               gap: '24px',
               margin: '0 auto',
@@ -95,6 +95,7 @@ export const OFAModal: React.FC<{ isOpen: boolean; onClose: VoidFunction }> = ({
               css={mq({
                 objectFit: 'contain',
                 width: ['65%', '90%', '90%'],
+                height: '100%',
               })}
             />
             <span>Winner of over 15 international awards</span>

@@ -10,18 +10,25 @@ export const OFAModalCloseButton: React.FC<{ onClose: VoidFunction }> = ({
   return (
     <button
       css={mq({
-        color: 'white',
         top: ['24px', '36px', '48px'],
         right: ['24px', '36px', '48px'],
         position: 'fixed',
         cursor: 'pointer',
         outline: 'none',
-        background: 'none',
         border: 'none',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: '4px',
+        background: 'white',
+        color: 'black',
+        borderRadius: '4px',
+        padding: '10px 14px',
+        fontSize: '18px',
       })}
       onClick={onClose}
     >
-      <AiOutlineClose size={24} />
+      CLOSE <AiOutlineClose size={18} strokeWidth={60} />
     </button>
   );
 };

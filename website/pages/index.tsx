@@ -18,7 +18,9 @@ export default function Home() {
   const [showPrompt, setShowPrompt] = useState(true);
 
   useEffect(() => {
-    onOpen();
+    setTimeout(() => {
+      onOpen();
+    }, 2000);
   }, [onOpen]);
 
   return (
