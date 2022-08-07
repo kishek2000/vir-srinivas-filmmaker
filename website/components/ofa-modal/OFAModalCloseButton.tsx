@@ -10,8 +10,8 @@ export const OFAModalCloseButton: React.FC<{ onClose: VoidFunction }> = ({
   return (
     <button
       css={mq({
-        top: ['24px', '36px', '48px'],
-        right: ['24px', '36px', '48px'],
+        top: ['16px', '36px', '48px'],
+        right: ['16px', '36px', '48px'],
         position: 'fixed',
         cursor: 'pointer',
         outline: 'none',
@@ -25,6 +25,7 @@ export const OFAModalCloseButton: React.FC<{ onClose: VoidFunction }> = ({
         borderRadius: '4px',
         padding: '10px 14px',
         fontSize: '18px',
+        zIndex: 100,
       })}
       onClick={onClose}
     >
