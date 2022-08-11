@@ -6,6 +6,7 @@ import { mq } from '../styles/mq';
 import { GapVertical } from './GapVertical';
 import { SocialIcon } from 'react-social-icons';
 import { GapHorizontal } from './GapHorizontal';
+import { articles } from '../constants/media';
 
 export const MediaSection: FC = () => {
   return (
@@ -44,29 +45,22 @@ export const MediaSection: FC = () => {
       <div
         css={mq({
           position: 'relative',
-          width: '100%',
-          display: 'flex',
-          flexDirection: ['column', 'row', 'row'],
+          width: ['95%', '60%', '60%'],
           alignItems: 'center',
           justifyContent: 'center',
           zIndex: 1,
-          gap: ['36px', '20px', '24px'],
+          display: 'grid',
+          gridTemplateColumns: [
+            'repeat(auto-fill, 80%)',
+            `repeat(auto-fill, ${computeGridSize(90)})`,
+            `repeat(auto-fill, ${computeGridSize(110)})`,
+          ],
+          gap: '24px',
         })}
       >
-        <MediaArticleCard
-          providerTitle="Indian Link"
-          providerHeadline="Vir Srinivas, 20, wins at Cannes with debut film Orders From Above"
-          articleDesc="Vir settled on a story that was interesting, yet possible to be shot
-          in one or two simple indoor locations: the true story of the
-          interrogation of Nazi war criminal, Adolf Eichmann, by Israeli police."
-          articleLink="https://www.indianlink.com.au/entertainment/global/orders-from-above-film-vir-srinivas-cannes-debut-win/"
-        />
-        <MediaArticleCard
-          providerTitle="FilmInk"
-          providerHeadline="20-year-old Wins Top Prize at Melbourne Film Festival on a Zero-Budget during Pandemic"
-          articleDesc="Vir Srinivas, a young Sydneysider, didn't have any experience in filmmaking. He didn’t have a degree in filmmaking. And he certainly didn’t have any money to make a film."
-          articleLink="http://www.filmink.com.au/public-notice/20-year-old-wins-top-prize-at-melbourne-film-festival-on-a-zero-budget-during-pandemic/"
-        />
+        {articles.map((article, index) => (
+          <MediaArticleCard {...article} key={index} />
+        ))}
       </div>
       <div css={mq({ display: ['none', 'none', 'flex'] })}>
         <GapVertical times={30} />
@@ -181,7 +175,8 @@ const MediaArticleCard: FC<MediaArticleCardProps> = ({
         // boxShadow: '0px 0px 24px rgba(0, 0, 0, 0.05)',
         display: 'flex',
         flexDirection: 'column',
-        width: ['80%', computeGridSize(90), computeGridSize(110)],
+        // width: ['80%', computeGridSize(90), computeGridSize(110)],
+        width: '100%',
         height: [
           computeGridSize(92),
           computeGridSize(100),

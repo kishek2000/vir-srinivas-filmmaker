@@ -178,6 +178,10 @@ export const gunsAtCowraAwards = [
     award: 'Semi-Finalist',
   },
   {
+    awarder: "Flickers' Rhode Island International Film Festival",
+    award: 'Semi-Finalist',
+  },
+  {
     awarder: 'Los Angeles International Screenplay Awards',
     award: 'Quarter-Finalist',
   },
