@@ -158,6 +158,10 @@ export const gunsAtCowraAwards = [
     award: 'Finalist',
   },
   {
+    awarder: 'Script Summit',
+    award: 'Finalist',
+  },
+  {
     awarder: 'Fade In Awards First Ten Pages Competition',
     award: 'Semi-Finalist',
   },
@@ -222,16 +226,16 @@ export const gunsAtCowraAwards = [
     award: 'Quarter-Finalist',
   },
   {
-    awarder: 'Script Summit',
-    award: 'Official Selection',
-  },
-  {
     awarder: 'Big Apple Film Festival Screenplay Competition',
     award: 'Official Selection',
   },
 ];
 
 export const atTheGatesAwards = [
+  {
+    awarder: 'Creative World Awards',
+    award: 'Semi-Finalist',
+  },
   {
     awarder: 'ScreenCraft Screenwriting Fellowship',
     award: 'Quarter-Finalist',
@@ -240,7 +244,10 @@ export const atTheGatesAwards = [
     awarder: 'Los Angeles International Screenplay Awards',
     award: 'Quarter-Finalist',
   },
-  { awarder: 'Filmmatic Inroads Fellowship', award: 'Quarter-Finalist' },
+  {
+    awarder: 'Filmmatic Inroads Fellowship',
+    award: 'Quarter-Finalist',
+  },
   {
     awarder: 'Scriptation Showcase Script Competition',
     award: 'Quarter-Finalist',

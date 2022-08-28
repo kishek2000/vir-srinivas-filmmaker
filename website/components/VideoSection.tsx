@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ReactElement, RefObject, useState } from 'react';
+import React, { ReactElement, RefObject, useState } from 'react';
 import { createRef } from 'react';
 import { FC } from 'react';
 import {
@@ -64,7 +64,7 @@ export const VideoSection: FC<VideoSectionProps> = () => {
             position: 'relative',
             display: 'flex',
             flexDirection: ['column', 'row', 'row'],
-            width: ['80%', '85%', '90%'],
+            width: ['80%', '70%', '70%'],
             alignItems: ['center', 'flex-start', 'flex-start'],
             overflowX: 'hidden',
             overflowY: 'hidden',
@@ -120,8 +120,16 @@ export const VideoSection: FC<VideoSectionProps> = () => {
             subtitle="A showcase of Vir's work in 2021."
           />
         </div>
-        <VideosForWorkControl isNext={false} />
-        <VideosForWorkControl isNext={true} />
+        <VideosForWorkControl
+          factor={1}
+          scrollId={'work-videos'}
+          isNext={false}
+        />
+        <VideosForWorkControl
+          factor={1}
+          scrollId={'work-videos'}
+          isNext={true}
+        />
       </div>
       <div css={mq({ display: ['none', 'none', 'flex'] })}>
         <GapVertical times={30} />
@@ -166,54 +174,62 @@ export const VideoSection: FC<VideoSectionProps> = () => {
 
 interface VideosForWorkControlProps {
   isNext: boolean;
+  scrollId: string;
+  factor: number;
 }
 
 export const VideosForWorkControl: FC<VideosForWorkControlProps> = ({
   isNext,
+  scrollId,
+  factor,
 }) => {
   return (
     <div
       css={mq({
         display: ['none', 'flex', 'flex'],
         position: 'absolute',
-        right: isNext ? ['0px', '28px', '32px'] : '',
-        left: isNext ? '' : ['0px', '28px', '32px'],
+        right: isNext ? ['0px', '60px', '72px'] : '',
+        left: isNext ? '' : ['0px', '60px', '72px'],
         zIndex: 4,
         flexDirection: 'column',
         alignItems: 'center',
         cursor: 'pointer',
         fontSize: ['0px', '16px', '24px'],
         ':hover': {
-          fontSize: ['0px', '18px', '28px'],
+          fontSize: ['0px', '22px', '24px'],
           '& > svg': {
-            width: ['0px', '22px', '26px'],
-            height: ['0px', '22px', '26px'],
+            width: ['0px', '22px', '22px'],
+            height: ['0px', '22px', '22px'],
           },
-          right: isNext ? ['0px', '26px', '28px'] : '',
-          left: isNext ? '' : ['0px', '26px', '28px'],
+          right: isNext ? ['0px', '60px', '72px'] : '',
+          left: isNext ? '' : ['0px', '60px', '72px'],
         },
       })}
       onClick={() =>
-        document.getElementById('work-videos').scrollTo({
-          left: isNext ? window.innerWidth : -window.innerWidth,
+        document.getElementById(scrollId).scrollBy({
+          left: isNext
+            ? factor * window.innerWidth
+            : factor * -window.innerWidth,
           behavior: 'smooth',
         })
       }
     >
-      <p css={{ margin: 0, fontWeight: 200 }}>{isNext ? 'Next' : 'Prev'}</p>
+      <p css={{ margin: 0, fontWeight: 200, fontSize: '20px' }}>
+        {isNext ? 'Next' : 'Prev'}
+      </p>
       <GapVertical times={2} />
       {isNext ? (
         <AiOutlineRightCircle
           css={mq({
-            width: ['0px', '20px', '24px'],
-            height: ['0px', '20px', '24px'],
+            width: ['0px', '20px', '20px'],
+            height: ['0px', '20px', '20px'],
           })}
         />
       ) : (
         <AiOutlineLeftCircle
           css={mq({
-            width: ['0px', '20px', '24px'],
-            height: ['0px', '20px', '24px'],
+            width: ['0px', '20px', '20px'],
+            height: ['0px', '20px', '20px'],
           })}
         />
       )}
@@ -274,14 +290,14 @@ export const VideoForWork: FC<VideoForWorkProps> = ({
       <h2
         css={mq({
           margin: 0,
-          fontSize: ['24px', '28px', '36px'],
+          fontSize: ['24px', '28px', '32px'],
           fontWeight: 300,
         })}
       >
         {title}
       </h2>
       <GapVertical times={3} />
-      <p css={{ margin: 0, fontWeight: 200, fontSize: '20px' }}>{subtitle}</p>
+      <p css={{ margin: 0, fontWeight: 200, fontSize: '16px' }}>{subtitle}</p>
     </div>
   );
 };
@@ -329,14 +345,14 @@ export const VideoForWorkYT: FC<VideoForWorkYTProps> = ({
       <h2
         css={mq({
           margin: 0,
-          fontSize: ['24px', '28px', '36px'],
+          fontSize: ['24px', '28px', '32px'],
           fontWeight: 300,
         })}
       >
         {title}
       </h2>
       <GapVertical times={3} />
-      <p css={{ margin: 0, fontWeight: 200, fontSize: '20px' }}>{subtitle}</p>
+      <p css={{ margin: 0, fontWeight: 200, fontSize: '16px' }}>{subtitle}</p>
     </div>
   );
 };

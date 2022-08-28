@@ -36,9 +36,10 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
           src="/dp.png"
           alt="Vir Srinivas - Filmmaker"
           css={{
-            width: '80%',
-            height: '80%',
+            width: '75%',
+            height: '75%',
             objectFit: 'cover',
+            borderRadius: '4px',
           }}
         />
       </div>
@@ -94,7 +95,7 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
             color: 'black',
             fontFamily: 'Rubik',
             textAlign: 'center',
-            width: ['75%', '70%', '45%'],
+            width: ['75%', '70%', computeGridSize(140)],
             lineHeight: '180%',
           })}
         >
