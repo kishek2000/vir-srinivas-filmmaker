@@ -250,3 +250,37 @@ export const atTheGatesAwards = [
     award: 'Official Selection',
   },
 ];
+
+export const theProsecutionAwards = [
+  {
+    awarder: 'Final Draft Big Break® Screenwriting Contest',
+    award: 'Winner - Best Historical',
+  },
+  { awarder: 'Fade In Awards', award: 'Winner - Best True Story/Biopic' },
+  { awarder: 'The Golden Script Competition', award: 'Semi-Finalist' },
+  {
+    awarder: "Flickers' Rhode Island International Film Festival.",
+    award: 'Semi-Finalist',
+  },
+  {
+    awarder: 'Big Apple Film Festival Screenplay Competition',
+    award: 'Semi-Finalist',
+  },
+  {
+    awarder: 'Atlanta Film Festival Screenplay Competition',
+    award: 'Quarter-Finalist',
+  },
+  { awarder: 'WeScreenplay Feature Lab', award: 'Quarter-Finalist' },
+  {
+    awarder: 'Outstanding Screenplays Feature Competition',
+    award: 'Quarter-Finalist',
+  },
+  {
+    awarder: 'ScreenCraft True Story & Public Domain Competition',
+    award: 'Quarter-Finalist',
+  },
+  {
+    awarder: 'Scriptation Showcase Script Competition',
+    award: 'Quarter-Finalist',
+  },
+];

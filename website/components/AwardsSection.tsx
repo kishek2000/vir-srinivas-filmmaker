@@ -9,6 +9,7 @@ import {
   proselyteAwards,
   gunsAtCowraAwards,
   atTheGatesAwards,
+  theProsecutionAwards,
 } from '../constants/awards';
 
 export const AwardsSection = () => {
@@ -33,17 +34,6 @@ export const AwardsSection = () => {
       >
         HONOURS AND AWARDS
       </h1>
-      <GapVertical times={4} />
-      <p
-        css={mq({
-          margin: 0,
-          fontFamily: 'Rubik',
-          fontWeight: 200,
-          fontSize: ['16px', '18px', '20px'],
-        })}
-      >
-        Vir is a multi-award winning filmmaker.
-      </p>
       <GapVertical times={12} />
       <div
         css={mq({
@@ -61,6 +51,10 @@ export const AwardsSection = () => {
       >
         <AwardBlock mediaTitle="Orders from Above" awards={ofaAwards} />
         <AwardBlock mediaTitle="The Proselyte" awards={proselyteAwards} />
+        <AwardBlock
+          mediaTitle="The Prosecution"
+          awards={theProsecutionAwards}
+        />
         <AwardBlock
           mediaTitle="The Guns at Cowra (screenplay)"
           awards={gunsAtCowraAwards}

@@ -100,16 +100,21 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
         >
           Vir is a young award-winning feature film writer, producer and
           director. He was trained at Sydney Film School, where he gained a
-          Diploma of Screen and Media in 2021.
+          Diploma of Screen and Media. He is currently attending Emerson College
+          in Boston, where he is completing a BFA in Media Arts Production.
           <br />
           <br />
-          Vir’s credits include Orders from Above (feature) and The Proselyte
-          (short), which have screened and won awards at numerous film festivals
-          worldwide.
+          Vir&apos;s credits include &quot;Orders from Above&quot; (feature) and
+          &quot;The Proselyte&quot; (short), which have screened and achieved
+          awards at numerous film festivals worldwide. &quot;Orders from
+          Above&quot; was distributed by Gravitas Ventures in 2022 and released
+          internationally on Amazon Prime, Apple TV, Vudu and more. His
+          screenplays have also garnered acclaim and won prestigious
+          screenwriting competitions with top prizes at the Fade In Awards and
+          the Final Draft Big Break® Screenwriting Contest.
           <br />
           <br />
-          He is a member of the Australian Directors&apos; Guild and the
-          Australian Writers&apos; Guild.
+          Contact Vir at virsrinivasfilmmaker@gmail.com.
         </p>
         <div
           css={mq({

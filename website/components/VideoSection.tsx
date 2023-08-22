@@ -36,17 +36,6 @@ export const VideoSection: FC<VideoSectionProps> = () => {
       >
         VIDEOS
       </h1>
-      <GapVertical times={4} />
-      <p
-        css={mq({
-          margin: 0,
-          fontFamily: 'Rubik',
-          fontWeight: 200,
-          fontSize: ['16px', '18px', '20px'],
-        })}
-      >
-        A video collection of Vir&apos;s works.
-      </p>
       <GapVertical times={12} />
       <div
         css={mq({
@@ -105,8 +94,8 @@ export const VideoSection: FC<VideoSectionProps> = () => {
           </div>
           <VideoForWork
             src="/orders-from-above-trailer-compressed.mp4"
-            title="Orders from Above (Trailer)"
-            subtitle="Trailer for the multi award-winning film Orders from Above."
+            title="Orders from Above | Official Trailer"
+            // subtitle="Trailer for the multi award-winning film Orders from Above."
           />
           <div css={mq({ display: ['none', 'flex', 'flex'] })}>
             <GapHorizontal times={12} />
@@ -117,7 +106,7 @@ export const VideoSection: FC<VideoSectionProps> = () => {
           <VideoForWork
             src="/showreel-compressed.mp4"
             title="Showreel 2021"
-            subtitle="A showcase of Vir's work in 2021."
+            // subtitle="A showcase of Vir's work in 2021."
           />
         </div>
         <VideosForWorkControl isNext={false} />
@@ -224,13 +213,13 @@ export const VideosForWorkControl: FC<VideosForWorkControlProps> = ({
 interface VideoForWorkProps {
   src: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
 }
 
 export const VideoForWork: FC<VideoForWorkProps> = ({
   src,
   title,
-  subtitle,
+  subtitle = '',
 }) => {
   const videoRef: RefObject<HTMLVideoElement> = createRef();
   const [playing, setPlaying] = useState(false);

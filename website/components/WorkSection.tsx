@@ -61,17 +61,6 @@ export const WorkSection: FC<WorkSectionProps> = ({ onOpen }) => {
       >
         WORK
       </h1>
-      <GapVertical times={4} />
-      <p
-        css={mq({
-          margin: 0,
-          fontFamily: 'Rubik',
-          fontWeight: 200,
-          fontSize: ['16px', '18px', '20px'],
-        })}
-      >
-        Vir&apos;s work over the last few years.
-      </p>
       <GapVertical times={12} />
       <div
         css={mq({

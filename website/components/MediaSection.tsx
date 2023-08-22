@@ -28,19 +28,8 @@ export const MediaSection: FC = () => {
           margin: 0,
         })}
       >
-        MEDIA
+        PRESS
       </h1>
-      <GapVertical times={4} />
-      <p
-        css={mq({
-          margin: 0,
-          fontFamily: 'Rubik',
-          fontWeight: 200,
-          fontSize: ['16px', '18px', '20px'],
-        })}
-      >
-        Media mentions of Vir&apos;s work.
-      </p>
       <GapVertical times={16} />
       <div
         css={mq({
