@@ -7,6 +7,7 @@ import { GapVertical } from './GapVertical';
 import { SocialIcon } from 'react-social-icons';
 import { GapHorizontal } from './GapHorizontal';
 import { articles } from '../constants/media';
+import { VideosForWorkControl } from './VideoSection';
 
 export const MediaSection: FC = () => {
   return (
@@ -31,26 +32,46 @@ export const MediaSection: FC = () => {
         PRESS
       </h1>
       <GapVertical times={16} />
+
       <div
         css={mq({
           position: 'relative',
-          width: ['95%', '60%', '60%'],
+          width: '100%',
+          display: 'flex',
+          flexDirection: ['column', 'row', 'row'],
           alignItems: 'center',
           justifyContent: 'center',
           zIndex: 1,
-          display: 'grid',
-          gridTemplateColumns: [
-            'repeat(auto-fill, 80%)',
-            `repeat(auto-fill, ${computeGridSize(90)})`,
-            `repeat(auto-fill, ${computeGridSize(110)})`,
-          ],
-          gap: '24px',
         })}
       >
-        {articles.map((article, index) => (
-          <MediaArticleCard {...article} key={index} />
-        ))}
+        <div
+          css={mq({
+            width: ['95%', '70%', '70%'],
+            alignItems: 'center',
+            zIndex: 1,
+            display: 'flex',
+            gap: '24px',
+            flexDirection: ['column', 'row', 'row'],
+            overflowX: 'hidden',
+          })}
+          id="media-articles"
+        >
+          {articles.map((article, index) => (
+            <MediaArticleCard {...article} key={index} />
+          ))}
+        </div>
+        <VideosForWorkControl
+          factor={0.5}
+          scrollId="media-articles"
+          isNext={false}
+        />
+        <VideosForWorkControl
+          factor={0.5}
+          scrollId="media-articles"
+          isNext={true}
+        />
       </div>
+
       <div css={mq({ display: ['none', 'none', 'flex'] })}>
         <GapVertical times={30} />
       </div>
@@ -164,9 +185,9 @@ const MediaArticleCard: FC<MediaArticleCardProps> = ({
         // boxShadow: '0px 0px 24px rgba(0, 0, 0, 0.05)',
         display: 'flex',
         flexDirection: 'column',
-        // width: ['80%', computeGridSize(90), computeGridSize(110)],
-        width: '100%',
-        height: [
+        minWidth: ['unset', computeGridSize(90), computeGridSize(100)],
+        maxWidth: computeGridSize(100),
+        minHeight: [
           computeGridSize(92),
           computeGridSize(100),
           computeGridSize(110),
