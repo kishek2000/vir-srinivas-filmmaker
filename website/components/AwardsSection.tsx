@@ -52,7 +52,7 @@ export const AwardsSection = () => {
         <AwardBlock mediaTitle="Orders from Above" awards={ofaAwards} />
         <AwardBlock mediaTitle="The Proselyte" awards={proselyteAwards} />
         <AwardBlock
-          mediaTitle="The Prosecution"
+          mediaTitle="The Prosecution (screenplay)"
           awards={theProsecutionAwards}
         />
         <AwardBlock

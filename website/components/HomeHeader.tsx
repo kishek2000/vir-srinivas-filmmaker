@@ -115,7 +115,7 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
           the Final Draft Big Break® Screenwriting Contest.
           <br />
           <br />
-          Contact Vir at virsrinivasfilmmaker@gmail.com.
+          Contact Vir at <strong>virsrinivasfilmmaker@gmail.com.</strong>
         </p>
         <div
           css={mq({

@@ -92,10 +92,25 @@ export const VideoSection: FC<VideoSectionProps> = () => {
           <div css={mq({ display: ['flex', 'none', 'none'] })}>
             <GapVertical times={12} />
           </div>
-          <VideoForWork
-            src="/orders-from-above-trailer-compressed.mp4"
+          <VideoForWorkYT
+            src={
+              <iframe
+                src="https://www.youtube.com/embed/osiqn2u6BMk"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{
+                  position: 'absolute',
+                  width: '100%',
+                  height: '100%',
+                  left: '0px',
+                  top: '0px',
+                }}
+              />
+            }
             title="Orders from Above | Official Trailer"
-            // subtitle="Trailer for the multi award-winning film Orders from Above."
+            subtitle=""
           />
           <div css={mq({ display: ['none', 'flex', 'flex'] })}>
             <GapHorizontal times={12} />
@@ -146,7 +161,7 @@ export const VideoSection: FC<VideoSectionProps> = () => {
           window.scrollTo({ top: 4 * window.innerHeight, behavior: 'smooth' })
         }
       >
-        <p css={{ margin: 0, fontWeight: 300 }}>MEDIA</p>
+        <p css={{ margin: 0, fontWeight: 300 }}>PRESS</p>
         <GapVertical times={2} />
         <AiOutlineDownCircle
           css={{
