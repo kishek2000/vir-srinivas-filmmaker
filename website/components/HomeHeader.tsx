@@ -36,9 +36,10 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
           src="/dp.png"
           alt="Vir Srinivas - Filmmaker"
           css={{
-            width: '75%',
-            height: '75%',
+            width: '70%',
+            height: '90%',
             objectFit: 'cover',
+            objectPosition: '50% 50%',
             borderRadius: '4px',
           }}
         />
