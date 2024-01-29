@@ -24,7 +24,7 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
       <div
         css={mq({
           width: ['80%', '50%', '50%'],
-          height: ['60vh', '100vh', '100vh'],
+          height: ['unset', '100vh', '100vh'],
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -35,13 +35,14 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
         <img
           src="/dp.png"
           alt="Vir Srinivas - Filmmaker"
-          css={{
+          css={mq({
             width: '70%',
             height: '90%',
+            minHeight: ['250px', 'unset', 'unset'],
             objectFit: 'cover',
             objectPosition: '50% 50%',
             borderRadius: '4px',
-          }}
+          })}
         />
       </div>
       <div
