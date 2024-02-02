@@ -36,8 +36,8 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
           src="/dp.png"
           alt="Vir Srinivas - Filmmaker"
           css={mq({
-            width: '70%',
-            height: '90%',
+            width: ['min(65%, 360px)', 'max(65%, 480px)', 'max(65%, 480px)'],
+            height: '80%',
             minHeight: ['250px', 'unset', 'unset'],
             objectFit: 'cover',
             objectPosition: '50% 50%',
