@@ -24,7 +24,7 @@ export const OFAModalCloseButton: React.FC<{ onClose: VoidFunction }> = ({
         color: 'black',
         borderRadius: '4px',
         padding: '10px 14px',
-        fontSize: '18px',
+        fontSize: ['14px', '16px', '18px'],
         zIndex: 100,
       })}
       onClick={onClose}

@@ -74,6 +74,7 @@ export const OFAModal: React.FC<{ isOpen: boolean; onClose: VoidFunction }> = ({
             justifyContent: ['normal', 'center', 'center'],
             gap: ['80px', '60px', '90px'],
             background: 'transparent',
+            paddingBottom: ['24px', '0px', '0px'],
           })}
         >
           <div

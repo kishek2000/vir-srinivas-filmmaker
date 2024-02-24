@@ -43,9 +43,9 @@ export default function Home() {
             zIndex: 5,
             right: '36px',
             bottom: '36px',
-            borderRadius: '12px',
+            borderRadius: '4px',
             // height: '36px',
-            boxShadow: '0px 0px 24px rgba(0, 0, 0, 0.25)',
+            boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.05)',
             background: 'white',
             cursor: 'pointer',
             display: ['none', 'flex', 'flex'],
@@ -74,7 +74,8 @@ export default function Home() {
               fontFamily: 'Rubik',
               fontSize: '10px',
               textTransform: 'uppercase',
-              fontWeight: 600,
+              fontWeight: 500,
+              letterSpacing: '0.05rem',
               padding: '12px',
             }}
             onClick={onOpen}

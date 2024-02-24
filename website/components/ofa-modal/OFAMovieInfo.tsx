@@ -23,9 +23,10 @@ export const OFAMovieInfo = () => {
         width: ['90%', '40%', '40%'],
         height: '100%',
         overflowY: ['unset', 'auto', 'auto'],
-        paddingRight: ['24px', '32px', '12px'],
+        paddingRight: ['0px', '32px', '12px'],
         margin: '0 auto',
         alignItems: ['center', 'normal', 'normal'],
+        textAlign: ['center', 'left', 'left'],
       })}
     >
       <hgroup
@@ -44,11 +45,11 @@ export const OFAMovieInfo = () => {
         >
           <h1
             css={mq({
-              fontSize: ['42px', '42px', '56px'],
+              fontSize: ['32px', '42px', '56px'],
               margin: '0px',
             })}
           >
-            <strong>Orders from Above</strong>
+            Orders from Above
           </h1>
           <dl
             css={{
@@ -105,12 +106,13 @@ export const OFAMovieInfo = () => {
         extract a confession from the mastermind of the Holocaust.
       </p>
       <div
-        css={{
+        css={mq({
           display: 'flex',
           flexDirection: 'column',
+          alignItems: ['center', 'flex-start', 'flex-start'],
           gap: '16px',
           height: '100%',
-        }}
+        })}
       >
         <h3 css={{ margin: 0 }}>Available On:</h3>
         <div
@@ -147,15 +149,23 @@ const MovieLinks: React.FC<{
   }, []);
 
   return (
-    <div css={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <div
+      css={mq({
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: ['center', 'flex-start', 'flex-start'],
+        gap: '12px',
+      })}
+    >
       <p css={{ margin: 0, fontFamily: 'Rubik' }}>{title}</p>
       <div
-        css={{
+        css={mq({
           display: 'flex',
           flexDirection: 'row',
           flexWrap: 'wrap',
           gap: '12px',
-        }}
+          justifyContent: ['center', 'flex-start', 'flex-start'],
+        })}
       >
         {links.map((channel, index) => (
           <div
