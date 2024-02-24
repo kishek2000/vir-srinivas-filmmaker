@@ -184,7 +184,7 @@ const Poster: React.FC<{
                 textTransform: 'uppercase',
                 background: posterLinkBG(link.link, isString),
                 cursor: 'pointer',
-                fontSize: '14px',
+                fontSize: '12px',
                 color: posterLinkColor(link.link, isString),
                 fontFamily: 'Rubik',
               }}
