@@ -25,7 +25,7 @@ export const MediaSection: FC = () => {
       <h1
         css={mq({
           fontWeight: 400,
-          fontSize: ['44px', '52px', '56px'],
+          fontSize: ['36px', '52px', '56px'],
           margin: 0,
         })}
       >
@@ -246,18 +246,17 @@ const MediaArticleCard: FC<MediaArticleCardProps> = ({
         <GapVertical times={7} />
         <button
           css={{
-            // border: '1px solid black',
-            borderRadius: '4px',
+            borderRadius: '2px',
             outline: 'none',
-            padding: '8px 12px',
+            padding: '12px 16px',
             textTransform: 'uppercase',
-            fontWeight: 300,
-            // background: 'none',
             cursor: 'pointer',
-            fontSize: '12px',
-            background: 'black',
-            color: 'white',
-            letterSpacing: '0.1em',
+            fontSize: '10px',
+            color: 'black',
+            background: 'white',
+            letterSpacing: '0.1rem',
+            fontFamily: 'Rubik',
+            border: '1px solid black',
           }}
           onClick={() => window.open(articleLink)}
         >

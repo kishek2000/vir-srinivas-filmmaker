@@ -55,7 +55,7 @@ export const WorkSection: FC<WorkSectionProps> = ({ onOpen }) => {
       <h1
         css={mq({
           fontWeight: 400,
-          fontSize: ['44px', '52px', '56px'],
+          fontSize: ['36px', '52px', '56px'],
           margin: 0,
         })}
       >
@@ -177,16 +177,18 @@ const Poster: React.FC<{
             <button
               key={index}
               css={{
-                border: 'none',
-                borderRadius: '4px',
+                borderRadius: '2px',
                 outline: 'none',
                 padding: '12px 20px',
                 textTransform: 'uppercase',
-                background: posterLinkBG(link.link, isString),
+                border: `1.5px solid ${posterLinkBG(link.link, isString)}`,
+                background: 'none',
                 cursor: 'pointer',
-                fontSize: '12px',
-                color: posterLinkColor(link.link, isString),
+                fontSize: '10px',
+                color: 'black',
+                // color: posterLinkColor(link.link, isString),
                 fontFamily: 'Rubik',
+                letterSpacing: '0.075rem',
               }}
               onClick={
                 isString

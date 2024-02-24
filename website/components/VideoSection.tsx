@@ -30,7 +30,7 @@ export const VideoSection: FC<VideoSectionProps> = () => {
       <h1
         css={mq({
           fontWeight: 400,
-          fontSize: ['44px', '52px', '56px'],
+          fontSize: ['36px', '52px', '56px'],
           margin: 0,
         })}
       >
