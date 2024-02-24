@@ -19,12 +19,13 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
         width: '100%',
         minHeight: '100vh',
         overflow: 'hidden',
+        justifyContent: 'center',
       })}
     >
       <div
         css={mq({
           width: ['80%', '50%', '50%'],
-          height: ['90vh', '100vh', '100vh'],
+          height: ['80vh', '95vh', '100vh'],
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -36,7 +37,7 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
           src="/dp.png"
           alt="Vir Srinivas - Filmmaker"
           css={mq({
-            width: ['95%', 'max(65%, 520px)', 'max(65%, 480px)'],
+            width: ['100%', 'max(80%, 480px)', '80%'],
             height: '80%',
             minHeight: ['250px', 'unset', 'unset'],
             objectFit: 'cover',
