@@ -15,7 +15,7 @@ export const articles = [
     articleDesc:
       'Vir settled on a story that was interesting, yet possible to be shot in one or two simple indoor locations: the true story of the interrogation of Nazi war criminal, Adolf Eichmann, by Israeli police.',
     articleLink:
-      'https://www.indianlink.com.au/entertainment/global/orders-from-above-film-vir-srinivas-cannes-debut-win/',
+      'https://www.indianlink.com.au/orders-from-above-film-vir-srinivas-cannes-debut-win/',
   },
   {
     providerTitle: 'Fandomize',

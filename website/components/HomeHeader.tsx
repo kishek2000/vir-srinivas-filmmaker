@@ -24,7 +24,7 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
       <div
         css={mq({
           width: ['80%', '50%', '50%'],
-          height: ['60vh', '100vh', '100vh'],
+          height: ['50vh', '100vh', '100vh'],
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -39,6 +39,7 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
             width: '75%',
             height: '75%',
             objectFit: 'cover',
+            objectPosition: '0% 100%',
             borderRadius: '4px',
           }}
         />
