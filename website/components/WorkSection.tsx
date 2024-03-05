@@ -12,7 +12,7 @@ interface WorkSectionProps {
 }
 
 const prosPoster: { poster: string; links: PosterLink[] } = {
-  poster: 'proselyte-poster.jpeg',
+  poster: 'proselyte-poster.png',
   links: [
     {
       link: 'http://www.imdb.com/title/tt14755002',
