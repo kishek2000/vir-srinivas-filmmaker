@@ -112,17 +112,6 @@ export const VideoSection: FC<VideoSectionProps> = () => {
             title="Orders from Above | Official Trailer"
             subtitle=""
           />
-          <div css={mq({ display: ['none', 'flex', 'flex'] })}>
-            <GapHorizontal times={12} />
-          </div>
-          <div css={mq({ display: ['flex', 'none', 'none'] })}>
-            <GapVertical times={12} />
-          </div>
-          <VideoForWork
-            src="/showreel-compressed.mp4"
-            title="Showreel 2021"
-            // subtitle="A showcase of Vir's work in 2021."
-          />
         </div>
         <VideosForWorkControl
           factor={1}
