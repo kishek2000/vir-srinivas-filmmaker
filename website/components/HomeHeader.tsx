@@ -102,9 +102,8 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
           })}
         >
           Vir is a young award-winning feature film writer, producer and
-          director. He was trained at Sydney Film School, where he gained a
-          Diploma of Screen and Media. He is currently attending Emerson College
-          in Boston, where he is completing a BA in Media Arts Production.
+          director. He is currently attending the USC School of Cinematic Arts,
+          where he is completing a BA in Film & Television Production.
           <br />
           <br />
           Vir&apos;s credits include &quot;Orders from Above&quot; (feature) and
