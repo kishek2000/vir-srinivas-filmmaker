@@ -25,6 +25,16 @@ const prosPoster: { poster: string; links: PosterLink[] } = {
   ],
 };
 
+const gdPoster: { poster: string; links: PosterLink[] } = {
+  poster: 'gd-poster.png',
+  links: [
+    {
+      link: 'https://www.imdb.com/title/tt31491453/',
+      name: 'View on IMDB',
+    },
+  ],
+};
+
 export const WorkSection: FC<WorkSectionProps> = ({ onOpen }) => {
   const ofaPoster: { poster: string; links: PosterLink[] } = {
     poster: 'ofa-poster-2.jpeg',
@@ -44,6 +54,7 @@ export const WorkSection: FC<WorkSectionProps> = ({ onOpen }) => {
     <section
       css={{
         minHeight: '100vh',
+        paddingBottom: ['0px', '0px', '12px', '60px'],
         width: '100vw',
         display: 'flex',
         flexDirection: 'column',
@@ -92,6 +103,7 @@ export const WorkSection: FC<WorkSectionProps> = ({ onOpen }) => {
             gap: '48px',
           })}
         >
+          <Poster posterProps={gdPoster} />
           <Poster posterProps={ofaPoster} />
           <Poster posterProps={prosPoster} />
         </div>
