@@ -103,8 +103,8 @@ export const WorkSection: FC<WorkSectionProps> = ({ onOpen }) => {
             gap: '48px',
           })}
         >
-          <Poster posterProps={gdPoster} />
           <Poster posterProps={ofaPoster} />
+          <Poster posterProps={gdPoster} />
           <Poster posterProps={prosPoster} />
         </div>
       </div>
