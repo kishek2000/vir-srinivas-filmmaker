@@ -22,7 +22,7 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
         justifyContent: 'center',
       })}
     >
-      <div
+      {/* <div
         css={mq({
           width: ['80%', '50%', '50%'],
           height: ['80vh', '95vh', '100vh'],
@@ -44,7 +44,7 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
             borderRadius: '4px',
           })}
         />
-      </div>
+      </div> */}
       <div
         css={mq({
           flexDirection: 'column',

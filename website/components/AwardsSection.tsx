@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 
-import { Fragment } from 'react';
 import { AiOutlineDownCircle } from 'react-icons/ai';
 import { mq } from '../styles/mq';
 import { GapVertical } from './GapVertical';
@@ -8,7 +7,6 @@ import {
   ofaAwards,
   proselyteAwards,
   gunsAtCowraAwards,
-  atTheGatesAwards,
   theProsecutionAwards,
 } from '../constants/awards';
 
@@ -58,10 +56,6 @@ export const AwardsSection = () => {
         <AwardBlock
           mediaTitle="The Guns at Cowra (screenplay)"
           awards={gunsAtCowraAwards}
-        />
-        <AwardBlock
-          mediaTitle="At the Gates (screenplay)"
-          awards={atTheGatesAwards}
         />
       </div>
       <div css={mq({ display: ['none', 'none', 'flex'] })}>
@@ -132,9 +126,9 @@ const AwardBlock: React.FC<AwardBlockProps> = ({ mediaTitle, awards }) => {
           gridTemplateColumns: [
             'repeat(auto-fill, 1fr)',
             'repeat(auto-fill, 40%)',
-            'repeat(auto-fill, 28%)',
+            'repeat(auto-fill, 40%)',
           ],
-          alignItems: 'center',
+          alignItems: 'start',
           gap: '20px',
           // height: '100%',
         })}
