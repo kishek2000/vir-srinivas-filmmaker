@@ -1,5 +1,13 @@
 export const articles = [
   {
+    providerTitle: 'Indian Link',
+    providerHeadline: 'Vir Srinivas’ film on the hidden victims of AI',
+    articleDesc:
+      'The Indian-origin filmmaker takes a bold take on the alleged exploitation of workers behind the artificial intelligence we use.',
+    articleLink:
+      'https://www.indianlink.com.au/vir-srinivas-film-on-the-hidden-victims-of-ai/',
+  },
+  {
     providerTitle: 'Authority Magazine',
     providerHeadline:
       'Vir Srinivas: 5 Things I Wish Someone Told Me When I First Became a Filmmaker',
