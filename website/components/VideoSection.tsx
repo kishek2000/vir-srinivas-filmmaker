@@ -69,6 +69,32 @@ export const VideoSection: FC<VideoSectionProps> = () => {
           <VideoForWorkYT
             src={
               <iframe
+                src="https://www.youtube.com/watch?v=Igo_pGU08HA"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{
+                  position: 'absolute',
+                  width: '100%',
+                  height: '100%',
+                  left: '0px',
+                  top: '0px',
+                }}
+              />
+            }
+            title="Gradient Descent | 20 min Short Film"
+            subtitle="A homeless man is recruited by an artificial intelligence company and forced to do horrifying work."
+          />
+          <div css={mq({ display: ['none', 'flex', 'flex'] })}>
+            <GapHorizontal times={12} />
+          </div>
+          <div css={mq({ display: ['flex', 'none', 'none'] })}>
+            <GapVertical times={12} />
+          </div>
+          <VideoForWorkYT
+            src={
+              <iframe
                 src="https://www.youtube.com/embed/GG48DnCQrEk"
                 title="YouTube video player"
                 frameBorder="0"
