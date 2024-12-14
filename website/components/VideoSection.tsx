@@ -69,7 +69,7 @@ export const VideoSection: FC<VideoSectionProps> = () => {
           <VideoForWorkYT
             src={
               <iframe
-                src="https://www.youtube.com/watch?v=Igo_pGU08HA"
+                src="https://www.youtube.com/embed/Igo_pGU08HA"
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
