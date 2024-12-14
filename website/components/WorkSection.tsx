@@ -32,6 +32,10 @@ const gdPoster: { poster: string; links: PosterLink[] } = {
       link: 'https://www.imdb.com/title/tt31491453/',
       name: 'View on IMDB',
     },
+    {
+      link: 'https://www.youtube.com/watch?v=Igo_pGU08HA',
+      name: 'Watch on YouTube',
+    },
   ],
 };
 
