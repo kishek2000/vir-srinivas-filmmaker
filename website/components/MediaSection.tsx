@@ -111,11 +111,13 @@ export const MediaSection: FC = () => {
           factor={0.5}
           scrollId="media-articles"
           isNext={false}
+          isVisible
         />
         <VideosForWorkControl
           factor={0.5}
           scrollId="media-articles"
           isNext={true}
+          isVisible
         />
       </div>
 
