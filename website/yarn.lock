@@ -2469,6 +2469,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-plugin-react-hooks@npm:^5.2.0":
+  version: 5.2.0
+  resolution: "eslint-plugin-react-hooks@npm:5.2.0"
+  peerDependencies:
+    eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
+  checksum: 10c0/1c8d50fa5984c6dea32470651807d2922cc3934cf3425e78f84a24c2dfd972e7f019bee84aefb27e0cf2c13fea0ac1d4473267727408feeb1c56333ca1489385
+  languageName: node
+  linkType: hard
+
 "eslint-plugin-react@npm:^7.29.4":
   version: 7.30.1
   resolution: "eslint-plugin-react@npm:7.30.1"
@@ -4537,6 +4546,7 @@ __metadata:
     "@types/react-spinner": "npm:^0.2.0"
     eslint: "npm:^8.19.0"
     eslint-config-next: "npm:^12.2.2"
+    eslint-plugin-react-hooks: "npm:^5.2.0"
     facepaint: "npm:^1.2.1"
     framer-motion: "npm:^6.4.3"
     next: "npm:^12.2.2"
