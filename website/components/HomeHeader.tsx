@@ -188,6 +188,7 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
           by Gravitas Ventures in 2022 and released internationally on Amazon
           Prime, Apple TV, Vudu, and more.
           <br />
+          <br />
           Vir&apos;s screenplays have also garnered acclaim and won prestigious
           screenwriting competitions with top prizes at the Fade In Awards and
           the Final Draft Big Break® Screenwriting Contest.
