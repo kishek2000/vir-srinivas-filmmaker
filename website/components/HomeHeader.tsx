@@ -59,7 +59,7 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
             padding: 0,
           }}
         >
-          {['Work', 'Awards', 'Videos', 'Press'].map((item, index) => (
+          {['Work', 'Awards', 'Videos'].map((item, index) => (
             <li key={index}>
               <a
                 href={`#${item.toLowerCase()}`}
