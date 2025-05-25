@@ -49,7 +49,7 @@ export const MediaSection: FC = () => {
       }}
     >
       {/* Subtle background pattern for depth */}
-      <div
+      {/* <div
         css={{
           position: 'absolute',
           top: 0,
@@ -129,7 +129,7 @@ export const MediaSection: FC = () => {
       </div>
       <div css={mq({ display: ['flex', 'none', 'none'] })}>
         <GapVertical times={20} />
-      </div>
+      </div> */}
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -202,11 +202,6 @@ export const MediaSection: FC = () => {
           <SocialMediaButton
             url="https://instagram.com/virsrinivas"
             network="instagram"
-          />
-          <GapHorizontal times={2} />
-          <SocialMediaButton
-            url="https://twitter.com/VirSrinivas"
-            network="twitter"
           />
         </div>
       </motion.div>
