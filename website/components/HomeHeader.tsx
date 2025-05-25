@@ -181,11 +181,12 @@ export const HomeHeader: FC<HomeHeaderProps> = () => {
           Vir is an award-winning writer, producer and director.
           <br />
           <br />
-          His credits include "ORDERS FROM ABOVE" (feature), "THE PROSELYTE"
-          (short), and “GRADIENT DESCENT” (short), which have screened and
-          achieved awards at numerous film festivals worldwide. ORDERS FROM
-          ABOVE was distributed by Gravitas Ventures in 2022 and released
-          internationally on Amazon Prime, Apple TV, Vudu, and more.
+          His credits include &ldquo;ORDERS FROM ABOVE&rdquo; (feature),
+          &ldquo;THE PROSELYTE&rdquo; (short), and &ldquo;GRADIENT
+          DESCENT&rdquo; (short), which have screened and achieved awards at
+          numerous film festivals worldwide. ORDERS FROM ABOVE was distributed
+          by Gravitas Ventures in 2022 and released internationally on Amazon
+          Prime, Apple TV, Vudu, and more.
           <br />
           Vir&apos;s screenplays have also garnered acclaim and won prestigious
           screenwriting competitions with top prizes at the Fade In Awards and
