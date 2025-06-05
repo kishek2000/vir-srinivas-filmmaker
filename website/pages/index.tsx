@@ -157,7 +157,7 @@ export default function Home() {
           zIndex: 50,
         })}
       >
-        {['Home', 'Work', 'Awards', 'Videos', 'Press'].map((_, index) => (
+        {['Home', 'Work', 'Awards', 'Videos'].map((_, index) => (
           <div
             key={index}
             css={{
