@@ -1,348 +1,395 @@
-/* eslint-disable @next/next/no-img-element */
 /** @jsxImportSource @emotion/react */
-
 import { useEffect, useState, useRef } from 'react';
-import { AwardsSection } from '../components/AwardsSection';
-import { GapVertical } from '../components/GapVertical';
-import { HomeHeader } from '../components/HomeHeader';
-import { MediaSection } from '../components/MediaSection';
-import { VideoSection } from '../components/VideoSection';
-import { WorkSection } from '../components/WorkSection';
-import { useDisclosure } from '@chakra-ui/react';
-import { OFAModal } from '../components/ofa-modal/OFAModal';
-import { AiFillCloseCircle } from 'react-icons/ai';
-import { mq } from '../styles/mq';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import Head from 'next/head';
-import { motion, AnimatePresence } from 'framer-motion';
+import { mq } from '../styles/mq';
+import { HeroSection } from '../components/HeroSection';
+import { FilmShowcase, films } from '../components/FilmShowcase';
+import { AwardsShowcase } from '../components/AwardsShowcase';
+import { ContactFooter } from '../components/ContactFooter';
 
 export default function Home() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [showPrompt, setShowPrompt] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [activeSection, setActiveSection] = useState(0);
-  const sectionsRef = useRef<HTMLDivElement[]>([]);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const mainRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll();
 
   useEffect(() => {
-    // Show the OFA modal after a delay
-    const timer = setTimeout(() => {
-      onOpen();
-    }, 2000);
-
-    // Hide loader after everything is loaded
-    const loaderTimer = setTimeout(() => {
-      setLoading(false);
-    }, 800);
-
-    // Track scroll position
-    const handleScroll = () => {
-      const totalScroll =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const currentScroll = window.scrollY;
-      setScrollProgress(currentScroll / totalScroll);
-
-      // Determine active section
-      if (sectionsRef.current.length > 0) {
-        const viewportHeight = window.innerHeight;
-        const threshold = viewportHeight / 2;
-
-        for (let i = 0; i < sectionsRef.current.length; i++) {
-          const section = sectionsRef.current[i];
-          if (section) {
-            const rect = section.getBoundingClientRect();
-            if (rect.top <= threshold && rect.bottom >= threshold) {
-              setActiveSection(i);
-              break;
-            }
-          }
+    // Simulate loading progress
+    const interval = setInterval(() => {
+      setLoadingProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          return 100;
         }
-      }
-    };
+        return prev + Math.random() * 15;
+      });
+    }, 100);
 
-    window.addEventListener('scroll', handleScroll);
+    // Hide loader
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
 
     return () => {
+      clearInterval(interval);
       clearTimeout(timer);
-      clearTimeout(loaderTimer);
-      window.removeEventListener('scroll', handleScroll);
     };
-  }, [onOpen]);
-
-  // Scroll to section
-  const scrollToSection = (index: number) => {
-    if (sectionsRef.current[index]) {
-      window.scrollTo({
-        top: sectionsRef.current[index].offsetTop,
-        behavior: 'smooth',
-      });
-    }
-  };
+  }, []);
 
   return (
     <>
       <Head>
-        <title>Vir Srinivas: Filmmaker</title>
+        <title>Vir Srinivas | Filmmaker</title>
         <meta
           name="description"
-          content="Vir Srinivas is an award-winning filmmaker, writer, producer and director. Explore his work including 'Orders from Above' and 'The Proselyte'."
+          content="Vir Srinivas is an award-winning filmmaker, writer, producer and director. Explore his work including 'Orders from Above', 'The Proselyte', and 'Gradient Descent'."
         />
         <link rel="icon" href="/favicon.ico" />
-        <meta property="og:title" content="Vir Srinivas: Filmmaker" />
+        <meta property="og:title" content="Vir Srinivas | Filmmaker" />
         <meta
           property="og:description"
           content="Award-winning filmmaker, writer, producer and director."
         />
         <meta property="og:type" content="website" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#0a0a0a" />
       </Head>
 
-      {/* Page loader */}
-      <AnimatePresence>
+      {/* Cinematic loading screen */}
+      <AnimatePresence mode="wait">
         {loading && (
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             css={{
               position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: 'white',
-              zIndex: 1000,
+              inset: 0,
+              background: 'var(--black)',
+              zIndex: 9999,
               display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
               flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '32px',
             }}
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <h1
+            {/* Loading name reveal */}
+            <div css={{ overflow: 'hidden' }}>
+              <motion.h1
+                initial={{ y: 60 }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 css={{
+                  fontFamily: 'var(--font-display)',
                   fontSize: '24px',
                   fontWeight: 400,
-                  letterSpacing: '0.2em',
-                  fontFamily: 'Oswald',
+                  letterSpacing: '0.3em',
+                  color: 'var(--white)',
+                  margin: 0,
                 }}
               >
                 VIR SRINIVAS
-              </h1>
-            </motion.div>
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: '40px' }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              css={{ height: '1px', background: 'black', marginTop: '10px' }}
-            />
+              </motion.h1>
+            </div>
+
+            {/* Progress bar */}
+            <div
+              css={{
+                width: '120px',
+                height: '1px',
+                background: 'rgba(255,255,255,0.1)',
+                position: 'relative',
+                overflow: 'hidden',
+              }}
+            >
+              <motion.div
+                initial={{ width: '0%' }}
+                animate={{ width: `${Math.min(loadingProgress, 100)}%` }}
+                transition={{ duration: 0.1 }}
+                css={{
+                  height: '100%',
+                  background: 'var(--white)',
+                }}
+              />
+            </div>
+
+            {/* Loading text */}
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              css={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '10px',
+                fontWeight: 400,
+                letterSpacing: '0.25em',
+                textTransform: 'uppercase',
+                color: 'rgba(255,255,255,0.3)',
+              }}
+            >
+              Filmmaker
+            </motion.span>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Fixed navigation dots */}
-      <div
-        css={mq({
-          position: 'fixed',
-          right: ['10px', '20px', '30px'],
-          top: '50%',
-          transform: 'translateY(-50%)',
-          display: ['none', 'flex', 'flex'],
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '15px',
-          zIndex: 50,
-        })}
-      >
-        {['Home', 'Work', 'Awards', 'Videos'].map((_, index) => (
-          <div
-            key={index}
-            css={{
-              width: '10px',
-              height: '10px',
-              borderRadius: '50%',
-              background: activeSection === index ? 'black' : 'rgba(0,0,0,0.2)',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              ':hover': {
-                transform: 'scale(1.2)',
-              },
-            }}
-            onClick={() => scrollToSection(index)}
-          />
-        ))}
-      </div>
-
-      {/* Progress bar */}
-      <div
+      {/* Progress indicator */}
+      <motion.div
+        style={{ scaleX: scrollYProgress }}
         css={{
           position: 'fixed',
           top: 0,
           left: 0,
+          right: 0,
           height: '2px',
-          background: 'black',
-          width: `${scrollProgress * 100}%`,
+          background: 'var(--white)',
+          transformOrigin: '0%',
           zIndex: 100,
-          transition: 'width 0.1s linear',
+          opacity: 0.6,
         }}
       />
 
-      {/* OFA film release prompt */}
-      {showPrompt ? (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 2.5 }}
-          css={mq({
-            position: 'fixed',
-            zIndex: 5,
-            right: '36px',
-            bottom: '36px',
-            borderRadius: '6px',
-            boxShadow: '0px 5px 20px rgba(0, 0, 0, 0.1)',
-            background: 'white',
-            cursor: 'pointer',
-            display: ['none', 'flex', 'flex'],
-            flexDirection: 'column',
-            alignItems: 'center',
-            overflow: 'hidden',
-            border: '1px solid rgba(0,0,0,0.05)',
-            transition: 'all 0.3s ease',
-            ':hover': {
-              transform: 'translateY(-5px)',
-              boxShadow: '0px 8px 25px rgba(0, 0, 0, 0.15)',
-            },
-          })}
-        >
-          <AiFillCloseCircle
-            css={{
-              position: 'absolute',
-              top: '-8px',
-              right: '-8px',
-              background: 'white',
-              borderRadius: '50%',
-              zIndex: 2,
-            }}
-            size={24}
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowPrompt(false);
-            }}
-          />
-          <img
-            src="ofa-poster-2.jpeg"
-            css={{
-              width: '120px',
-              objectFit: 'cover',
-              borderTopLeftRadius: '6px',
-              borderTopRightRadius: '6px',
-            }}
-            alt="Orders from Above Movie Poster"
-            onClick={onOpen}
-          />
-          <span
-            css={{
-              fontFamily: 'Rubik',
-              fontSize: '11px',
-              textTransform: 'uppercase',
-              fontWeight: 500,
-              letterSpacing: '0.08rem',
-              padding: '12px 20px',
-              transition: 'all 0.3s ease',
-              ':hover': {
-                background: 'rgba(0,0,0,0.03)',
-              },
-            }}
-            onClick={onOpen}
-          >
-            View Release
-          </span>
-        </motion.div>
-      ) : null}
+      {/* Navigation */}
+      <Navigation />
 
-      <OFAModal isOpen={isOpen} onClose={onClose} />
-
-      <div
+      {/* Main content */}
+      <main
+        ref={mainRef}
         css={{
           display: 'flex',
           flexDirection: 'column',
-          maxWidth: '100vw',
           minHeight: '100vh',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontFamily: 'Oswald',
-          overflow: 'hidden',
-          position: 'relative',
+          background: 'var(--black)',
         }}
       >
-        <div
-          ref={(el) => {
-            if (el) sectionsRef.current[0] = el;
-          }}
-          css={{ width: '100%' }}
-        >
-          <HomeHeader />
-        </div>
-        <div
-          ref={(el) => {
-            if (el) sectionsRef.current[1] = el;
-          }}
-          css={{ width: '100%' }}
-        >
-          <WorkSection onOpen={onOpen} />
-        </div>
-        <div
-          ref={(el) => {
-            if (el) sectionsRef.current[2] = el;
-          }}
-          css={{ width: '100%' }}
-        >
-          <AwardsSection />
-        </div>
-        <div
-          ref={(el) => {
-            if (el) sectionsRef.current[3] = el;
-          }}
-          css={{ width: '100%' }}
-        >
-          <VideoSection />
-        </div>
-        <div
-          ref={(el) => {
-            if (el) sectionsRef.current[4] = el;
-          }}
-          css={{ width: '100%' }}
-        >
-          <MediaSection />
-        </div>
-        <GapVertical times={12} />
+        {/* Hero */}
+        <HeroSection />
 
-        {/* Footer */}
-        <footer
-          css={{
-            width: '100%',
-            padding: '20px 0',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderTop: '1px solid rgba(0,0,0,0.05)',
-          }}
-        >
-          <p
-            css={{
-              fontFamily: 'Rubik',
-              fontSize: '12px',
-              color: 'rgba(0,0,0,0.6)',
-              fontWeight: 300,
-            }}
-          >
-            © {new Date().getFullYear()} Vir Srinivas. All rights reserved.
-          </p>
-        </footer>
-      </div>
+        {/* Film showcases with distinct themes */}
+        {films.map((film, index) => (
+          <FilmShowcase key={film.id} film={film} index={index} />
+        ))}
+
+        {/* Awards */}
+        <AwardsShowcase />
+
+        {/* Contact & Footer */}
+        <ContactFooter />
+      </main>
+
+      {/* Noise texture overlay for cinematic feel */}
+      <div className="noise-overlay film-grain" />
     </>
   );
 }
+
+// Minimal fixed navigation
+const Navigation = () => {
+  const [visible, setVisible] = useState(false);
+  const [atTop, setAtTop] = useState(true);
+
+  useEffect(() => {
+    let lastScroll = 0;
+
+    const handleScroll = () => {
+      const currentScroll = window.scrollY;
+      setAtTop(currentScroll < 100);
+      setVisible(currentScroll < lastScroll || currentScroll < 100);
+      lastScroll = currentScroll;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (index: number) => {
+    const sections = document.querySelectorAll('section');
+    if (sections[index]) {
+      sections[index].scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: visible ? 0 : -100 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      css={mq({
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        padding: ['16px 24px', '20px 40px', '24px 60px'],
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        background: atTop ? 'transparent' : 'rgba(10, 10, 10, 0.9)',
+        backdropFilter: atTop ? 'none' : 'blur(10px)',
+        transition: 'background 0.3s ease, backdrop-filter 0.3s ease',
+      })}
+    >
+      {/* Logo */}
+      <motion.a
+        href="#"
+        onClick={(e) => {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        whileHover={{ opacity: 0.7 }}
+        css={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '14px',
+          fontWeight: 400,
+          letterSpacing: '0.2em',
+          color: 'var(--white)',
+          textDecoration: 'none',
+        }}
+      >
+        VS
+      </motion.a>
+
+      {/* Nav links */}
+      <div
+        css={mq({
+          display: ['none', 'flex', 'flex'],
+          alignItems: 'center',
+          gap: '40px',
+        })}
+      >
+        {['Films', 'Awards', 'Contact'].map((item, index) => (
+          <motion.button
+            key={item}
+            onClick={() => scrollToSection(index + 1)}
+            whileHover={{ opacity: 0.7 }}
+            css={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '12px',
+              fontWeight: 400,
+              letterSpacing: '0.15em',
+              textTransform: 'uppercase',
+              color: 'var(--white)',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              position: 'relative',
+              padding: '4px 0',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                width: '0%',
+                height: '1px',
+                background: 'var(--white)',
+                transition: 'width 0.3s ease',
+              },
+              '&:hover::after': {
+                width: '100%',
+              },
+            }}
+          >
+            {item}
+          </motion.button>
+        ))}
+      </div>
+
+      {/* Mobile menu button */}
+      <MobileMenuButton />
+    </motion.nav>
+  );
+};
+
+// Mobile menu
+const MobileMenuButton = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const scrollToSection = (index: number) => {
+    setIsOpen(false);
+    setTimeout(() => {
+      const sections = document.querySelectorAll('section');
+      if (sections[index]) {
+        sections[index].scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 300);
+  };
+
+  return (
+    <>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        css={mq({
+          display: ['flex', 'none', 'none'],
+          flexDirection: 'column',
+          gap: '5px',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          padding: '4px',
+        })}
+        aria-label="Toggle menu"
+      >
+        <motion.span
+          animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 6 : 0 }}
+          css={{ width: '20px', height: '1px', background: 'var(--white)' }}
+        />
+        <motion.span
+          animate={{ opacity: isOpen ? 0 : 1 }}
+          css={{ width: '20px', height: '1px', background: 'var(--white)' }}
+        />
+        <motion.span
+          animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -6 : 0 }}
+          css={{ width: '20px', height: '1px', background: 'var(--white)' }}
+        />
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            css={{
+              position: 'fixed',
+              inset: 0,
+              background: 'rgba(10, 10, 10, 0.98)',
+              zIndex: 40,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '32px',
+            }}
+          >
+            {['Home', 'Films', 'Awards', 'Contact'].map((item, index) => (
+              <motion.button
+                key={item}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ delay: index * 0.1 }}
+                onClick={() => scrollToSection(index)}
+                css={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '32px',
+                  fontWeight: 400,
+                  letterSpacing: '0.1em',
+                  color: 'var(--white)',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                {item}
+              </motion.button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
