@@ -1,8 +1,36 @@
 /** @jsxImportSource @emotion/react */
 /* eslint-disable @next/next/no-img-element */
 import { FC, useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { motion, useTransform, useViewportScroll } from 'framer-motion';
 import { mq } from '../styles/mq';
+
+// Custom hook to detect if element is in view
+const useInView = (ref: React.RefObject<HTMLElement>, options?: { once?: boolean; margin?: string }) => {
+  const [isInView, setIsInView] = useState(false);
+  
+  useEffect(() => {
+    if (!ref.current) return;
+    
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          if (options?.once) {
+            observer.disconnect();
+          }
+        } else if (!options?.once) {
+          setIsInView(false);
+        }
+      },
+      { rootMargin: options?.margin || '0px' }
+    );
+    
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [ref, options?.once, options?.margin]);
+  
+  return isInView;
+};
 
 interface FilmData {
   id: string;
@@ -92,15 +120,18 @@ export const FilmShowcase: FC<{ film: FilmData; index: number }> = ({ film, inde
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
   const theme = themes[film.theme];
-  const isLight = film.theme === 'tech';
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const posterY = useTransform(scrollYProgress, [0, 1], [50, -50]);
-  const contentY = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  const [elementTop, setElementTop] = useState(0);
+  
+  const { scrollY } = useViewportScroll();
+  
+  useEffect(() => {
+    if (containerRef.current) {
+      setElementTop(containerRef.current.offsetTop);
+    }
+  }, []);
+  
+  const posterY = useTransform(scrollY, [elementTop - 500, elementTop + 500], [50, -50]);
+  const contentY = useTransform(scrollY, [elementTop - 500, elementTop + 500], [30, -30]);
 
   return (
     <section

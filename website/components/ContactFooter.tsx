@@ -1,8 +1,36 @@
 /** @jsxImportSource @emotion/react */
-import { FC, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { FC, useRef, useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { mq } from '../styles/mq';
 import { SocialIcon } from 'react-social-icons';
+
+// Custom hook to detect if element is in view
+const useInView = (ref: React.RefObject<HTMLElement>, options?: { once?: boolean; margin?: string }) => {
+  const [isInView, setIsInView] = useState(false);
+  
+  useEffect(() => {
+    if (!ref.current) return;
+    
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          if (options?.once) {
+            observer.disconnect();
+          }
+        } else if (!options?.once) {
+          setIsInView(false);
+        }
+      },
+      { rootMargin: options?.margin || '0px' }
+    );
+    
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [ref, options?.once, options?.margin]);
+  
+  return isInView;
+};
 
 export const ContactFooter: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);

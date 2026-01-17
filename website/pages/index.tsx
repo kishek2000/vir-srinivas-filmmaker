@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useEffect, useState, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, useViewportScroll, useTransform } from 'framer-motion';
 import Head from 'next/head';
 import { mq } from '../styles/mq';
 import { HeroSection } from '../components/HeroSection';
@@ -11,9 +11,26 @@ import { ContactFooter } from '../components/ContactFooter';
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
+  const [pageHeight, setPageHeight] = useState(1);
   const mainRef = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll();
+  const { scrollY } = useViewportScroll();
+  
+  useEffect(() => {
+    const updatePageHeight = () => {
+      setPageHeight(document.documentElement.scrollHeight - window.innerHeight || 1);
+    };
+    updatePageHeight();
+    window.addEventListener('resize', updatePageHeight);
+    // Update after content loads
+    const timer = setTimeout(updatePageHeight, 2000);
+    return () => {
+      window.removeEventListener('resize', updatePageHeight);
+      clearTimeout(timer);
+    };
+  }, []);
+  
+  const scrollYProgress = useTransform(scrollY, [0, pageHeight], [0, 1]);
 
   useEffect(() => {
     // Simulate loading progress

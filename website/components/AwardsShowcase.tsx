@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { FC, useRef } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { FC, useRef, useState, useEffect } from 'react';
+import { motion, useTransform, useViewportScroll } from 'framer-motion';
 import { mq } from '../styles/mq';
 import {
   ofaAwards,
@@ -8,6 +8,34 @@ import {
   theProsecutionAwards,
   gunsAtCowraAwards,
 } from '../constants/awards';
+
+// Custom hook to detect if element is in view
+const useInView = (ref: React.RefObject<HTMLElement>, options?: { once?: boolean; margin?: string }) => {
+  const [isInView, setIsInView] = useState(false);
+  
+  useEffect(() => {
+    if (!ref.current) return;
+    
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          if (options?.once) {
+            observer.disconnect();
+          }
+        } else if (!options?.once) {
+          setIsInView(false);
+        }
+      },
+      { rootMargin: options?.margin || '0px' }
+    );
+    
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [ref, options?.once, options?.margin]);
+  
+  return isInView;
+};
 
 interface Award {
   awarder: string;
@@ -51,13 +79,17 @@ const awardCategories: AwardCategory[] = [
 export const AwardsShowcase: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+  const [elementTop, setElementTop] = useState(0);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
+  const { scrollY } = useViewportScroll();
+  
+  useEffect(() => {
+    if (containerRef.current) {
+      setElementTop(containerRef.current.offsetTop);
+    }
+  }, []);
 
-  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const backgroundY = useTransform(scrollY, [elementTop - 500, elementTop + 500], [0, -100]);
 
   // Count total wins
   const totalWins = awardCategories.reduce((acc, cat) => {

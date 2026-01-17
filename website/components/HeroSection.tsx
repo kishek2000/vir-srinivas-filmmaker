@@ -1,21 +1,23 @@
 /** @jsxImportSource @emotion/react */
 import { FC, useEffect, useState, useRef } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useViewportScroll, useTransform } from 'framer-motion';
 import { mq } from '../styles/mq';
 
 export const HeroSection: FC = () => {
   const [loaded, setLoaded] = useState(false);
   const [showContent, setShowContent] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [scrollRange, setScrollRange] = useState([0, 1]);
   
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
+  const { scrollY } = useViewportScroll();
   
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
-  const y = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
+  useEffect(() => {
+    // Set scroll range based on window height
+    setScrollRange([0, typeof window !== 'undefined' ? window.innerHeight : 1000]);
+  }, []);
+  
+  const opacity = useTransform(scrollY, scrollRange, [1, 0]);
+  const scale = useTransform(scrollY, scrollRange, [1, 0.95]);
+  const y = useTransform(scrollY, [0, scrollRange[1] * 0.5], [0, 100]);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoaded(true), 100);
@@ -32,7 +34,6 @@ export const HeroSection: FC = () => {
 
   return (
     <motion.section
-      ref={containerRef}
       style={{ opacity, scale }}
       css={mq({
         position: 'relative',
