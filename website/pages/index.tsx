@@ -75,7 +75,7 @@ export default function Home() {
       </Head>
 
       {/* Cinematic loading screen */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence exitBeforeEnter>
         {loading && (
           <motion.div
             initial={{ opacity: 1 }}
