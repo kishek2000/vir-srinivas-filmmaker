@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { FC, useRef, useState, useEffect } from 'react';
-import { motion, useTransform, useViewportScroll } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { mq } from '../styles/mq';
 import {
   ofaAwards,
@@ -79,17 +79,6 @@ const awardCategories: AwardCategory[] = [
 export const AwardsShowcase: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
-  const [elementTop, setElementTop] = useState(0);
-
-  const { scrollY } = useViewportScroll();
-  
-  useEffect(() => {
-    if (containerRef.current) {
-      setElementTop(containerRef.current.offsetTop);
-    }
-  }, []);
-
-  const backgroundY = useTransform(scrollY, [elementTop - 500, elementTop + 500], [0, -100]);
 
   // Count total wins
   const totalWins = awardCategories.reduce((acc, cat) => {
@@ -112,40 +101,37 @@ export const AwardsShowcase: FC = () => {
         padding: ['80px 24px', '100px 60px', '120px 80px'],
       })}
     >
-      {/* Background elements */}
-      <motion.div
-        style={{ y: backgroundY }}
+      {/* Subtle static background */}
+      <div
         css={{
           position: 'absolute',
           inset: 0,
           backgroundImage: `
-            radial-gradient(circle at 20% 80%, rgba(255,255,255,0.02) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(255,255,255,0.02) 0%, transparent 50%)
+            radial-gradient(circle at 20% 80%, rgba(255,255,255,0.015) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255,255,255,0.015) 0%, transparent 50%)
           `,
           pointerEvents: 'none',
         }}
       />
 
-      {/* Large background number */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: isInView ? 0.03 : 0, scale: isInView ? 1 : 0.9 }}
-        transition={{ duration: 1.5 }}
+      {/* Large background number - static */}
+      <div
         css={mq({
           position: 'absolute',
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
           fontFamily: 'var(--font-display)',
-          fontSize: ['150px', '250px', '400px'],
+          fontSize: ['120px', '200px', '300px'],
           fontWeight: 400,
           color: 'var(--white)',
+          opacity: 0.03,
           lineHeight: 1,
           pointerEvents: 'none',
         })}
       >
         {totalWins}+
-      </motion.div>
+      </div>
 
       {/* Header section */}
       <div

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 /* eslint-disable @next/next/no-img-element */
 import { FC, useRef, useState, useEffect } from 'react';
-import { motion, useTransform, useViewportScroll } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { mq } from '../styles/mq';
 
 // Custom hook to detect if element is in view
@@ -35,15 +35,15 @@ const useInView = (ref: React.RefObject<HTMLElement>, options?: { once?: boolean
 interface FilmData {
   id: string;
   title: string;
-  subtitle: string;
+  tagline: string;
   year: string;
   duration: string;
   description: string;
   poster: string;
-  trailer?: string;
+  videoEmbed?: string;
+  localVideo?: string;
   youtubeUrl?: string;
   imdbUrl?: string;
-  awards: string[];
   theme: 'vintage' | 'thriller' | 'tech';
 }
 
@@ -52,86 +52,68 @@ export const films: FilmData[] = [
   {
     id: 'ofa',
     title: 'ORDERS FROM ABOVE',
-    subtitle: 'A Film by Vir Srinivas',
+    tagline: 'How does an ordinary man commit extraordinary evil?',
     year: '2021',
     duration: 'Feature Film',
-    description: 'The true story of the interrogation of Nazi war criminal Adolf Eichmann by Israeli police. A haunting exploration of how ordinary men can commit extraordinary evil when following orders.',
+    description: 'The true story of the interrogation of Nazi war criminal Adolf Eichmann by Israeli police captain Avner Less. A haunting exploration of bureaucratic evil and the banality of genocide.',
     poster: '/ofa-poster-2.jpeg',
-    trailer: '/orders-from-above-trailer-compressed.mp4',
+    videoEmbed: 'https://www.youtube.com/embed/osiqn2u6BMk',
+    localVideo: '/orders-from-above-trailer-compressed.mp4',
     youtubeUrl: 'https://www.youtube.com/watch?v=osiqn2u6BMk',
     imdbUrl: 'http://www.imdb.com/title/tt14858134',
-    awards: ['Winner - Cannes World Film Festival', 'Winner - Melbourne Underground Film Festival', 'Winner - Berlin Indie Film Festival', '15+ International Awards'],
     theme: 'vintage',
   },
   {
     id: 'proselyte',
     title: 'THE PROSELYTE',
-    subtitle: 'A Film by Vir Srinivas',
+    tagline: 'The seal of confession is absolute.',
     year: '2022',
     duration: '20 min',
-    description: 'A Catholic priest with a dark past wrestles with his faith after he hears a confession from an active serial killer. A tense moral thriller about sin, redemption, and the sanctity of confession.',
+    description: 'A Catholic priest with a dark past wrestles with his faith after he hears a confession from an active serial killer. Bound by the sacred seal of confession, he must choose between divine law and human justice.',
     poster: '/proselyte-poster.png',
+    videoEmbed: 'https://www.youtube.com/embed/GG48DnCQrEk',
     youtubeUrl: 'https://www.youtube.com/watch?v=GG48DnCQrEk',
     imdbUrl: 'http://www.imdb.com/title/tt14755002',
-    awards: ['Winner - Perth Independent Film Festival', 'Best Drama'],
     theme: 'thriller',
   },
   {
     id: 'gradient-descent',
     title: 'GRADIENT DESCENT',
-    subtitle: 'A Film by Vir Srinivas',
+    tagline: 'The human cost of artificial intelligence.',
     year: '2024',
     duration: '20 min',
-    description: 'A homeless man is recruited by an artificial intelligence company and forced to do horrifying work. A stark commentary on the hidden human cost behind the technology we use daily.',
+    description: 'A homeless man is recruited by an artificial intelligence company and forced to do horrifying work. A stark commentary on the exploitation hidden behind the technology we use daily.',
     poster: '/gd-poster.png',
+    videoEmbed: 'https://www.youtube.com/embed/Igo_pGU08HA',
     youtubeUrl: 'https://www.youtube.com/watch?v=Igo_pGU08HA',
     imdbUrl: 'https://www.imdb.com/title/tt31491453/',
-    awards: ['Official Selection'],
     theme: 'tech',
   },
 ];
 
-// Theme configurations
-const themes = {
-  vintage: {
-    bg: '#0f0d0a',
-    text: '#e8e2d5',
-    accent: '#d4c5a9',
-    secondary: 'rgba(212, 197, 169, 0.4)',
-    border: 'rgba(212, 197, 169, 0.2)',
-  },
-  thriller: {
-    bg: '#0d0b0b',
-    text: '#d4d0c8',
-    accent: '#8b1e1e',
-    secondary: 'rgba(201, 162, 39, 0.6)',
-    border: 'rgba(139, 30, 30, 0.3)',
-  },
-  tech: {
-    bg: '#fafafa',
-    text: '#0a0a0a',
-    accent: '#0a0a0a',
-    secondary: 'rgba(0, 0, 0, 0.5)',
-    border: 'rgba(0, 0, 0, 0.1)',
-  },
-};
-
 export const FilmShowcase: FC<{ film: FilmData; index: number }> = ({ film, index }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
-  const theme = themes[film.theme];
-  const [elementTop, setElementTop] = useState(0);
-  
-  const { scrollY } = useViewportScroll();
-  
-  useEffect(() => {
-    if (containerRef.current) {
-      setElementTop(containerRef.current.offsetTop);
-    }
-  }, []);
-  
-  const posterY = useTransform(scrollY, [elementTop - 500, elementTop + 500], [50, -50]);
-  const contentY = useTransform(scrollY, [elementTop - 500, elementTop + 500], [30, -30]);
+
+  // Render themed showcase based on film type
+  if (film.theme === 'vintage') {
+    return <VintageFilmShowcase film={film} containerRef={containerRef} isInView={isInView} />;
+  }
+  if (film.theme === 'thriller') {
+    return <ThrillerFilmShowcase film={film} containerRef={containerRef} isInView={isInView} />;
+  }
+  return <TechFilmShowcase film={film} containerRef={containerRef} isInView={isInView} />;
+};
+
+// ============================================
+// ORDERS FROM ABOVE - Vintage Documentary Style
+// ============================================
+const VintageFilmShowcase: FC<{
+  film: FilmData;
+  containerRef: React.RefObject<HTMLDivElement>;
+  isInView: boolean;
+}> = ({ film, containerRef, isInView }) => {
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   return (
     <section
@@ -140,315 +122,852 @@ export const FilmShowcase: FC<{ film: FilmData; index: number }> = ({ film, inde
         position: 'relative',
         minHeight: '100vh',
         width: '100vw',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: theme.bg,
+        background: '#0c0a07',
         overflow: 'hidden',
-        padding: ['80px 24px', '100px 60px', '120px 80px'],
+        display: 'flex',
+        flexDirection: 'column',
       })}
     >
-      {/* Theme-specific background treatments */}
-      {film.theme === 'vintage' && <VintageBackground isInView={isInView} />}
-      {film.theme === 'thriller' && <ThrillerBackground isInView={isInView} />}
-      {film.theme === 'tech' && <TechBackground isInView={isInView} />}
-
-      {/* Film number */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isInView ? 0.06 : 0 }}
-        transition={{ duration: 1 }}
-        css={mq({
+      {/* Archival paper texture */}
+      <div
+        css={{
           position: 'absolute',
-          top: ['60px', '80px', '100px'],
-          left: ['24px', '60px', '80px'],
-          fontFamily: 'var(--font-display)',
-          fontSize: ['80px', '120px', '160px'],
-          fontWeight: 400,
-          color: theme.text,
-          lineHeight: 1,
-        })}
-      >
-        0{index + 1}
-      </motion.div>
+          inset: 0,
+          opacity: 0.03,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          pointerEvents: 'none',
+        }}
+      />
 
-      {/* Main content grid */}
+      {/* Top section - Title & Info */}
       <div
         css={mq({
-          display: 'grid',
-          gridTemplateColumns: ['1fr', '1fr', '1fr 1fr'],
-          gap: ['48px', '60px', '80px'],
-          maxWidth: '1400px',
-          width: '100%',
-          alignItems: 'center',
-          zIndex: 2,
+          padding: ['60px 24px 40px', '80px 60px 60px', '100px 100px 80px'],
+          display: 'flex',
+          flexDirection: 'column',
+          borderBottom: '1px solid rgba(180, 160, 120, 0.15)',
         })}
       >
-        {/* Poster section */}
+        {/* Document header styling */}
         <motion.div
-          style={{ y: posterY }}
-          css={mq({
-            position: 'relative',
-            order: [1, 1, index % 2 === 0 ? 1 : 2],
-          })}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.8 }}
+          css={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
+            marginBottom: '24px',
+          }}
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: isInView ? 1 : 0, scale: isInView ? 1 : 0.95 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          <span
             css={{
-              position: 'relative',
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                inset: '-20px',
-                border: `1px solid ${theme.border}`,
-                zIndex: -1,
-              },
+              fontFamily: '"Courier New", monospace',
+              fontSize: '11px',
+              fontWeight: 400,
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: 'rgba(180, 160, 120, 0.6)',
             }}
           >
-            {/* Poster with optional grain overlay for vintage */}
-            <div
-              css={{
-                position: 'relative',
-                overflow: 'hidden',
-                boxShadow: film.theme === 'tech' 
-                  ? '0 40px 80px rgba(0,0,0,0.15)'
-                  : '0 40px 80px rgba(0,0,0,0.5)',
-              }}
-            >
-              <img
-                src={film.poster}
-                alt={`${film.title} poster`}
-                css={mq({
-                  width: '100%',
-                  maxHeight: ['50vh', '60vh', '70vh'],
-                  objectFit: 'contain',
-                  filter: film.theme === 'vintage' ? 'sepia(10%) contrast(1.05)' : 'none',
-                })}
-              />
-              {film.theme === 'vintage' && (
-                <div
-                  css={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 2px)',
-                    pointerEvents: 'none',
-                  }}
-                />
-              )}
-            </div>
-          </motion.div>
-
-          {/* Awards ticker for vintage theme */}
-          {film.theme === 'vintage' && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: isInView ? 1 : 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              css={mq({
-                marginTop: ['24px', '32px', '40px'],
-                display: 'flex',
-                alignItems: 'center',
-                gap: '16px',
-              })}
-            >
-              <span
-                css={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '11px',
-                  fontWeight: 500,
-                  letterSpacing: '0.2em',
-                  textTransform: 'uppercase',
-                  color: theme.accent,
-                }}
-              >
-                ★ Winner of 15+ International Awards
-              </span>
-            </motion.div>
-          )}
+            Case File No. 1961-040
+          </span>
+          <div css={{ flex: 1, height: '1px', background: 'rgba(180, 160, 120, 0.2)' }} />
+          <span
+            css={{
+              fontFamily: '"Courier New", monospace',
+              fontSize: '11px',
+              letterSpacing: '0.1em',
+              color: 'rgba(180, 160, 120, 0.5)',
+            }}
+          >
+            Jerusalem, Israel
+          </span>
         </motion.div>
 
-        {/* Info section */}
-        <motion.div
-          style={{ y: contentY }}
+        {/* Main title - typewriter style */}
+        <div css={{ overflow: 'hidden' }}>
+          <motion.h1
+            initial={{ y: 100 }}
+            animate={{ y: isInView ? 0 : 100 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            css={mq({
+              fontFamily: '"Courier New", monospace',
+              fontSize: ['32px', '48px', '64px'],
+              fontWeight: 700,
+              letterSpacing: '0.05em',
+              color: '#d4c5a9',
+              margin: 0,
+              lineHeight: 1.1,
+              textTransform: 'uppercase',
+            })}
+          >
+            {film.title}
+          </motion.h1>
+        </div>
+
+        {/* Tagline */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
           css={mq({
-            order: [2, 2, index % 2 === 0 ? 2 : 1],
-            display: 'flex',
-            flexDirection: 'column',
-            gap: ['24px', '32px', '40px'],
+            fontFamily: 'var(--font-serif)',
+            fontSize: ['18px', '22px', '26px'],
+            fontWeight: 300,
+            fontStyle: 'italic',
+            color: 'rgba(180, 160, 120, 0.7)',
+            margin: 0,
+            marginTop: '16px',
           })}
         >
-          {/* Year and duration */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            css={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '24px',
-            }}
-          >
-            <span
-              css={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '12px',
-                fontWeight: 400,
-                letterSpacing: '0.2em',
-                textTransform: 'uppercase',
-                color: theme.secondary,
-              }}
-            >
-              {film.year}
-            </span>
-            <span css={{ width: '40px', height: '1px', background: theme.border }} />
-            <span
-              css={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '12px',
-                fontWeight: 400,
-                letterSpacing: '0.2em',
-                textTransform: 'uppercase',
-                color: theme.secondary,
-              }}
-            >
-              {film.duration}
-            </span>
-          </motion.div>
+          "{film.tagline}"
+        </motion.p>
 
-          {/* Title */}
-          <div css={{ overflow: 'hidden' }}>
-            <motion.h2
-              initial={{ y: 80 }}
-              animate={{ y: isInView ? 0 : 80 }}
-              transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              css={mq({
-                fontFamily: 'var(--font-display)',
-                fontSize: ['36px', '48px', '64px'],
-                fontWeight: 400,
-                letterSpacing: '0.02em',
-                lineHeight: 1,
-                color: theme.text,
-                margin: 0,
-              })}
-            >
-              {film.title}
-            </motion.h2>
-          </div>
+        {/* Meta info - document style */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          css={{
+            display: 'flex',
+            gap: '32px',
+            marginTop: '32px',
+            flexWrap: 'wrap',
+          }}
+        >
+          {[
+            { label: 'Classification', value: film.duration },
+            { label: 'Year', value: film.year },
+            { label: 'Status', value: 'DECLASSIFIED' },
+          ].map((item) => (
+            <div key={item.label} css={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <span
+                css={{
+                  fontFamily: '"Courier New", monospace',
+                  fontSize: '10px',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  color: 'rgba(180, 160, 120, 0.4)',
+                }}
+              >
+                {item.label}
+              </span>
+              <span
+                css={{
+                  fontFamily: '"Courier New", monospace',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  color: '#d4c5a9',
+                  letterSpacing: '0.05em',
+                }}
+              >
+                {item.value}
+              </span>
+            </div>
+          ))}
+        </motion.div>
+      </div>
 
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isInView ? 1 : 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            css={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: '18px',
-              fontWeight: 300,
-              fontStyle: 'italic',
-              color: theme.secondary,
-              margin: 0,
-            }}
-          >
-            {film.subtitle}
-          </motion.p>
+      {/* Video section - full width immersive */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isInView ? 1 : 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        css={mq({
+          position: 'relative',
+          width: '100%',
+          aspectRatio: '16/9',
+          maxHeight: '70vh',
+          background: '#000',
+          overflow: 'hidden',
+        })}
+      >
+        {/* Film grain overlay */}
+        <div
+          css={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 2,
+            pointerEvents: 'none',
+            background: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px)',
+            mixBlendMode: 'multiply',
+          }}
+        />
+        
+        {/* Vignette */}
+        <div
+          css={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 3,
+            pointerEvents: 'none',
+            boxShadow: 'inset 0 0 150px rgba(0,0,0,0.7)',
+          }}
+        />
 
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
-            transition={{ duration: 0.6, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        <iframe
+          src={`${film.videoEmbed}?rel=0&modestbranding=1&color=white`}
+          title={film.title}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          onLoad={() => setVideoLoaded(true)}
+          css={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            filter: 'sepia(20%) contrast(1.1)',
+          }}
+        />
+      </motion.div>
+
+      {/* Bottom section - Description & Links */}
+      <div
+        css={mq({
+          padding: ['40px 24px 60px', '60px 60px 80px', '80px 100px 100px'],
+          display: 'grid',
+          gridTemplateColumns: ['1fr', '1fr', '2fr 1fr'],
+          gap: ['32px', '48px', '80px'],
+        })}
+      >
+        {/* Description */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          <p
             css={mq({
-              fontFamily: 'var(--font-body)',
-              fontSize: ['14px', '15px', '16px'],
+              fontFamily: 'var(--font-serif)',
+              fontSize: ['16px', '18px', '20px'],
               fontWeight: 300,
               lineHeight: 1.8,
-              color: theme.secondary,
-              maxWidth: '500px',
+              color: 'rgba(212, 197, 169, 0.8)',
               margin: 0,
+              maxWidth: '600px',
             })}
           >
             {film.description}
-          </motion.p>
-
-          {/* Awards list (for non-vintage) */}
-          {film.theme !== 'vintage' && film.awards.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: isInView ? 1 : 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              css={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '12px',
-              }}
-            >
-              {film.awards.slice(0, 2).map((award, i) => (
-                <span
-                  key={i}
-                  css={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '11px',
-                    fontWeight: 500,
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                    color: film.theme === 'thriller' ? theme.secondary : theme.accent,
-                    padding: '8px 16px',
-                    border: `1px solid ${theme.border}`,
-                  }}
-                >
-                  {award}
-                </span>
-              ))}
-            </motion.div>
-          )}
-
-          {/* Action buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
-            transition={{ duration: 0.6, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          </p>
+          
+          {/* Awards badge */}
+          <div
             css={{
-              display: 'flex',
-              gap: '16px',
-              flexWrap: 'wrap',
-              marginTop: '8px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '12px',
+              marginTop: '32px',
+              padding: '12px 20px',
+              border: '1px solid rgba(180, 160, 120, 0.3)',
+              background: 'rgba(180, 160, 120, 0.05)',
             }}
           >
-            {film.youtubeUrl && (
-              <FilmButton 
-                href={film.youtubeUrl} 
-                primary 
-                theme={film.theme}
-              >
-                Watch Film
-              </FilmButton>
-            )}
-            {film.imdbUrl && (
-              <FilmButton 
-                href={film.imdbUrl} 
-                theme={film.theme}
-              >
-                IMDb
-              </FilmButton>
-            )}
-          </motion.div>
+            <span css={{ fontSize: '20px' }}>🏆</span>
+            <span
+              css={{
+                fontFamily: '"Courier New", monospace',
+                fontSize: '12px',
+                fontWeight: 600,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                color: '#d4c5a9',
+              }}
+            >
+              Winner of 15+ International Awards
+            </span>
+          </div>
+        </motion.div>
+
+        {/* Links */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          css={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+          }}
+        >
+          <FilmLink href={film.youtubeUrl} variant="vintage">
+            Watch Full Film
+          </FilmLink>
+          <FilmLink href={film.imdbUrl} variant="vintage" secondary>
+            View on IMDb
+          </FilmLink>
         </motion.div>
       </div>
     </section>
   );
 };
 
-// Film button component
-const FilmButton: FC<{
-  href: string;
+// ============================================
+// THE PROSELYTE - Gothic Religious Thriller
+// ============================================
+const ThrillerFilmShowcase: FC<{
+  film: FilmData;
+  containerRef: React.RefObject<HTMLDivElement>;
+  isInView: boolean;
+}> = ({ film, containerRef, isInView }) => {
+  return (
+    <section
+      ref={containerRef}
+      css={mq({
+        position: 'relative',
+        minHeight: '100vh',
+        width: '100vw',
+        background: '#080606',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+      })}
+    >
+      {/* Deep shadow vignette */}
+      <div
+        css={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(ellipse at 50% 30%, transparent 0%, rgba(0,0,0,0.5) 100%)',
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* Stained glass inspired accent - subtle */}
+      <div
+        css={{
+          position: 'absolute',
+          top: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '1px',
+          height: '200px',
+          background: 'linear-gradient(to bottom, rgba(139, 30, 30, 0.4), transparent)',
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* Full-width video header */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isInView ? 1 : 0 }}
+        transition={{ duration: 1 }}
+        css={mq({
+          position: 'relative',
+          width: '100%',
+          aspectRatio: '21/9',
+          maxHeight: '50vh',
+          minHeight: ['250px', '350px', '400px'],
+          overflow: 'hidden',
+        })}
+      >
+        {/* Dark overlay for text readability */}
+        <div
+          css={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to bottom, rgba(8,6,6,0.3) 0%, rgba(8,6,6,0.9) 100%)',
+            zIndex: 2,
+            pointerEvents: 'none',
+          }}
+        />
+
+        <iframe
+          src={`${film.videoEmbed}?rel=0&modestbranding=1&autoplay=0`}
+          title={film.title}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          css={{
+            position: 'absolute',
+            inset: '-20%',
+            width: '140%',
+            height: '140%',
+            filter: 'brightness(0.6) contrast(1.1)',
+          }}
+        />
+
+        {/* Overlay title */}
+        <div
+          css={mq({
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            padding: ['40px 24px', '60px 60px', '80px 100px'],
+            zIndex: 3,
+          })}
+        >
+          {/* Genre tag */}
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            css={{
+              display: 'inline-block',
+              fontFamily: 'var(--font-body)',
+              fontSize: '10px',
+              fontWeight: 500,
+              letterSpacing: '0.3em',
+              textTransform: 'uppercase',
+              color: '#8b1e1e',
+              marginBottom: '16px',
+            }}
+          >
+            Psychological Thriller
+          </motion.span>
+
+          <div css={{ overflow: 'hidden' }}>
+            <motion.h1
+              initial={{ y: 100 }}
+              animate={{ y: isInView ? 0 : 100 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              css={mq({
+                fontFamily: 'var(--font-serif)',
+                fontSize: ['36px', '56px', '80px'],
+                fontWeight: 400,
+                fontStyle: 'italic',
+                letterSpacing: '-0.02em',
+                color: '#e8e2d5',
+                margin: 0,
+                lineHeight: 1,
+              })}
+            >
+              The Proselyte
+            </motion.h1>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Content section */}
+      <div
+        css={mq({
+          flex: 1,
+          padding: ['40px 24px 60px', '60px 60px 80px', '80px 100px 100px'],
+          display: 'flex',
+          flexDirection: 'column',
+        })}
+      >
+        {/* Tagline - prominent */}
+        <motion.blockquote
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          css={mq({
+            fontFamily: 'var(--font-serif)',
+            fontSize: ['24px', '32px', '40px'],
+            fontWeight: 300,
+            fontStyle: 'italic',
+            color: 'rgba(201, 162, 39, 0.8)',
+            margin: 0,
+            marginBottom: ['32px', '48px', '64px'],
+            maxWidth: '800px',
+            lineHeight: 1.3,
+            borderLeft: '2px solid rgba(139, 30, 30, 0.5)',
+            paddingLeft: '24px',
+          })}
+        >
+          "{film.tagline}"
+        </motion.blockquote>
+
+        <div
+          css={mq({
+            display: 'grid',
+            gridTemplateColumns: ['1fr', '1fr', '2fr 1fr'],
+            gap: ['32px', '48px', '80px'],
+          })}
+        >
+          {/* Description */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            <p
+              css={mq({
+                fontFamily: 'var(--font-body)',
+                fontSize: ['15px', '16px', '17px'],
+                fontWeight: 300,
+                lineHeight: 1.9,
+                color: 'rgba(212, 208, 200, 0.7)',
+                margin: 0,
+                maxWidth: '550px',
+              })}
+            >
+              {film.description}
+            </p>
+
+            {/* Meta */}
+            <div
+              css={{
+                display: 'flex',
+                gap: '32px',
+                marginTop: '32px',
+                paddingTop: '24px',
+                borderTop: '1px solid rgba(139, 30, 30, 0.2)',
+              }}
+            >
+              <div>
+                <span css={{ 
+                  fontFamily: 'var(--font-body)', 
+                  fontSize: '10px', 
+                  letterSpacing: '0.2em',
+                  textTransform: 'uppercase',
+                  color: 'rgba(212, 208, 200, 0.4)',
+                  display: 'block',
+                  marginBottom: '4px',
+                }}>
+                  Runtime
+                </span>
+                <span css={{ 
+                  fontFamily: 'var(--font-serif)', 
+                  fontSize: '16px', 
+                  fontStyle: 'italic',
+                  color: 'rgba(212, 208, 200, 0.8)',
+                }}>
+                  {film.duration}
+                </span>
+              </div>
+              <div>
+                <span css={{ 
+                  fontFamily: 'var(--font-body)', 
+                  fontSize: '10px', 
+                  letterSpacing: '0.2em',
+                  textTransform: 'uppercase',
+                  color: 'rgba(212, 208, 200, 0.4)',
+                  display: 'block',
+                  marginBottom: '4px',
+                }}>
+                  Year
+                </span>
+                <span css={{ 
+                  fontFamily: 'var(--font-serif)', 
+                  fontSize: '16px', 
+                  fontStyle: 'italic',
+                  color: 'rgba(212, 208, 200, 0.8)',
+                }}>
+                  {film.year}
+                </span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Links & Awards */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            css={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '16px',
+            }}
+          >
+            <FilmLink href={film.youtubeUrl} variant="thriller">
+              Watch Film
+            </FilmLink>
+            <FilmLink href={film.imdbUrl} variant="thriller" secondary>
+              IMDb
+            </FilmLink>
+            
+            {/* Award */}
+            <div
+              css={{
+                marginTop: '16px',
+                padding: '16px',
+                background: 'rgba(139, 30, 30, 0.1)',
+                border: '1px solid rgba(139, 30, 30, 0.2)',
+              }}
+            >
+              <span css={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '11px',
+                fontWeight: 500,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                color: 'rgba(201, 162, 39, 0.8)',
+              }}>
+                🏆 Winner — Best Drama
+              </span>
+              <span css={{
+                display: 'block',
+                fontFamily: 'var(--font-serif)',
+                fontSize: '13px',
+                fontStyle: 'italic',
+                color: 'rgba(212, 208, 200, 0.5)',
+                marginTop: '4px',
+              }}>
+                Perth Independent Film Festival
+              </span>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ============================================
+// GRADIENT DESCENT - Tech Noir / Clinical
+// ============================================
+const TechFilmShowcase: FC<{
+  film: FilmData;
+  containerRef: React.RefObject<HTMLDivElement>;
+  isInView: boolean;
+}> = ({ film, containerRef, isInView }) => {
+  return (
+    <section
+      ref={containerRef}
+      css={mq({
+        position: 'relative',
+        minHeight: '100vh',
+        width: '100vw',
+        background: '#fafafa',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+      })}
+    >
+      {/* Grid pattern */}
+      <div
+        css={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `
+            linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px)
+          `,
+          backgroundSize: '60px 60px',
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* Header */}
+      <div
+        css={mq({
+          padding: ['60px 24px 40px', '80px 60px 60px', '100px 100px 80px'],
+          display: 'flex',
+          flexDirection: 'column',
+        })}
+      >
+        {/* System status bar */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.6 }}
+          css={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
+            marginBottom: '32px',
+          }}
+        >
+          <div css={{ 
+            width: '8px', 
+            height: '8px', 
+            borderRadius: '50%', 
+            background: '#00c853',
+            boxShadow: '0 0 8px rgba(0, 200, 83, 0.5)',
+          }} />
+          <span
+            css={{
+              fontFamily: 'monospace',
+              fontSize: '11px',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              color: 'rgba(0,0,0,0.4)',
+            }}
+          >
+            sys.film.load — {film.year}
+          </span>
+        </motion.div>
+
+        {/* Title - stark and bold */}
+        <div css={{ overflow: 'hidden' }}>
+          <motion.h1
+            initial={{ y: 100 }}
+            animate={{ y: isInView ? 0 : 100 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            css={mq({
+              fontFamily: 'var(--font-display)',
+              fontSize: ['40px', '64px', '96px'],
+              fontWeight: 400,
+              letterSpacing: '-0.02em',
+              color: '#0a0a0a',
+              margin: 0,
+              lineHeight: 0.95,
+            })}
+          >
+            GRADIENT
+            <br />
+            DESCENT
+          </motion.h1>
+        </div>
+
+        {/* Tagline */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          css={mq({
+            fontFamily: 'monospace',
+            fontSize: ['14px', '16px', '18px'],
+            fontWeight: 400,
+            color: 'rgba(0,0,0,0.5)',
+            margin: 0,
+            marginTop: '24px',
+            maxWidth: '400px',
+          })}
+        >
+          // {film.tagline}
+        </motion.p>
+      </div>
+
+      {/* Video - clean full width */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        css={mq({
+          position: 'relative',
+          width: ['calc(100% - 48px)', 'calc(100% - 120px)', 'calc(100% - 200px)'],
+          margin: '0 auto',
+          aspectRatio: '16/9',
+          maxHeight: '60vh',
+          background: '#0a0a0a',
+          overflow: 'hidden',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
+        })}
+      >
+        <iframe
+          src={`${film.videoEmbed}?rel=0&modestbranding=1`}
+          title={film.title}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          css={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+          }}
+        />
+      </motion.div>
+
+      {/* Footer content */}
+      <div
+        css={mq({
+          flex: 1,
+          padding: ['40px 24px 60px', '60px 60px 80px', '80px 100px 100px'],
+          display: 'grid',
+          gridTemplateColumns: ['1fr', '1fr', '1fr 1fr'],
+          gap: ['32px', '48px', '80px'],
+          alignItems: 'start',
+        })}
+      >
+        {/* Description */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+        >
+          <p
+            css={mq({
+              fontFamily: 'var(--font-body)',
+              fontSize: ['15px', '16px', '17px'],
+              fontWeight: 300,
+              lineHeight: 1.8,
+              color: 'rgba(0,0,0,0.6)',
+              margin: 0,
+              maxWidth: '500px',
+            })}
+          >
+            {film.description}
+          </p>
+
+          {/* Runtime badge */}
+          <div
+            css={{
+              display: 'inline-flex',
+              gap: '24px',
+              marginTop: '32px',
+              padding: '12px 0',
+              borderTop: '1px solid rgba(0,0,0,0.1)',
+            }}
+          >
+            <span css={{
+              fontFamily: 'monospace',
+              fontSize: '12px',
+              color: 'rgba(0,0,0,0.4)',
+            }}>
+              runtime: {film.duration}
+            </span>
+            <span css={{
+              fontFamily: 'monospace',
+              fontSize: '12px',
+              color: 'rgba(0,0,0,0.4)',
+            }}>
+              format: digital
+            </span>
+          </div>
+        </motion.div>
+
+        {/* Links */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          css={mq({
+            display: 'flex',
+            flexDirection: ['row', 'row', 'column'],
+            gap: '16px',
+            justifyContent: ['flex-start', 'flex-start', 'flex-start'],
+          })}
+        >
+          <FilmLink href={film.youtubeUrl} variant="tech">
+            Watch Film
+          </FilmLink>
+          <FilmLink href={film.imdbUrl} variant="tech" secondary>
+            IMDb
+          </FilmLink>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+// ============================================
+// Reusable Link Component
+// ============================================
+const FilmLink: FC<{
+  href?: string;
   children: React.ReactNode;
-  primary?: boolean;
-  theme: 'vintage' | 'thriller' | 'tech';
-}> = ({ href, children, primary, theme }) => {
-  const themeColors = themes[theme];
-  const isLight = theme === 'tech';
+  variant: 'vintage' | 'thriller' | 'tech';
+  secondary?: boolean;
+}> = ({ href, children, variant, secondary }) => {
+  const styles = {
+    vintage: {
+      bg: secondary ? 'transparent' : 'rgba(180, 160, 120, 0.15)',
+      border: 'rgba(180, 160, 120, 0.4)',
+      color: '#d4c5a9',
+      hoverBg: 'rgba(180, 160, 120, 0.25)',
+    },
+    thriller: {
+      bg: secondary ? 'transparent' : 'rgba(139, 30, 30, 0.2)',
+      border: 'rgba(139, 30, 30, 0.4)',
+      color: '#e8e2d5',
+      hoverBg: 'rgba(139, 30, 30, 0.35)',
+    },
+    tech: {
+      bg: secondary ? 'transparent' : '#0a0a0a',
+      border: '#0a0a0a',
+      color: secondary ? '#0a0a0a' : '#fafafa',
+      hoverBg: secondary ? 'rgba(0,0,0,0.05)' : '#1a1a1a',
+    },
+  };
+
+  const s = styles[variant];
 
   return (
     <motion.a
@@ -457,220 +976,29 @@ const FilmButton: FC<{
       rel="noopener noreferrer"
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      css={{
-        fontFamily: 'var(--font-body)',
+      css={mq({
+        fontFamily: variant === 'vintage' ? '"Courier New", monospace' : 'var(--font-body)',
         fontSize: '12px',
         fontWeight: 500,
-        letterSpacing: '0.15em',
+        letterSpacing: '0.12em',
         textTransform: 'uppercase',
-        padding: '14px 28px',
-        border: primary 
-          ? 'none' 
-          : `1px solid ${themeColors.border}`,
-        background: primary 
-          ? (isLight ? themeColors.accent : themeColors.accent)
-          : 'transparent',
-        color: primary 
-          ? (isLight ? '#fff' : themeColors.text)
-          : themeColors.text,
-        cursor: 'pointer',
-        transition: 'all 0.3s ease',
+        padding: ['12px 24px', '14px 28px', '16px 32px'],
+        background: s.bg,
+        border: `1px solid ${s.border}`,
+        color: s.color,
         textDecoration: 'none',
         display: 'inline-block',
+        textAlign: 'center',
+        transition: 'all 0.3s ease',
+        cursor: 'pointer',
         '&:hover': {
-          background: primary 
-            ? (theme === 'thriller' ? '#a52b2b' : (isLight ? '#1a1a1a' : themeColors.text))
-            : `${themeColors.accent}15`,
-          color: primary 
-            ? (isLight ? '#fff' : themeColors.bg)
-            : themeColors.text,
-          borderColor: themeColors.accent,
+          background: s.hoverBg,
         },
-      }}
+      })}
     >
       {children}
     </motion.a>
   );
 };
 
-// Vintage background (WW2 era)
-const VintageBackground: FC<{ isInView: boolean }> = ({ isInView }) => (
-  <>
-    {/* Vignette effect */}
-    <div
-      css={{
-        position: 'absolute',
-        inset: 0,
-        background: 'radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.4) 100%)',
-        pointerEvents: 'none',
-      }}
-    />
-    {/* Film scratches */}
-    <motion.div
-      animate={{ 
-        backgroundPosition: ['0% 0%', '100% 100%'],
-      }}
-      transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-      css={{
-        position: 'absolute',
-        inset: 0,
-        opacity: 0.03,
-        background: `repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 50px,
-          rgba(255,255,255,0.1) 50px,
-          rgba(255,255,255,0.1) 51px
-        )`,
-        pointerEvents: 'none',
-      }}
-    />
-    {/* Date stamp */}
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: isInView ? 1 : 0 }}
-      transition={{ duration: 1, delay: 1 }}
-      css={mq({
-        position: 'absolute',
-        bottom: ['40px', '60px', '80px'],
-        right: ['24px', '60px', '80px'],
-        fontFamily: 'var(--font-body)',
-        fontSize: '10px',
-        fontWeight: 400,
-        letterSpacing: '0.3em',
-        color: 'rgba(212, 197, 169, 0.3)',
-        textTransform: 'uppercase',
-      })}
-    >
-      Jerusalem, 1961
-    </motion.div>
-  </>
-);
-
-// Thriller background (religious/dark)
-const ThrillerBackground: FC<{ isInView: boolean }> = ({ isInView }) => (
-  <>
-    {/* Deep shadow overlay */}
-    <div
-      css={{
-        position: 'absolute',
-        inset: 0,
-        background: 'radial-gradient(ellipse at 70% 30%, transparent 0%, rgba(0,0,0,0.7) 100%)',
-        pointerEvents: 'none',
-      }}
-    />
-    {/* Subtle cross pattern */}
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: isInView ? 0.02 : 0 }}
-      transition={{ duration: 1.5 }}
-      css={{
-        position: 'absolute',
-        inset: 0,
-        backgroundImage: `
-          linear-gradient(rgba(139, 30, 30, 0.1) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(139, 30, 30, 0.1) 1px, transparent 1px)
-        `,
-        backgroundSize: '100px 100px',
-        pointerEvents: 'none',
-      }}
-    />
-    {/* Candle glow effect */}
-    <motion.div
-      animate={{ 
-        opacity: [0.3, 0.5, 0.3],
-      }}
-      transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-      css={mq({
-        position: 'absolute',
-        top: '20%',
-        left: ['10%', '15%', '20%'],
-        width: '300px',
-        height: '300px',
-        background: 'radial-gradient(circle, rgba(201, 162, 39, 0.08) 0%, transparent 70%)',
-        borderRadius: '50%',
-        pointerEvents: 'none',
-        filter: 'blur(60px)',
-      })}
-    />
-  </>
-);
-
-// Tech background (clinical/digital)
-const TechBackground: FC<{ isInView: boolean }> = ({ isInView }) => (
-  <>
-    {/* Grid pattern */}
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: isInView ? 1 : 0 }}
-      transition={{ duration: 1 }}
-      css={{
-        position: 'absolute',
-        inset: 0,
-        backgroundImage: `
-          linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px)
-        `,
-        backgroundSize: '40px 40px',
-        pointerEvents: 'none',
-      }}
-    />
-    {/* Data streams */}
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: isInView ? 0.4 : 0 }}
-      transition={{ duration: 1, delay: 0.5 }}
-      css={mq({
-        position: 'absolute',
-        top: '10%',
-        right: ['5%', '10%', '15%'],
-        fontFamily: 'monospace',
-        fontSize: '10px',
-        color: 'rgba(0,0,0,0.1)',
-        lineHeight: 1.8,
-        whiteSpace: 'pre',
-        pointerEvents: 'none',
-        display: ['none', 'none', 'block'],
-      })}
-    >
-      {`01001000 01010101 01001101
-01000001 01001110 00100000
-01000011 01001111 01010011
-01010100 00100000 01001111
-01000110 00100000 01000001
-01001001 00101110 00101110`}
-    </motion.div>
-    {/* Corner brackets */}
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: isInView ? 1 : 0, scale: isInView ? 1 : 0.9 }}
-      transition={{ duration: 0.8, delay: 0.3 }}
-      css={mq({
-        position: 'absolute',
-        top: ['40px', '60px', '80px'],
-        left: ['24px', '60px', '80px'],
-        width: '60px',
-        height: '60px',
-        borderTop: '2px solid rgba(0,0,0,0.1)',
-        borderLeft: '2px solid rgba(0,0,0,0.1)',
-      })}
-    />
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: isInView ? 1 : 0, scale: isInView ? 1 : 0.9 }}
-      transition={{ duration: 0.8, delay: 0.3 }}
-      css={mq({
-        position: 'absolute',
-        bottom: ['40px', '60px', '80px'],
-        right: ['24px', '60px', '80px'],
-        width: '60px',
-        height: '60px',
-        borderBottom: '2px solid rgba(0,0,0,0.1)',
-        borderRight: '2px solid rgba(0,0,0,0.1)',
-      })}
-    />
-  </>
-);
-
 export default FilmShowcase;
-

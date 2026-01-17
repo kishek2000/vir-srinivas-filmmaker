@@ -1,23 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { FC, useEffect, useState, useRef } from 'react';
-import { motion, useViewportScroll, useTransform } from 'framer-motion';
+import { FC, useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { mq } from '../styles/mq';
 
 export const HeroSection: FC = () => {
   const [loaded, setLoaded] = useState(false);
   const [showContent, setShowContent] = useState(false);
-  const [scrollRange, setScrollRange] = useState([0, 1]);
-  
-  const { scrollY } = useViewportScroll();
-  
-  useEffect(() => {
-    // Set scroll range based on window height
-    setScrollRange([0, typeof window !== 'undefined' ? window.innerHeight : 1000]);
-  }, []);
-  
-  const opacity = useTransform(scrollY, scrollRange, [1, 0]);
-  const scale = useTransform(scrollY, scrollRange, [1, 0.95]);
-  const y = useTransform(scrollY, [0, scrollRange[1] * 0.5], [0, 100]);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoaded(true), 100);
@@ -33,8 +21,7 @@ export const HeroSection: FC = () => {
   };
 
   return (
-    <motion.section
-      style={{ opacity, scale }}
+    <section
       css={mq({
         position: 'relative',
         minHeight: '100vh',
@@ -80,8 +67,7 @@ export const HeroSection: FC = () => {
       </div>
 
       {/* Main content */}
-      <motion.div
-        style={{ y }}
+      <div
         css={mq({
           display: 'flex',
           flexDirection: 'column',
@@ -198,7 +184,7 @@ export const HeroSection: FC = () => {
           Crafting stories that explore the depths of human nature—from the horrors of war 
           to the moral complexities of faith and the hidden costs of technology.
         </motion.p>
-      </motion.div>
+      </div>
 
       {/* Scroll indicator */}
       <motion.div
@@ -284,7 +270,7 @@ export const HeroSection: FC = () => {
           />
         ))}
       </div>
-    </motion.section>
+    </section>
   );
 };
 
