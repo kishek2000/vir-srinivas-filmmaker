@@ -221,7 +221,7 @@ const VintageFilmShowcase: FC<{
             marginTop: '16px',
           })}
         >
-          "{film.tagline}"
+          &quot;{film.tagline}&quot;
         </motion.p>
 
         {/* Meta info - document style */}
@@ -568,7 +568,7 @@ const ThrillerFilmShowcase: FC<{
             paddingLeft: '24px',
           })}
         >
-          "{film.tagline}"
+          &quot;{film.tagline}&quot;
         </motion.blockquote>
 
         <div
@@ -820,7 +820,7 @@ const TechFilmShowcase: FC<{
             maxWidth: '400px',
           })}
         >
-          // {film.tagline}
+          {film.tagline}
         </motion.p>
       </div>
 
