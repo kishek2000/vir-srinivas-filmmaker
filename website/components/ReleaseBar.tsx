@@ -63,7 +63,7 @@ export function ReleaseBar() {
               <span className="display truncate text-[clamp(0.95rem,2vw,1.25rem)] leading-tight">
                 {film.title}
               </span>
-              <span className="meta-sm text-bone-faint group-hover:text-bone hidden shrink-0 whitespace-nowrap transition-colors duration-500 md:block">
+              <span className="meta-sm text-bone-faint group-hover:text-bone shrink-0 whitespace-nowrap transition-colors duration-500">
                 Watch free →
               </span>
             </Link>

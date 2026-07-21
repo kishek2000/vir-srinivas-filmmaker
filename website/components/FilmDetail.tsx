@@ -186,7 +186,20 @@ export function FilmDetail({ film, next }: { film: Film; next: Film }) {
   );
 }
 
+/**
+ * Two hero treatments, chosen by what the film actually has.
+ *
+ * With footage, the frame runs full-bleed behind the title. Without it,
+ * all we have is a portrait one-sheet that carries its own title and
+ * credits — cropping that to a landscape band would maim the artwork and
+ * print the title twice, so it is shown as what it is: a poster, whole,
+ * standing beside the type.
+ */
 function FilmHero({ film }: { film: Film }) {
+  return film.preview ? <ReelHero film={film} /> : <PosterHero film={film} />;
+}
+
+function ReelHero({ film }: { film: Film }) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -201,39 +214,21 @@ function FilmHero({ film }: { film: Film }) {
       className="relative flex h-[86svh] min-h-[520px] w-full items-end overflow-hidden"
     >
       <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
-        {film.preview ? (
-          <video
-            className="film-wash h-full w-full object-cover"
-            src={film.preview}
-            poster={film.poster}
-            autoPlay
-            loop
-            muted
-            playsInline
-          />
-        ) : (
-          <Image
-            src={film.poster}
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="film-wash object-cover"
-          />
-        )}
+        <video
+          className="h-full w-full object-cover grayscale-[0.15] contrast-[1.06] brightness-[0.8]"
+          src={film.preview}
+          poster={film.poster}
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
         <div className="vignette absolute inset-0" />
         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[var(--color-ink)] via-[var(--color-ink)]/50 to-transparent" />
       </motion.div>
 
       <div className="gutter relative z-10 w-full pb-[clamp(2rem,5vh,4rem)]">
-        <Rise>
-          <Link
-            href="/#work"
-            className="meta text-bone-muted hover:text-bone mb-8 inline-flex items-center gap-2.5 transition-colors duration-500"
-          >
-            <span aria-hidden>←</span> All films
-          </Link>
-        </Rise>
+        <BackLink />
 
         <RevealLines
           as="h1"
@@ -242,29 +237,80 @@ function FilmHero({ film }: { film: Film }) {
           delay={0.15}
         />
 
-        <div className="mt-8 flex flex-wrap items-end justify-between gap-x-10 gap-y-4 border-t border-[var(--rule)] pt-5">
-          <Rise delay={0.35}>
-            <p className="meta text-bone-muted flex flex-wrap gap-x-5 gap-y-2">
-              <span>{film.year}</span>
-              <span>{film.format}</span>
-              <span>{film.runtime}</span>
-              <span>{film.genres.join(' · ')}</span>
-            </p>
-          </Rise>
-
-          {film.accolade && (
-            <Rise delay={0.45}>
-              <p
-                className="meta whitespace-nowrap"
-                style={{ color: 'var(--brass)' }}
-              >
-                {film.accolade}
-              </p>
-            </Rise>
-          )}
-        </div>
+        <HeroMeta film={film} />
       </div>
     </section>
+  );
+}
+
+function PosterHero({ film }: { film: Film }) {
+  return (
+    <section className="gutter relative w-full pt-[clamp(6rem,16vh,10rem)] pb-[clamp(2rem,6vh,4rem)]">
+      <BackLink />
+
+      <div className="grid items-end gap-[clamp(2.5rem,6vw,5rem)] lg:grid-cols-12">
+        <div className="lg:col-span-7">
+          <RevealLines
+            as="h1"
+            lines={film.titleLines}
+            className="display display-lg"
+            delay={0.15}
+          />
+        </div>
+
+        <Rise delay={0.25} className="lg:col-span-4 lg:col-start-9">
+          <div className="relative mx-auto aspect-[2/3] w-full max-w-[19rem] overflow-hidden lg:mx-0">
+            <Image
+              src={film.poster}
+              alt={`${film.title} poster`}
+              fill
+              priority
+              sizes="(max-width: 1024px) 70vw, 26vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 ring-1 ring-inset ring-[var(--rule)]" />
+          </div>
+        </Rise>
+      </div>
+
+      <HeroMeta film={film} />
+    </section>
+  );
+}
+
+function BackLink() {
+  return (
+    <Rise>
+      <Link
+        href="/#work"
+        className="meta text-bone-muted hover:text-bone mb-8 inline-flex items-center gap-2.5 transition-colors duration-500"
+      >
+        <span aria-hidden>←</span> All films
+      </Link>
+    </Rise>
+  );
+}
+
+function HeroMeta({ film }: { film: Film }) {
+  return (
+    <div className="mt-8 flex flex-wrap items-end justify-between gap-x-10 gap-y-4 border-t border-[var(--rule)] pt-5">
+      <Rise delay={0.35}>
+        <p className="meta text-bone-muted flex flex-wrap gap-x-5 gap-y-2">
+          <span>{film.year}</span>
+          <span>{film.format}</span>
+          <span>{film.runtime}</span>
+          <span>{film.genres.join(' · ')}</span>
+        </p>
+      </Rise>
+
+      {film.accolade && (
+        <Rise delay={0.45}>
+          <p className="meta whitespace-nowrap" style={{ color: 'var(--brass)' }}>
+            {film.accolade}
+          </p>
+        </Rise>
+      )}
+    </div>
   );
 }
 

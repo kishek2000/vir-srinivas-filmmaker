@@ -78,12 +78,14 @@ function Backdrop({ film }: { film: Film }) {
           playsInline
         />
       ) : (
+        // A portrait one-sheet cropped to a full-bleed panel is unreadable
+        // as artwork, so it is blurred into pure atmosphere behind the type.
         <Image
           src={film.poster}
           alt=""
           fill
           sizes="100vw"
-          className="object-cover grayscale-[0.3] contrast-[1.05] brightness-[0.8]"
+          className="scale-110 object-cover blur-2xl grayscale-[0.2] brightness-[0.9] saturate-[1.2]"
         />
       )}
       <div className="absolute inset-0 bg-[var(--color-ink)]/45" />

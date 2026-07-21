@@ -41,7 +41,7 @@ export function SiteHeader() {
       <ReleaseBar />
 
       <div
-        className="gutter flex items-center justify-between gap-6 py-4 transition-colors duration-700"
+        className="gutter flex items-center justify-end gap-6 py-4 transition-colors duration-700 sm:justify-between"
         style={{
           backgroundColor: scrolled ? 'rgba(8,8,10,0.7)' : 'transparent',
           backdropFilter: scrolled ? 'blur(16px)' : undefined,
@@ -53,7 +53,7 @@ export function SiteHeader() {
       >
         <Link
           href="/"
-          className="meta transition-opacity duration-700 hover:opacity-60"
+          className="meta hidden transition-opacity duration-700 hover:opacity-60 sm:block"
           style={{
             opacity: scrolled ? 1 : 0,
             pointerEvents: scrolled ? 'auto' : 'none',
@@ -64,7 +64,7 @@ export function SiteHeader() {
 
         {/* On narrow screens the list scrolls sideways rather than
             collapsing into a menu — five links do not warrant a drawer. */}
-        <nav className="-mx-1 flex gap-x-6 overflow-x-auto px-1 sm:gap-x-7 sm:overflow-visible [&::-webkit-scrollbar]:hidden">
+        <nav className="-mx-1 flex w-full justify-between gap-x-4 px-1 sm:w-auto sm:justify-end sm:gap-x-7">
           {SECTIONS.map((section) => (
             <Link
               key={section.href}

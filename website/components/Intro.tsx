@@ -67,8 +67,8 @@ export function Intro() {
             <dl className="mt-[clamp(2.5rem,6vh,4rem)] grid grid-cols-3 gap-4 border-t border-[var(--rule)] pt-6">
               {ROLES.map((role) => (
                 <div key={role}>
-                  <dt className="meta-sm text-bone-faint">Credit</dt>
-                  <dd className="display display-sm mt-1.5">{role}</dd>
+                  <dt className="sr-only">Credit</dt>
+                  <dd className="display display-sm">{role}</dd>
                 </div>
               ))}
             </dl>

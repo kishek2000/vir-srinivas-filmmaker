@@ -105,7 +105,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, ease: EASE, delay: 0.9 }}
-          className="mt-8 flex flex-wrap items-end justify-between gap-6 border-t border-[var(--rule)] pt-5"
+          className="mt-6 flex flex-col gap-3 border-t border-[var(--rule)] pt-5 sm:mt-8 sm:flex-row sm:items-end sm:justify-between sm:gap-6"
         >
           <p className="meta text-bone-muted flex gap-x-5 gap-y-2">
             {ROLES.map((role) => (
@@ -113,7 +113,7 @@ export function Hero() {
             ))}
           </p>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center">
             <button
               type="button"
               onClick={() => setMuted((m) => !m)}
