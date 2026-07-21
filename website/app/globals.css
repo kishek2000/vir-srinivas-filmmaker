@@ -12,9 +12,13 @@
   --color-ink: #08080a;
   --color-ink-raised: #0f0f12;
   --color-ink-edge: #1a1a1f;
+  /* Three tiers, each measured against the darkest ground the site uses
+     (#06070f). Primary 17:1, secondary 9.4:1, labels 4.7:1 — the faint
+     tier carries field labels, so it has to clear AA rather than just
+     look recessive. */
   --color-bone: #ece7de;
-  --color-bone-muted: #8e8a83;
-  --color-bone-faint: #4a4741;
+  --color-bone-muted: #a8a29a;
+  --color-bone-faint: #7c776e;
   --color-brass: #b78f52;
 
   --font-display: var(--font-instrument-serif), ui-serif, Georgia, serif;
@@ -32,6 +36,7 @@
      viewport, so rules, counters and hover states carry the colour of
      whatever is on screen; between films it settles back to bone. */
   --accent: #ece7de;
+  --on-accent: #08080a;
   --ground: #08080a;
   --gutter: clamp(1.25rem, 5vw, 5rem);
   --rule: rgba(236, 231, 222, 0.14);
@@ -64,7 +69,7 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: var(--ground);
+  color: var(--on-accent);
 }
 
 :focus-visible {
@@ -298,7 +303,7 @@ body {
   );
   /* Tapered, so it narrows as it falls the way a real shaft does. */
   clip-path: polygon(34% 0%, 66% 0%, 100% 100%, 0% 100%);
-  filter: blur(40px);
+  filter: blur(52px);
 }
 
 /* Accent-tinted helpers, live wherever the current chapter puts them. */

@@ -50,12 +50,14 @@ function Plate({ film, index }: { film: Film; index: number }) {
     if (!owns) return;
     const root = document.documentElement;
     root.style.setProperty('--accent', film.identity.accent);
+    root.style.setProperty('--on-accent', film.identity.onAccent);
     root.style.setProperty('--ground', film.identity.ground);
     return () => {
       root.style.setProperty('--accent', '#ece7de');
+      root.style.setProperty('--on-accent', '#08080a');
       root.style.setProperty('--ground', '#08080a');
     };
-  }, [owns, film.identity.accent, film.identity.ground]);
+  }, [owns, film.identity]);
 
   const Composition = {
     documentary: DocumentaryPlate,
@@ -124,7 +126,7 @@ function DocumentaryPlate({ film, numeral }: PlateProps) {
               {film.logline}
             </p>
             <div className="md:col-span-4 md:col-start-9 md:text-right">
-              <PlateAwards film={film} />
+              <PlateAwards film={film} align="end" />
             </div>
           </div>
         </div>
@@ -186,7 +188,7 @@ function LiturgicalPlate({ film, numeral }: PlateProps) {
           <div className="accent-rule mt-9 h-px w-16" />
 
           <div className="mt-6">
-            <PlateAwards film={film} centred />
+            <PlateAwards film={film} align="center" />
           </div>
         </div>
       </div>
@@ -254,7 +256,7 @@ function SystemicPlate({ film, numeral }: PlateProps) {
             </dl>
 
             <div className="mt-8">
-              <PlateAwards film={film} />
+              <PlateAwards film={film} align="start" />
             </div>
           </div>
 
@@ -326,17 +328,21 @@ function PlateIndex({
 /** Awards for this film, stated plainly or omitted entirely. */
 function PlateAwards({
   film,
-  centred = false,
+  align = 'start',
 }: {
   film: Film;
-  centred?: boolean;
+  /** Follows the plate's composition rather than a single house rule. */
+  align?: 'start' | 'center' | 'end';
 }) {
   const { wins, nominations } = countAwards(film.awards);
+  const alignment = {
+    start: 'items-start',
+    center: 'items-center',
+    end: 'items-start md:items-end',
+  }[align];
 
   return (
-    <div
-      className={`flex flex-col gap-2 ${centred ? 'items-center' : 'items-start md:items-end'}`}
-    >
+    <div className={`flex flex-col gap-2 ${alignment}`}>
       {wins > 0 && (
         <p className="meta accent">
           {wins} {wins === 1 ? 'win' : 'wins'}

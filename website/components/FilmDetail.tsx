@@ -15,12 +15,14 @@ export function FilmDetail({ film, next }: { film: Film; next: Film }) {
   useEffect(() => {
     const root = document.documentElement;
     root.style.setProperty('--accent', film.identity.accent);
+    root.style.setProperty('--on-accent', film.identity.onAccent);
     root.style.setProperty('--ground', film.identity.ground);
     return () => {
       root.style.setProperty('--accent', '#ece7de');
+      root.style.setProperty('--on-accent', '#08080a');
       root.style.setProperty('--ground', '#08080a');
     };
-  }, [film.identity.accent, film.identity.ground]);
+  }, [film.identity]);
 
   return (
     <div className={`register-${film.identity.register}`}>
@@ -351,7 +353,7 @@ function Action({
       rel="noopener noreferrer"
       className={`meta inline-flex items-center gap-2.5 px-6 py-3.5 transition-colors duration-500 ${
         primary
-          ? 'bg-[var(--accent)] text-[var(--ground)] hover:opacity-80'
+          ? 'bg-[var(--accent)] text-[var(--on-accent)] hover:opacity-80'
           : 'text-bone-muted hover:text-bone border border-[var(--rule-strong)] hover:border-[var(--color-bone)]'
       }`}
     >

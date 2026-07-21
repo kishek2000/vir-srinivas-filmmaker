@@ -45,6 +45,11 @@ export interface WatchGroup {
  *
  * `register` picks the composition: how the plate is laid out and which
  * typographic voice it speaks in.
+ *
+ * The accents are the sampled hues lightened until they clear 4.5:1
+ * against their own ground, because they carry small mono text as well as
+ * marks. The hue is the film's; only the lightness is ours. `onAccent` is
+ * the colour that sits on top of an accent fill.
  */
 export type Register = 'documentary' | 'liturgical' | 'systemic';
 
@@ -52,6 +57,8 @@ export interface Identity {
   register: Register;
   /** Drives --accent while this film holds the viewport. */
   accent: string;
+  /** Legible on an --accent fill. */
+  onAccent: string;
   /** The ground the plate sits on. */
   ground: string;
 }
@@ -236,6 +243,7 @@ export const films: Film[] = [
     identity: {
       register: 'documentary',
       accent: '#ECE7DE',
+      onAccent: '#08080A',
       ground: '#08080A',
     },
     title: 'Orders from Above',
@@ -330,7 +338,8 @@ export const films: Film[] = [
     slug: 'the-proselyte',
     identity: {
       register: 'liturgical',
-      accent: '#C08E42',
+      accent: '#D8A45C',
+      onAccent: '#06070F',
       ground: '#06070F',
     },
     title: 'The Proselyte',
@@ -356,7 +365,8 @@ export const films: Film[] = [
     slug: 'gradient-descent',
     identity: {
       register: 'systemic',
-      accent: '#B32020',
+      accent: '#E15A5A',
+      onAccent: '#0A0708',
       ground: '#0A0708',
     },
     title: 'Gradient Descent',
