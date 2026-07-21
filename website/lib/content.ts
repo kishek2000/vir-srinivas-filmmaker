@@ -29,8 +29,36 @@ export interface WatchGroup {
   footnote?: string;
 }
 
+/**
+ * Each film gets its own world on the page. The palettes below are not
+ * invented — they were sampled from the films' own posters and frames:
+ *
+ *   Orders from Above  no saturated pixels at all. It is a true
+ *                      black-and-white film and won Cannes World's Best
+ *                      Black & White Film; its identity is the absence
+ *                      of colour, so the page holds pure neutral.
+ *   The Proselyte      candle amber (hue 30-40°) against a blue-black
+ *                      ground (hue 240-250°) — chiaroscuro, light
+ *                      falling into a dark room.
+ *   Gradient Descent   red and nothing else (hue 0°), over the machine
+ *                      text that builds the face on its poster.
+ *
+ * `register` picks the composition: how the plate is laid out and which
+ * typographic voice it speaks in.
+ */
+export type Register = 'documentary' | 'liturgical' | 'systemic';
+
+export interface Identity {
+  register: Register;
+  /** Drives --accent while this film holds the viewport. */
+  accent: string;
+  /** The ground the plate sits on. */
+  ground: string;
+}
+
 export interface Film {
   slug: string;
+  identity: Identity;
   title: string;
   /** Rendered as two lines in the index when present. */
   titleLines: string[];
@@ -205,6 +233,11 @@ const PROSELYTE_AWARDS: Award[] = [
 export const films: Film[] = [
   {
     slug: 'orders-from-above',
+    identity: {
+      register: 'documentary',
+      accent: '#ECE7DE',
+      ground: '#08080A',
+    },
     title: 'Orders from Above',
     titleLines: ['Orders', 'from Above'],
     year: '2021',
@@ -295,6 +328,11 @@ export const films: Film[] = [
   },
   {
     slug: 'the-proselyte',
+    identity: {
+      register: 'liturgical',
+      accent: '#C08E42',
+      ground: '#06070F',
+    },
     title: 'The Proselyte',
     titleLines: ['The', 'Proselyte'],
     year: '2022',
@@ -316,6 +354,11 @@ export const films: Film[] = [
   },
   {
     slug: 'gradient-descent',
+    identity: {
+      register: 'systemic',
+      accent: '#B32020',
+      ground: '#0A0708',
+    },
     title: 'Gradient Descent',
     titleLines: ['Gradient', 'Descent'],
     year: '2024',

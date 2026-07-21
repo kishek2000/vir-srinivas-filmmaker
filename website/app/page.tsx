@@ -1,6 +1,6 @@
 import { Awards } from '@/components/Awards';
 import { Contact } from '@/components/Contact';
-import { FilmIndex } from '@/components/FilmIndex';
+import { FilmPlates } from '@/components/FilmPlates';
 import { Hero } from '@/components/Hero';
 import { Intro } from '@/components/Intro';
 import { Press } from '@/components/Press';
@@ -12,7 +12,7 @@ export default function Home() {
       <SiteHeader />
       <main>
         <Hero />
-        <FilmIndex />
+        <FilmPlates />
         <Intro />
         <Awards />
         <Press />

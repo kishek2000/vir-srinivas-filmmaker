@@ -3,15 +3,27 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { countAwards, type Film } from '@/lib/content';
 import { EASE, RevealLines, Rise } from './Reveal';
 
 export function FilmDetail({ film, next }: { film: Film; next: Film }) {
   const { wins, nominations } = countAwards(film.awards);
 
+  // The film's page is wholly its own world — its accent and ground hold
+  // for the length of the page rather than only while a plate is on screen.
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty('--accent', film.identity.accent);
+    root.style.setProperty('--ground', film.identity.ground);
+    return () => {
+      root.style.setProperty('--accent', '#ece7de');
+      root.style.setProperty('--ground', '#08080a');
+    };
+  }, [film.identity.accent, film.identity.ground]);
+
   return (
-    <>
+    <div className={`register-${film.identity.register}`}>
       <FilmHero film={film} />
 
       <div className="gutter">
@@ -89,7 +101,7 @@ export function FilmDetail({ film, next }: { film: Film; next: Film }) {
                     <div className="lg:col-span-9">
                       <ul className="grid gap-px bg-[var(--rule)] sm:grid-cols-2">
                         {group.links.map((link) => (
-                          <li key={link.href} className="bg-[var(--color-ink)]">
+                          <li key={link.href} className="bg-[var(--ground)]">
                             <a
                               href={link.href}
                               target="_blank"
@@ -100,8 +112,10 @@ export function FilmDetail({ film, next }: { film: Film; next: Film }) {
                                 {link.free && (
                                   <span
                                     aria-hidden
-                                    className="size-1.5 shrink-0 translate-y-[-0.2em] rounded-full"
-                                    style={{ backgroundColor: 'var(--brass)' }}
+                                    className="accent-rule size-1.5 shrink-0 translate-y-[-0.2em] rounded-full"
+                                    style={{
+                                      backgroundColor: 'var(--accent)',
+                                    }}
                                   />
                                 )}
                                 <span className="display display-sm leading-none">
@@ -155,7 +169,7 @@ export function FilmDetail({ film, next }: { film: Film; next: Film }) {
                     className="meta w-[5.5rem] shrink-0"
                     style={{
                       color:
-                        award.result === 'Winner' ? 'var(--brass)' : undefined,
+                        award.result === 'Winner' ? 'var(--accent)' : undefined,
                     }}
                   >
                     {award.note ?? award.result}
@@ -182,7 +196,7 @@ export function FilmDetail({ film, next }: { film: Film; next: Film }) {
           </Link>
         </section>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -215,7 +229,7 @@ function ReelHero({ film }: { film: Film }) {
     >
       <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
         <video
-          className="h-full w-full object-cover grayscale-[0.15] contrast-[1.06] brightness-[0.8]"
+          className="plate-media h-full w-full object-cover"
           src={film.preview}
           poster={film.poster}
           autoPlay
@@ -266,7 +280,7 @@ function PosterHero({ film }: { film: Film }) {
               fill
               priority
               sizes="(max-width: 1024px) 70vw, 26vw"
-              className="object-cover"
+              className="plate-media object-cover"
             />
             <div className="absolute inset-0 ring-1 ring-inset ring-[var(--rule)]" />
           </div>
@@ -305,9 +319,7 @@ function HeroMeta({ film }: { film: Film }) {
 
       {film.accolade && (
         <Rise delay={0.45}>
-          <p className="meta whitespace-nowrap" style={{ color: 'var(--brass)' }}>
-            {film.accolade}
-          </p>
+          <p className="meta accent whitespace-nowrap">{film.accolade}</p>
         </Rise>
       )}
     </div>
@@ -339,7 +351,7 @@ function Action({
       rel="noopener noreferrer"
       className={`meta inline-flex items-center gap-2.5 px-6 py-3.5 transition-colors duration-500 ${
         primary
-          ? 'bg-[var(--color-bone)] text-[var(--color-ink)] hover:bg-[var(--color-bone)]/80'
+          ? 'bg-[var(--accent)] text-[var(--ground)] hover:opacity-80'
           : 'text-bone-muted hover:text-bone border border-[var(--rule-strong)] hover:border-[var(--color-bone)]'
       }`}
     >

@@ -27,6 +27,12 @@
 
 :root {
   --brass: #b78f52;
+
+  /* The live accent. Each film chapter takes this over while it holds the
+     viewport, so rules, counters and hover states carry the colour of
+     whatever is on screen; between films it settles back to bone. */
+  --accent: #ece7de;
+  --ground: #08080a;
   --gutter: clamp(1.25rem, 5vw, 5rem);
   --rule: rgba(236, 231, 222, 0.14);
   --rule-strong: rgba(236, 231, 222, 0.28);
@@ -39,14 +45,15 @@
 }
 
 html {
-  background-color: var(--color-ink);
+  background-color: var(--ground);
+  transition: background-color 1.2s var(--ease-out-expo);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--color-ink);
+  background-color: transparent;
   color: var(--color-bone);
   font-family: var(--font-sans);
   font-size: 16px;
@@ -56,8 +63,8 @@ body {
 }
 
 ::selection {
-  background: var(--color-bone);
-  color: var(--color-ink);
+  background: var(--accent);
+  color: var(--ground);
 }
 
 :focus-visible {
@@ -70,7 +77,7 @@ body {
   width: 9px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-ink);
+  background: var(--ground);
 }
 ::-webkit-scrollbar-thumb {
   background: #26262b;
@@ -238,4 +245,66 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+/* ─── Per-film registers ───────────────────────────────────────────
+   Three compositions, one per film, each taking its cues from the
+   film's own artwork rather than from a house style applied on top.
+   ─────────────────────────────────────────────────────────────── */
+
+/* Documentary — Orders from Above. Neutral, wide, evidentiary. The film
+   has no colour in it at all, so neither does its plate. */
+.register-documentary {
+  --plate-measure: 46ch;
+}
+.register-documentary .plate-media {
+  filter: grayscale(1) contrast(1.12) brightness(0.78);
+}
+
+/* Liturgical — The Proselyte. A shaft of candlelight falling into a blue
+   dark; everything centred, still, and slower than its neighbours. */
+.register-liturgical {
+  --plate-measure: 34ch;
+}
+.register-liturgical .plate-media {
+  filter: saturate(1.15) contrast(1.06) brightness(0.92);
+}
+
+/* Systemic — Gradient Descent. A machine looking at a person: fine grid,
+   monospace, red, nothing warm. */
+.register-systemic {
+  --plate-measure: 40ch;
+}
+.register-systemic .plate-media {
+  filter: saturate(1.1) contrast(1.14) brightness(0.86);
+}
+
+/* A hairline grid, used only by the systemic plate. */
+.grid-rule {
+  background-image:
+    linear-gradient(to right, rgba(236, 231, 222, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(236, 231, 222, 0.05) 1px, transparent 1px);
+  background-size: 5rem 5rem;
+}
+
+/* A single shaft of light, used only by the liturgical plate. */
+.light-shaft {
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--accent) 20%, transparent) 0%,
+    color-mix(in oklab, var(--accent) 7%, transparent) 30%,
+    color-mix(in oklab, var(--accent) 2%, transparent) 58%,
+    transparent 80%
+  );
+  /* Tapered, so it narrows as it falls the way a real shaft does. */
+  clip-path: polygon(34% 0%, 66% 0%, 100% 100%, 0% 100%);
+  filter: blur(40px);
+}
+
+/* Accent-tinted helpers, live wherever the current chapter puts them. */
+.accent {
+  color: var(--accent);
+}
+.accent-rule {
+  background-color: color-mix(in oklab, var(--accent) 34%, transparent);
 }
