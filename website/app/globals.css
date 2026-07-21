@@ -1,0 +1,241 @@
+@import 'tailwindcss';
+
+/* ───────────────────────────────────────────────────────────────
+   Design tokens
+
+   Cinema black with a warm bone foreground — the palette of a
+   projection booth, not a UI kit. One accent (brass) reserved
+   exclusively for awards. No gradients: the films carry the colour.
+   ─────────────────────────────────────────────────────────────── */
+
+@theme {
+  --color-ink: #08080a;
+  --color-ink-raised: #0f0f12;
+  --color-ink-edge: #1a1a1f;
+  --color-bone: #ece7de;
+  --color-bone-muted: #8e8a83;
+  --color-bone-faint: #4a4741;
+  --color-brass: #b78f52;
+
+  --font-display: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+:root {
+  --brass: #b78f52;
+  --gutter: clamp(1.25rem, 5vw, 5rem);
+  --rule: rgba(236, 231, 222, 0.14);
+  --rule-strong: rgba(236, 231, 222, 0.28);
+}
+
+/* ─── Base ─────────────────────────────────────────────────────── */
+
+* {
+  border-color: var(--rule);
+}
+
+html {
+  background-color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-bone);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 1px solid var(--color-bone);
+  outline-offset: 4px;
+}
+
+/* Scrollbar — thin, dark, out of the way. */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: #26262b;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a41;
+}
+
+/* ─── Type scale ───────────────────────────────────────────────── */
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 0.86;
+  letter-spacing: -0.02em;
+}
+
+/* The name, once, at the top of the film. */
+.display-xl {
+  font-size: clamp(3.75rem, 15vw, 15.5rem);
+}
+
+/* Film titles in the index. */
+.display-lg {
+  font-size: clamp(2.75rem, 9vw, 8.5rem);
+}
+
+/* Section openers. */
+.display-md {
+  font-size: clamp(2.25rem, 5.5vw, 4.75rem);
+}
+
+.display-sm {
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+}
+
+/* Small caps meta — years, runtimes, festival names, labels. */
+.meta {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.meta-sm {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Long-form reading copy. */
+.prose-lg {
+  font-size: clamp(1.0625rem, 1.5vw, 1.3125rem);
+  line-height: 1.62;
+  letter-spacing: -0.005em;
+}
+
+/* ─── Film grain ───────────────────────────────────────────────────
+   A single static SVG noise layer over the whole page. Static, not
+   animated — animated grain reads as a gimmick and costs a repaint
+   every frame.
+   ─────────────────────────────────────────────────────────────── */
+
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ─── Reveal primitives ────────────────────────────────────────── */
+
+/* Text that rises out of a mask. Wrap each line in .reveal-line. */
+.reveal-line {
+  display: block;
+  overflow: hidden;
+}
+
+.reveal-line > * {
+  display: block;
+}
+
+/* ─── Link underline that draws in from the left ───────────────── */
+
+.link-draw {
+  position: relative;
+  display: inline-block;
+}
+
+.link-draw::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.15em;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.link-draw:hover::after,
+.link-draw:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Inverse: starts underlined, retracts on hover. */
+.link-retract::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.link-retract:hover::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+/* ─── Layout helpers ───────────────────────────────────────────── */
+
+.gutter {
+  padding-inline: var(--gutter);
+}
+
+.rule-top {
+  border-top: 1px solid var(--rule);
+}
+
+.rule-bottom {
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ─── Media treatment ──────────────────────────────────────────── */
+
+/* Everything behind type gets pulled down and slightly desaturated so
+   the bone foreground always clears contrast. */
+.film-wash {
+  filter: grayscale(0.35) contrast(1.05) brightness(0.62);
+}
+
+.vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 35%,
+    rgba(8, 8, 10, 0.75) 100%
+  );
+}
+
+/* ─── Motion preferences ───────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
