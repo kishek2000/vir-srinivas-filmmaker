@@ -3,8 +3,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useInView, useScroll, useTransform } from 'motion/react';
-import { useEffect, useRef } from 'react';
-import { films, type Film } from '@/lib/content';
+import type { CSSProperties } from 'react';
+import { useRef } from 'react';
+import { films, themeVars, type Film } from '@/lib/content';
 import { EASE, RevealLines, Rise } from './Reveal';
 
 /**
@@ -17,8 +18,9 @@ import { EASE, RevealLines, Rise } from './Reveal';
  * something the film actually contains: the total absence of colour in one,
  * the polyptych poster of another, the machine-text face of the third.
  *
- * While a plate holds the viewport it drives --accent and --ground, so the
- * whole page changes temperature as you move down it.
+ * Each plate paints its own ground and scopes its own theme variables, so
+ * the colour is simply what that section is — correct on first paint, with
+ * no global state and nothing to animate between.
  */
 export function FilmPlates() {
   return (
@@ -50,34 +52,6 @@ const ROMAN = ['I', 'II', 'III', 'IV', 'V'];
 const ARCH = '50% 50% 0 0 / 20% 20% 0 0';
 
 function Plate({ film, index }: { film: Film; index: number }) {
-  const ref = useRef<HTMLElement>(null);
-  // Hand the page over to this film once the plate covers most of the view.
-  const owns = useInView(ref, { margin: '-45% 0px -45% 0px' });
-
-  useEffect(() => {
-    if (!owns) return;
-    const root = document.documentElement;
-    const { identity } = film;
-    root.style.setProperty('--ground', identity.ground);
-    root.style.setProperty('--figure', identity.figure);
-    root.style.setProperty('--figure-muted', identity.figureMuted);
-    root.style.setProperty('--figure-faint', identity.figureFaint);
-    root.style.setProperty('--accent', identity.accent);
-    root.style.setProperty('--on-accent', identity.onAccent);
-    return () => {
-      for (const prop of [
-        '--ground',
-        '--figure',
-        '--figure-muted',
-        '--figure-faint',
-        '--accent',
-        '--on-accent',
-      ]) {
-        root.style.removeProperty(prop);
-      }
-    };
-  }, [owns, film]);
-
   const Composition = {
     documentary: DocumentaryPlate,
     liturgical: LiturgicalPlate,
@@ -86,7 +60,7 @@ function Plate({ film, index }: { film: Film; index: number }) {
 
   return (
     <article
-      ref={ref as never}
+      style={themeVars(film.identity) as CSSProperties}
       className={`register-${film.identity.register} relative overflow-hidden border-t border-[var(--rule)]`}
     >
       <Composition film={film} numeral={ROMAN[index]} />
@@ -133,8 +107,7 @@ function DocumentaryPlate({ film, numeral }: PlateProps) {
     <PlateLink film={film}>
       <div
         ref={ref}
-        className="on-media relative flex h-[96svh] min-h-[600px] items-end overflow-hidden"
-        style={{ backgroundColor: '#0C0A07' }}
+        className="relative flex h-[96svh] min-h-[600px] items-end overflow-hidden"
       >
         <motion.div style={{ y }} className="absolute inset-[-9%] z-0">
           <video
@@ -147,7 +120,7 @@ function DocumentaryPlate({ film, numeral }: PlateProps) {
             playsInline
           />
         </motion.div>
-        <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#0C0A07] via-[#0C0A07]/45 to-[#0C0A07]/62" />
+        <div className="absolute inset-0 z-0 bg-gradient-to-t from-[var(--ground)] via-[var(--ground)]/45 to-[var(--ground)]/62" />
         {/* Scanlines, as on a tape dub of the original recording. */}
         <div
           aria-hidden

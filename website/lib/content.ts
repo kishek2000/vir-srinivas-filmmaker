@@ -516,6 +516,30 @@ export const press: PressItem[] = [
   },
 ];
 
+/**
+ * A film's theme as plain CSS custom properties, to be set directly on the
+ * element that owns it.
+ *
+ * The alternative — writing these onto documentElement as each plate
+ * scrolls past — meant the page had one background that JS mutated and CSS
+ * cross-faded. That animates when it should not, cannot be correct on the
+ * server's first paint, and leaves a global to clean up. Scoping the theme
+ * to the element renders the right colour immediately and needs no effect
+ * at all.
+ */
+export function themeVars(identity: Identity): Record<string, string> {
+  return {
+    backgroundColor: identity.ground,
+    '--ground': identity.ground,
+    '--figure': identity.figure,
+    '--figure-muted': identity.figureMuted,
+    '--figure-faint': identity.figureFaint,
+    '--accent': identity.accent,
+    '--on-accent': identity.onAccent,
+    color: identity.figure,
+  };
+}
+
 export function getFilm(slug: string): Film | undefined {
   return films.find((film) => film.slug === slug);
 }

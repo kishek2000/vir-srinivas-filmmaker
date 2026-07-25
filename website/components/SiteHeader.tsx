@@ -36,20 +36,17 @@ export function SiteHeader() {
     <motion.header
       animate={{ y: hidden ? '-110%' : '0%' }}
       transition={{ duration: 0.55, ease: EASE }}
-      // Until it has a backdrop of its own, the whole chrome stack is
-      // floating over the hero footage, so it has to read as light-on-dark
-      // regardless of which film's theme the page is carrying. Once it
-      // gains a ground-coloured backdrop it adopts that theme instead.
-      className={`fixed inset-x-0 top-0 z-50 ${scrolled ? '' : 'on-media'}`}
+      // The chrome keeps the site's own colours rather than borrowing the
+      // colours of whichever section happens to be beneath it — it is a
+      // fixed layer above the page, and reads as one.
+      className="fixed inset-x-0 top-0 z-50"
     >
       <ReleaseBar />
 
       <div
         className="gutter flex items-center justify-end gap-6 py-4 transition-colors duration-700 sm:justify-between"
         style={{
-          backgroundColor: scrolled
-            ? 'color-mix(in oklab, var(--ground) 74%, transparent)'
-            : 'transparent',
+          backgroundColor: scrolled ? 'rgba(8, 8, 10, 0.74)' : 'transparent',
           backdropFilter: scrolled ? 'blur(16px)' : undefined,
           WebkitBackdropFilter: scrolled ? 'blur(16px)' : undefined,
           borderBottom: scrolled

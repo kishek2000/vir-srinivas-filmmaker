@@ -3,40 +3,22 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { useEffect, useRef } from 'react';
-import { countAwards, type Film } from '@/lib/content';
+import type { CSSProperties } from 'react';
+import { useRef } from 'react';
+import { countAwards, themeVars, type Film } from '@/lib/content';
 import { EASE, RevealLines, Rise } from './Reveal';
 
 export function FilmDetail({ film, next }: { film: Film; next: Film }) {
   const { wins, nominations } = countAwards(film.awards);
 
-  // The film's page is wholly its own world — its accent and ground hold
-  // for the length of the page rather than only while a plate is on screen.
-  useEffect(() => {
-    const root = document.documentElement;
-    const { identity } = film;
-    root.style.setProperty('--ground', identity.ground);
-    root.style.setProperty('--figure', identity.figure);
-    root.style.setProperty('--figure-muted', identity.figureMuted);
-    root.style.setProperty('--figure-faint', identity.figureFaint);
-    root.style.setProperty('--accent', identity.accent);
-    root.style.setProperty('--on-accent', identity.onAccent);
-    return () => {
-      for (const prop of [
-        '--ground',
-        '--figure',
-        '--figure-muted',
-        '--figure-faint',
-        '--accent',
-        '--on-accent',
-      ]) {
-        root.style.removeProperty(prop);
-      }
-    };
-  }, [film]);
-
   return (
-    <div className={`register-${film.identity.register} relative`}>
+    // The film's page is wholly its own world, painted directly rather than
+    // handed to the document root — so it is the right colour on the very
+    // first paint and there is nothing to transition between.
+    <div
+      style={themeVars(film.identity) as CSSProperties}
+      className={`register-${film.identity.register} relative`}
+    >
       {film.identity.register === 'systemic' && (
         <div
           aria-hidden
@@ -246,7 +228,7 @@ function ReelHero({ film }: { film: Film }) {
   return (
     <section
       ref={ref}
-      className="on-media relative flex h-[86svh] min-h-[520px] w-full items-end overflow-hidden"
+      className="relative flex h-[86svh] min-h-[520px] w-full items-end overflow-hidden"
     >
       <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
         <video

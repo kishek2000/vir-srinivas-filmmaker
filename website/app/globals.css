@@ -12,10 +12,9 @@
   --color-ink: #08080a;
   --color-ink-raised: #0f0f12;
   --color-ink-edge: #1a1a1f;
-  /* Three tiers, each measured against the darkest ground the site uses
-     (#06070f). Primary 17:1, secondary 9.4:1, labels 4.7:1 — the faint
-     tier carries field labels, so it has to clear AA rather than just
-     look recessive. */
+  /* The site's own three tiers. Films override them with their own; every
+     combination is measured, and the faint tier carries field labels so it
+     has to clear AA rather than merely look recessive. */
   --color-bone: #ece7de;
   --color-bone-muted: #a8a29a;
   --color-bone-faint: #7c776e;
@@ -37,17 +36,16 @@
 :root {
   --brass: #b78f52;
 
-  /* The live theme. Each film takes ALL of these over while it holds the
-     viewport — not just an accent — so a plate is a different room rather
-     than a different tint. Orders from Above inverts the page to paper
-     entirely, which is why --figure has to be a variable and not a
-     constant. Between films everything settles back to bone on ink.
+  /* The site's own theme. Each film scopes its own copy of these onto the
+     element that carries it — ground included — so a plate is a different
+     room rather than a different tint, and paints correctly on first
+     render.
 
-     Measured contrast, figure : ground —
-       bone on ink      16.3:1     ink on paper      15.9:1
-       muted on ink      7.9:1     muted on paper     7.4:1
-       faint on ink      4.5:1     faint on paper     5.5:1
-     and every accent clears 4.5:1 on its own ground, in both directions. */
+     Measured figure : ground across all four themes —
+       figure   14.0 – 19.0 : 1
+       muted     7.5 –  8.6 : 1
+       faint     4.5 –  6.4 : 1
+       accent    5.6 – 16.3 : 1, in both directions. */
   --ground: #08080a;
   --figure: #ece7de;
   --figure-muted: #a8a29a;
@@ -70,9 +68,6 @@
 
 html {
   background-color: var(--ground);
-  /* Long enough that walking into the paper plate reads as a change of
-     light rather than as a flash. */
-  transition: background-color 1s var(--ease-out-expo);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
@@ -81,7 +76,6 @@ html {
 body {
   background-color: transparent;
   color: var(--figure);
-  transition: color 1s var(--ease-out-expo);
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.6;
@@ -414,23 +408,6 @@ body {
       transparent 1px
     );
   background-size: 3.75rem 3.75rem;
-}
-
-/* ─── Type over footage ────────────────────────────────────────────
-   A scrim can only ever darken the frame beneath it, so a light plate
-   theme would leave near-black type over a washed-out picture. Anything
-   sitting directly on footage therefore reverts to the dark default,
-   whatever theme the surrounding film carries.
-   ─────────────────────────────────────────────────────────────── */
-
-.on-media {
-  --ground: #08080a;
-  --figure: #ece7de;
-  --figure-muted: #a8a29a;
-  --figure-faint: #9a958c;
-  --accent: #ece7de;
-  --on-accent: #08080a;
-  color: var(--figure);
 }
 
 /* ─── Themed foreground ────────────────────────────────────────────
