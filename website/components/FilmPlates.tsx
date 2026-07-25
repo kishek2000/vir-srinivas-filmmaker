@@ -100,21 +100,20 @@ interface PlateProps {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   I — THE RECORD.  Orders from Above.
+   I — THE ROOM.  Orders from Above.
 
-   The film is shot in black and white, and it is about a bureaucrat: a
-   man who moved six million people with paperwork and then said he was
-   following orders. Every other plate on this site is a dark room, so
-   this one is the other end of black and white — PAPER. Black serif on a
-   bone ground, ruled like a document, with the footage mounted in it the
-   way a photograph is fixed into a dossier.
+   The whole film happens in one low-lit room: two men, a desk, a
+   typewriter running. So the plate is that room. The frame fills the
+   screen and the title lies across the foot of it at the largest scale
+   on the site, the way a title card sits over the last shot of a scene.
 
-   Scrolling into it is a hard cut from a dark room into daylight, and
-   that is the point: the whole page changes state for this film.
+   The ground is a warm sepia black rather than a neutral one — the film
+   is monochrome but it is not cold, and the warmth is what separates
+   this room from the blue chapel that follows it.
 
-   It closes on the roll of festivals. Sixteen wins is the most remarkable
-   fact about this film, and a number in a box wastes it, so every
-   festival is named.
+   It closes on the roll of festivals. Sixteen wins is the most
+   remarkable fact about this film, and a number in a box wastes it, so
+   every festival is named.
    ═══════════════════════════════════════════════════════════════════ */
 function DocumentaryPlate({ film, numeral }: PlateProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -122,7 +121,7 @@ function DocumentaryPlate({ film, numeral }: PlateProps) {
     target: ref,
     offset: ['start end', 'end start'],
   });
-  const y = useTransform(scrollYProgress, [0, 1], ['-6%', '6%']);
+  const y = useTransform(scrollYProgress, [0, 1], ['-9%', '9%']);
 
   const wins = film.awards.filter((a) => a.result === 'Winner');
   // Several festivals gave it more than one prize. Listing the name once
@@ -134,70 +133,64 @@ function DocumentaryPlate({ film, numeral }: PlateProps) {
     <PlateLink film={film}>
       <div
         ref={ref}
-        className="gutter relative flex min-h-[100svh] flex-col justify-center py-[clamp(4rem,10vh,7rem)]"
+        className="on-media relative flex h-[96svh] min-h-[600px] items-end overflow-hidden"
+        style={{ backgroundColor: '#17120E' }}
       >
-        {/* The masthead of the record. */}
-        <div className="flex items-baseline justify-between gap-6 border-b border-[var(--rule-strong)] pb-4">
-          <PlateIndex numeral={numeral} film={film} />
-          <span className="meta text-figure-faint hidden sm:block">
-            {film.runtime} · {film.genres.join(' · ')}
+        <motion.div style={{ y }} className="absolute inset-[-9%] z-0">
+          <video
+            className="plate-media h-full w-full object-cover"
+            src={film.preview}
+            poster={film.poster}
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
+        </motion.div>
+        <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#17120E] via-[#17120E]/45 to-[#17120E]/60" />
+
+        {/* Edge code, running down the left margin of the frame. */}
+        <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 hidden w-[var(--gutter)] items-center justify-center lg:flex">
+          <span className="edge-code meta-sm text-figure-faint">
+            {film.title} · {film.year} · {film.runtime}
           </span>
         </div>
 
-        <div className="mt-[clamp(2rem,5vh,3.5rem)] grid gap-[clamp(2rem,5vw,4rem)] lg:grid-cols-12">
-          <div className="lg:col-span-7">
-            <h3 className="voice">
-              <PlateTitle lines={film.titleLines} />
-            </h3>
+        <div className="gutter relative z-10 w-full pb-[clamp(2rem,6vh,3.5rem)]">
+          <PlateIndex numeral={numeral} film={film} />
 
-            <p className="prose-lg text-figure-muted mt-8 max-w-[var(--plate-measure)]">
-              {film.logline}
-            </p>
+          <h3 className="voice mt-5">
+            <PlateTitle lines={film.titleLines} />
+          </h3>
 
-            <div className="mt-9">
-              <PlateAction />
+          <div className="mt-8 grid gap-x-10 gap-y-7 border-t border-[var(--rule)] pt-6 lg:grid-cols-12">
+            <div className="lg:col-span-5">
+              <p className="prose-lg text-figure-muted max-w-[var(--plate-measure)]">
+                {film.logline}
+              </p>
+              <div className="mt-7">
+                <PlateAction />
+              </div>
+            </div>
+
+            {/* The roll of festivals. Every win, named. */}
+            <div className="lg:col-span-6 lg:col-start-7">
+              <p className="meta accent mb-3.5">
+                Winner · {wins.length} awards across {festivals.length}{' '}
+                festivals
+              </p>
+              <ul className="meta-sm text-figure-faint columns-2 gap-x-8 [column-fill:balance] sm:columns-3">
+                {festivals.map((festival) => (
+                  <li
+                    key={festival}
+                    className="mb-2 break-inside-avoid leading-snug"
+                  >
+                    {festival}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-
-          {/* The footage, mounted on the page like a fixed photograph. */}
-          <Rise delay={0.12} className="lg:col-span-5 lg:col-start-8">
-            <figure className="relative">
-              <div className="relative aspect-[4/3] w-full overflow-hidden">
-                <motion.div style={{ y }} className="absolute inset-[-6%]">
-                  <video
-                    className="plate-media h-full w-full object-cover"
-                    src={film.preview}
-                    poster={film.poster}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                  />
-                </motion.div>
-              </div>
-              <figcaption className="meta-sm text-figure-faint mt-2.5 flex justify-between gap-4">
-                <span>{film.title}</span>
-                <span>{film.year}</span>
-              </figcaption>
-            </figure>
-          </Rise>
-        </div>
-
-        {/* The roll of festivals, ruled off at the foot of the page. */}
-        <div className="mt-[clamp(2.5rem,6vh,4rem)] border-t border-[var(--rule-strong)] pt-5">
-          <p className="meta mb-4">
-            Winner · {wins.length} awards across {festivals.length} festivals
-          </p>
-          <ul className="meta-sm text-figure-muted columns-2 gap-x-8 [column-fill:balance] sm:columns-3 lg:columns-4">
-            {festivals.map((festival) => (
-              <li
-                key={festival}
-                className="mb-2 break-inside-avoid leading-snug"
-              >
-                {festival}
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </PlateLink>
@@ -287,15 +280,16 @@ function LiturgicalPlate({ film, numeral }: PlateProps) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   III — SYSTEMIC.  Gradient Descent.
+   III — THE WHITE ROOM.  Gradient Descent.
 
-   The poster builds a human face out of machine text — the film is about
-   a person being processed by a system. So this plate drops the serif
-   altogether: the title is monospace, uppercase and tracked, the way a
-   system addresses a record rather than the way a person says a name.
+   Every frame of this film is a bright fluorescent office: rows of people
+   in white shirts at white desks, being processed. So the page inverts
+   for it. Near-white ground, faint grid, black monospace title — the way
+   a system addresses a record rather than the way a person says a name —
+   and the poster's red as the only colour in the room.
 
-   Everything sits on a hairline grid with coordinates in the margins, and
-   the poster is inset as one more cell in it.
+   Coming out of the blue chapel into this is a hard cut out of the dark,
+   which is the same cut the film makes.
    ═══════════════════════════════════════════════════════════════════ */
 function SystemicPlate({ film, numeral }: PlateProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -318,7 +312,7 @@ function SystemicPlate({ film, numeral }: PlateProps) {
           className="pointer-events-none absolute inset-0 z-0"
           style={{
             background:
-              'radial-gradient(120% 70% at 22% 62%, color-mix(in oklab, var(--accent) 9%, transparent), transparent 62%)',
+              'radial-gradient(120% 70% at 22% 62%, color-mix(in oklab, var(--accent) 5%, transparent), transparent 62%)',
           }}
         />
 

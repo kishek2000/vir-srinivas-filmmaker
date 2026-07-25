@@ -288,7 +288,8 @@ body {
   --plate-measure: 42ch;
 }
 .register-documentary .plate-media {
-  filter: grayscale(1) contrast(1.16) brightness(0.72);
+  /* Fully desaturated, then warmed by the sepia ground showing through. */
+  filter: grayscale(1) contrast(1.14) brightness(0.66) sepia(0.18);
 }
 .register-documentary .voice {
   font-family: var(--font-display);
@@ -317,7 +318,7 @@ body {
 }
 .register-liturgical .voice {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3.4vw, 3rem);
+  font-size: clamp(1.6rem, 4.2vw, 3.75rem);
   line-height: 1.15;
   letter-spacing: 0.38em;
   /* Letterspacing leaves a trailing gap after the last glyph, which drags
@@ -336,7 +337,9 @@ body {
   --plate-measure: 38ch;
 }
 .register-systemic .plate-media {
-  filter: saturate(1.05) contrast(1.2) brightness(0.8);
+  /* On a white ground the poster needs no darkening — it is the one dark
+     object in the room, which is the point. */
+  filter: saturate(1.02) contrast(1.04);
 }
 .register-systemic .voice {
   font-family: var(--font-mono);
@@ -354,12 +357,12 @@ body {
   background-image:
     linear-gradient(
       to right,
-      color-mix(in oklab, var(--accent) 14%, transparent) 1px,
+      color-mix(in oklab, var(--figure) 9%, transparent) 1px,
       transparent 1px
     ),
     linear-gradient(
       to bottom,
-      color-mix(in oklab, var(--accent) 14%, transparent) 1px,
+      color-mix(in oklab, var(--figure) 9%, transparent) 1px,
       transparent 1px
     );
   background-size: 4.5rem 4.5rem;

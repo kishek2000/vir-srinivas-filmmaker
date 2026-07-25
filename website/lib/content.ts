@@ -47,15 +47,18 @@ export interface WatchGroup {
  * and rules all flip, so the three worlds are genuinely different rooms
  * rather than three shades of the same black:
  *
- *   Orders from Above  inverts to PAPER. The film is about a bureaucrat
- *                      and the paperwork of atrocity, and it is shot in
- *                      black and white — so the plate uses the other end
- *                      of that range. Black type on a bone ground, ruled
- *                      like a record. Scrolling into it is a hard cut
- *                      from a dark room into daylight.
+ *   Orders from Above  a warm sepia dark. The film is a B&W interrogation
+ *                      shot in one low-lit room, so the plate is that
+ *                      room: brown-black, gold, the frame running full
+ *                      bleed behind the type.
  *   The Proselyte      a chapel: a genuinely blue dark, not a black one,
  *                      with gold and a shaft of candlelight.
- *   Gradient Descent   a black room with red in it — heat and machinery.
+ *   Gradient Descent   inverts to CLINICAL WHITE. Every frame of this
+ *                      film is a bright fluorescent office full of people
+ *                      in white shirts, so its plate is that room: near
+ *                      white, faintly gridded, black monospace, and the
+ *                      poster's red as the only colour. Scrolling into it
+ *                      is a hard cut out of the dark.
  *
  * All contrast pairs are measured; see the table in globals.css.
  */
@@ -256,12 +259,12 @@ export const films: Film[] = [
     slug: 'orders-from-above',
     identity: {
       register: 'documentary',
-      accent: '#1A1A14',
-      onAccent: '#E9E5DB',
-      ground: '#E9E5DB',
-      figure: '#14140F',
-      figureMuted: '#4A473F',
-      figureFaint: '#5C584E',
+      accent: '#D9B87C',
+      onAccent: '#17120E',
+      ground: '#17120E',
+      figure: '#F0E7DA',
+      figureMuted: '#A99C8C',
+      figureFaint: '#8B8073',
     },
     title: 'Orders from Above',
     titleLines: ['Orders', 'from Above'],
@@ -385,12 +388,12 @@ export const films: Film[] = [
     slug: 'gradient-descent',
     identity: {
       register: 'systemic',
-      accent: '#F0605C',
-      onAccent: '#0D0405',
-      ground: '#0D0405',
-      figure: '#EFE4E2',
-      figureMuted: '#AFA09E',
-      figureFaint: '#867775',
+      accent: '#C42B26',
+      onAccent: '#F2F2F0',
+      ground: '#F2F2F0',
+      figure: '#121213',
+      figureMuted: '#4A4A4C',
+      figureFaint: '#5E5E61',
     },
     title: 'Gradient Descent',
     titleLines: ['Gradient', 'Descent'],

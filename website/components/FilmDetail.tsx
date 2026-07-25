@@ -36,8 +36,15 @@ export function FilmDetail({ film, next }: { film: Film; next: Film }) {
   }, [film]);
 
   return (
-    <div className={`register-${film.identity.register}`}>
-      <FilmHero film={film} />
+    <div className={`register-${film.identity.register} relative`}>
+      {film.identity.register === 'systemic' && (
+        <div
+          aria-hidden
+          className="grid-rule pointer-events-none absolute inset-0 z-0"
+        />
+      )}
+      <div className="relative z-10">
+        <FilmHero film={film} />
 
       <div className="gutter">
         {/* ─── Synopsis and facts ─────────────────────────────── */}
@@ -208,6 +215,7 @@ export function FilmDetail({ film, next }: { film: Film; next: Film }) {
             </h2>
           </Link>
         </section>
+        </div>
       </div>
     </div>
   );
@@ -260,7 +268,7 @@ function ReelHero({ film }: { film: Film }) {
         <RevealLines
           as="h1"
           lines={film.titleLines}
-          className="display display-lg"
+          className="voice"
           delay={0.15}
         />
 
@@ -280,7 +288,7 @@ function PosterHero({ film }: { film: Film }) {
           <RevealLines
             as="h1"
             lines={film.titleLines}
-            className="display display-lg"
+            className="voice"
             delay={0.15}
           />
         </div>
