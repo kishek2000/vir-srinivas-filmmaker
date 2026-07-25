@@ -253,60 +253,112 @@ body {
 }
 
 /* ─── Per-film registers ───────────────────────────────────────────
-   Three compositions, one per film, each taking its cues from the
-   film's own artwork rather than from a house style applied on top.
+   Three films, three voices.
+
+   The temptation was one plate template nudged three ways. That reads as
+   a house style, not as three pictures — so each register changes the
+   TYPEFACE, the scale and the skeleton, not just the alignment. All of it
+   is drawn from the films' own material: the monochrome of one, the
+   polyptych poster of another, the machine-text face of the third.
    ─────────────────────────────────────────────────────────────── */
 
-/* Documentary — Orders from Above. Neutral, wide, evidentiary. The film
-   has no colour in it at all, so neither does its plate. */
+/* ── I. Documentary — Orders from Above ────────────────────────────
+   A record of an interrogation. Enormous serif, split across two lines
+   and pushed hard to the edges of the frame; a mono rail down the side
+   like the edge code on a strip of film. Pure monochrome, because the
+   film contains no colour whatsoever. */
 .register-documentary {
-  --plate-measure: 46ch;
+  --plate-measure: 42ch;
 }
 .register-documentary .plate-media {
-  filter: grayscale(1) contrast(1.12) brightness(0.78);
+  filter: grayscale(1) contrast(1.16) brightness(0.72);
+}
+.register-documentary .voice {
+  font-family: var(--font-display);
+  font-size: clamp(3.25rem, 13vw, 13rem);
+  line-height: 0.82;
+  letter-spacing: -0.035em;
 }
 
-/* Liturgical — The Proselyte. A shaft of candlelight falling into a blue
-   dark; everything centred, still, and slower than its neighbours. */
+/* The edge code, set vertically down the left margin. */
+.edge-code {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* ── II. Liturgical — The Proselyte ────────────────────────────────
+   The poster is literally a polyptych: four stacked panels, faces lit in
+   sequence. So the plate is an altarpiece — narrow, vertical, symmetrical,
+   and the title is an INSCRIPTION rather than a headline: small, wide,
+   letterspaced, the way words are cut into stone above a door. Restraint
+   is the drama here; it is the only plate that does not shout. */
 .register-liturgical {
-  --plate-measure: 34ch;
+  --plate-measure: 30ch;
 }
 .register-liturgical .plate-media {
-  filter: saturate(1.15) contrast(1.06) brightness(0.92);
+  filter: saturate(1.2) contrast(1.08) brightness(0.95);
+}
+.register-liturgical .voice {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.4vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: 0.38em;
+  /* Letterspacing leaves a trailing gap after the last glyph, which drags
+     a centred block right of true centre. Pull that gap back so every
+     line is optically centred, not just nominally. */
+  margin-right: -0.38em;
+  text-transform: uppercase;
 }
 
-/* Systemic — Gradient Descent. A machine looking at a person: fine grid,
-   monospace, red, nothing warm. */
+/* ── III. Systemic — Gradient Descent ──────────────────────────────
+   The poster builds a human face out of machine text. So this plate
+   abandons the serif entirely: the title is MONOSPACE, tracked out and
+   uppercase, addressed the way a system addresses a record. Everything
+   sits on a hairline grid, and the margins carry coordinates. */
 .register-systemic {
-  --plate-measure: 40ch;
+  --plate-measure: 38ch;
 }
 .register-systemic .plate-media {
-  filter: saturate(1.1) contrast(1.14) brightness(0.86);
+  filter: saturate(1.05) contrast(1.2) brightness(0.8);
+}
+.register-systemic .voice {
+  font-family: var(--font-mono);
+  font-size: clamp(1.75rem, 5.4vw, 4.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
-/* A hairline grid, used only by the systemic plate. */
+/* ─── Register furniture ───────────────────────────────────────── */
+
+/* The hairline grid behind the systemic plate. */
 .grid-rule {
   background-image:
-    linear-gradient(to right, rgba(236, 231, 222, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(236, 231, 222, 0.05) 1px, transparent 1px);
-  background-size: 5rem 5rem;
+    linear-gradient(to right, rgba(236, 231, 222, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(236, 231, 222, 0.055) 1px, transparent 1px);
+  background-size: 4.5rem 4.5rem;
 }
 
-/* A single shaft of light, used only by the liturgical plate. */
+/* A single shaft of light for the liturgical plate. */
 .light-shaft {
   background: linear-gradient(
     to bottom,
-    color-mix(in oklab, var(--accent) 20%, transparent) 0%,
-    color-mix(in oklab, var(--accent) 7%, transparent) 30%,
-    color-mix(in oklab, var(--accent) 2%, transparent) 58%,
-    transparent 80%
+    transparent 0%,
+    color-mix(in oklab, var(--accent) 13%, transparent) 14%,
+    color-mix(in oklab, var(--accent) 5%, transparent) 42%,
+    transparent 76%
   );
-  /* Tapered, so it narrows as it falls the way a real shaft does. */
-  clip-path: polygon(34% 0%, 66% 0%, 100% 100%, 0% 100%);
-  filter: blur(52px);
+  /* Tapered, so it widens as it falls the way a real shaft does. The mask
+     dissolves the clip edges — without it the polygon reads as a flat
+     grey trapezoid rather than as light. */
+  clip-path: polygon(38% 0%, 62% 0%, 100% 100%, 0% 100%);
+  mask-image: radial-gradient(75% 60% at 50% 22%, #000 0%, transparent 100%);
+  filter: blur(64px);
 }
 
-/* Accent-tinted helpers, live wherever the current chapter puts them. */
+/* ─── Accent helpers ───────────────────────────────────────────── */
+
 .accent {
   color: var(--accent);
 }
