@@ -36,14 +36,20 @@ export function SiteHeader() {
     <motion.header
       animate={{ y: hidden ? '-110%' : '0%' }}
       transition={{ duration: 0.55, ease: EASE }}
-      className="fixed inset-x-0 top-0 z-50"
+      // Until it has a backdrop of its own, the whole chrome stack is
+      // floating over the hero footage, so it has to read as light-on-dark
+      // regardless of which film's theme the page is carrying. Once it
+      // gains a ground-coloured backdrop it adopts that theme instead.
+      className={`fixed inset-x-0 top-0 z-50 ${scrolled ? '' : 'on-media'}`}
     >
       <ReleaseBar />
 
       <div
         className="gutter flex items-center justify-end gap-6 py-4 transition-colors duration-700 sm:justify-between"
         style={{
-          backgroundColor: scrolled ? 'rgba(8,8,10,0.7)' : 'transparent',
+          backgroundColor: scrolled
+            ? 'color-mix(in oklab, var(--ground) 74%, transparent)'
+            : 'transparent',
           backdropFilter: scrolled ? 'blur(16px)' : undefined,
           WebkitBackdropFilter: scrolled ? 'blur(16px)' : undefined,
           borderBottom: scrolled
@@ -69,7 +75,7 @@ export function SiteHeader() {
             <Link
               key={section.href}
               href={section.href}
-              className="meta link-draw text-bone-muted hover:text-bone whitespace-nowrap transition-colors duration-500"
+              className="meta link-draw text-figure-muted hover:text-figure whitespace-nowrap transition-colors duration-500"
             >
               {section.label}
             </Link>

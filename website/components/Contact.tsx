@@ -16,7 +16,7 @@ export function Contact() {
       <RevealLines
         as="h2"
         lines={['Get in touch']}
-        className="meta text-bone-faint mb-[clamp(2rem,5vh,3.5rem)]"
+        className="meta text-figure-faint mb-[clamp(2rem,5vh,3.5rem)]"
       />
 
       <Rise>
@@ -35,19 +35,19 @@ export function Contact() {
               href={IMDB_PROFILE}
               target="_blank"
               rel="noopener noreferrer"
-              className="meta link-draw text-bone-muted hover:text-bone transition-colors duration-500"
+              className="meta link-draw text-figure-muted hover:text-figure transition-colors duration-500"
             >
               IMDb
             </a>
             <a
               href={`mailto:${EMAIL}`}
-              className="meta link-draw text-bone-muted hover:text-bone transition-colors duration-500"
+              className="meta link-draw text-figure-muted hover:text-figure transition-colors duration-500"
             >
               Email
             </a>
           </nav>
 
-          <p className="meta-sm text-bone-faint">
+          <p className="meta-sm text-figure-faint">
             © {new Date().getFullYear()} {NAME}. All rights reserved.
           </p>
         </div>

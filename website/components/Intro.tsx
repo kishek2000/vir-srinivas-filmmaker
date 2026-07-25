@@ -44,7 +44,7 @@ export function Intro() {
           <RevealLines
             as="h2"
             lines={['Introduction']}
-            className="meta text-bone-faint mb-[clamp(2rem,5vh,3.5rem)]"
+            className="meta text-figure-faint mb-[clamp(2rem,5vh,3.5rem)]"
           />
 
           <div className="space-y-[clamp(1.5rem,3vh,2.25rem)]">
@@ -54,7 +54,7 @@ export function Intro() {
                   className={
                     i === 0
                       ? 'display display-sm max-w-[24ch] leading-[1.1]'
-                      : 'prose-lg text-bone-muted max-w-[62ch]'
+                      : 'prose-lg text-figure-muted max-w-[62ch]'
                   }
                 >
                   {paragraph}

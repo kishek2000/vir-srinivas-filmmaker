@@ -45,7 +45,11 @@ export function ReleaseBar() {
           animate={{ height: 'auto', opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
           transition={{ duration: 0.6, ease: EASE }}
-          className="overflow-hidden bg-[var(--color-ink-raised)]"
+          className="overflow-hidden"
+          style={{
+            backgroundColor:
+              'color-mix(in oklab, var(--figure) 6%, var(--ground))',
+          }}
         >
           <div className="gutter flex items-center justify-between gap-4 border-b border-[var(--rule)] py-2.5">
             <Link
@@ -55,15 +59,15 @@ export function ReleaseBar() {
               <span
                 aria-hidden
                 className="size-1.5 shrink-0 rounded-full"
-                style={{ backgroundColor: 'var(--brass)' }}
+                style={{ backgroundColor: 'var(--accent)' }}
               />
-              <span className="meta-sm text-bone-muted hidden shrink-0 sm:block">
+              <span className="meta-sm text-figure-muted hidden shrink-0 sm:block">
                 Now streaming
               </span>
               <span className="display truncate text-[clamp(0.95rem,2vw,1.25rem)] leading-tight">
                 {film.title}
               </span>
-              <span className="meta-sm text-bone-faint group-hover:text-bone shrink-0 whitespace-nowrap transition-colors duration-500">
+              <span className="meta-sm text-figure-faint group-hover:text-figure shrink-0 whitespace-nowrap transition-colors duration-500">
                 Watch free →
               </span>
             </Link>
@@ -72,7 +76,7 @@ export function ReleaseBar() {
               type="button"
               onClick={dismiss}
               aria-label="Dismiss"
-              className="text-bone-faint hover:text-bone shrink-0 p-1 transition-colors duration-500"
+              className="text-figure-faint hover:text-figure shrink-0 p-1 transition-colors duration-500"
             >
               <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden>
                 <path d="M1 1l9 9M10 1l-9 9" stroke="currentColor" strokeWidth="1" />

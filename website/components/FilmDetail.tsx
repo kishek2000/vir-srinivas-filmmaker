@@ -14,15 +14,26 @@ export function FilmDetail({ film, next }: { film: Film; next: Film }) {
   // for the length of the page rather than only while a plate is on screen.
   useEffect(() => {
     const root = document.documentElement;
-    root.style.setProperty('--accent', film.identity.accent);
-    root.style.setProperty('--on-accent', film.identity.onAccent);
-    root.style.setProperty('--ground', film.identity.ground);
+    const { identity } = film;
+    root.style.setProperty('--ground', identity.ground);
+    root.style.setProperty('--figure', identity.figure);
+    root.style.setProperty('--figure-muted', identity.figureMuted);
+    root.style.setProperty('--figure-faint', identity.figureFaint);
+    root.style.setProperty('--accent', identity.accent);
+    root.style.setProperty('--on-accent', identity.onAccent);
     return () => {
-      root.style.setProperty('--accent', '#ece7de');
-      root.style.setProperty('--on-accent', '#08080a');
-      root.style.setProperty('--ground', '#08080a');
+      for (const prop of [
+        '--ground',
+        '--figure',
+        '--figure-muted',
+        '--figure-faint',
+        '--accent',
+        '--on-accent',
+      ]) {
+        root.style.removeProperty(prop);
+      }
     };
-  }, [film.identity]);
+  }, [film]);
 
   return (
     <div className={`register-${film.identity.register}`}>
@@ -35,7 +46,7 @@ export function FilmDetail({ film, next }: { film: Film; next: Film }) {
             <RevealLines
               as="h2"
               lines={['Synopsis']}
-              className="meta text-bone-faint mb-8"
+              className="meta text-figure-faint mb-8"
             />
             <Rise>
               <p className="display display-sm max-w-[26ch] leading-[1.12]">
@@ -96,7 +107,7 @@ export function FilmDetail({ film, next }: { film: Film; next: Film }) {
               {film.watchGroups.map((group, gi) => (
                 <Rise key={group.label} delay={gi * 0.06}>
                   <div className="grid gap-5 border-t border-[var(--rule)] pt-5 lg:grid-cols-12 lg:gap-10">
-                    <h3 className="meta text-bone-faint lg:col-span-3">
+                    <h3 className="meta text-figure-faint lg:col-span-3">
                       {group.label}
                     </h3>
 
@@ -124,7 +135,7 @@ export function FilmDetail({ film, next }: { film: Film; next: Film }) {
                                   {link.name}
                                 </span>
                               </span>
-                              <span className="meta-sm text-bone-faint shrink-0 text-right">
+                              <span className="meta-sm text-figure-faint shrink-0 text-right">
                                 {link.note}
                               </span>
                             </a>
@@ -133,7 +144,7 @@ export function FilmDetail({ film, next }: { film: Film; next: Film }) {
                       </ul>
 
                       {group.footnote && (
-                        <p className="text-bone-faint mt-5 max-w-[70ch] text-[0.8125rem] leading-relaxed">
+                        <p className="text-figure-faint mt-5 max-w-[70ch] text-[0.8125rem] leading-relaxed">
                           {group.footnote}
                         </p>
                       )}
@@ -177,7 +188,7 @@ export function FilmDetail({ film, next }: { film: Film; next: Film }) {
                     {award.note ?? award.result}
                   </span>
                   <span className="flex-1 text-[0.95rem]">{award.category}</span>
-                  <span className="text-bone-muted w-full text-[0.8125rem] sm:w-auto sm:max-w-[42%] sm:text-right">
+                  <span className="text-figure-muted w-full text-[0.8125rem] sm:w-auto sm:max-w-[42%] sm:text-right">
                     {award.festival}
                   </span>
                 </motion.li>
@@ -189,7 +200,7 @@ export function FilmDetail({ film, next }: { film: Film; next: Film }) {
         {/* ─── Next ───────────────────────────────────────────── */}
         <section className="rule-top py-[clamp(3.5rem,10vh,7rem)]">
           <Link href={`/${next.slug}`} className="group block">
-            <span className="meta text-bone-faint">Next film</span>
+            <span className="meta text-figure-faint">Next film</span>
             <h2 className="display display-lg mt-4">
               <span className="inline-block transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[clamp(0.5rem,1.5vw,1.75rem)]">
                 {next.title}
@@ -227,7 +238,7 @@ function ReelHero({ film }: { film: Film }) {
   return (
     <section
       ref={ref}
-      className="relative flex h-[86svh] min-h-[520px] w-full items-end overflow-hidden"
+      className="on-media relative flex h-[86svh] min-h-[520px] w-full items-end overflow-hidden"
     >
       <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
         <video
@@ -299,7 +310,7 @@ function BackLink() {
     <Rise>
       <Link
         href="/#work"
-        className="meta text-bone-muted hover:text-bone mb-8 inline-flex items-center gap-2.5 transition-colors duration-500"
+        className="meta text-figure-muted hover:text-figure mb-8 inline-flex items-center gap-2.5 transition-colors duration-500"
       >
         <span aria-hidden>←</span> All films
       </Link>
@@ -311,7 +322,7 @@ function HeroMeta({ film }: { film: Film }) {
   return (
     <div className="mt-8 flex flex-wrap items-end justify-between gap-x-10 gap-y-4 border-t border-[var(--rule)] pt-5">
       <Rise delay={0.35}>
-        <p className="meta text-bone-muted flex flex-wrap gap-x-5 gap-y-2">
+        <p className="meta text-figure-muted flex flex-wrap gap-x-5 gap-y-2">
           <span>{film.year}</span>
           <span>{film.format}</span>
           <span>{film.runtime}</span>
@@ -331,7 +342,7 @@ function HeroMeta({ film }: { film: Film }) {
 function Fact({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-baseline justify-between gap-6 py-3.5">
-      <dt className="meta-sm text-bone-faint">{label}</dt>
+      <dt className="meta-sm text-figure-faint">{label}</dt>
       <dd className="text-right text-[0.9375rem]">{value}</dd>
     </div>
   );
@@ -354,7 +365,7 @@ function Action({
       className={`meta inline-flex items-center gap-2.5 px-6 py-3.5 transition-colors duration-500 ${
         primary
           ? 'bg-[var(--accent)] text-[var(--on-accent)] hover:opacity-80'
-          : 'text-bone-muted hover:text-bone border border-[var(--rule-strong)] hover:border-[var(--color-bone)]'
+          : 'text-figure-muted hover:text-figure border border-[var(--rule-strong)] hover:border-[var(--color-bone)]'
       }`}
     >
       {children}

@@ -35,7 +35,7 @@ function PlatesHeader() {
   return (
     <header className="gutter flex items-baseline justify-between gap-6 pt-[clamp(4rem,10vh,7rem)] pb-[clamp(2rem,5vh,3.5rem)]">
       <RevealLines as="h2" lines={['Films']} className="display display-md" />
-      <span className="meta text-bone-faint">
+      <span className="meta text-figure-faint">
         {String(films.length).padStart(2, '0')} titles
       </span>
     </header>
@@ -43,6 +43,11 @@ function PlatesHeader() {
 }
 
 const ROMAN = ['I', 'II', 'III', 'IV', 'V'];
+
+/** A shallow Romanesque arch — an altarpiece is arched, and the top panel
+ *  of the Proselyte poster is a face, which an arch frames rather than
+ *  spoils. Kept shallow so none of the face is lost. */
+const ARCH = '50% 50% 0 0 / 20% 20% 0 0';
 
 function Plate({ film, index }: { film: Film; index: number }) {
   const ref = useRef<HTMLElement>(null);
@@ -52,15 +57,26 @@ function Plate({ film, index }: { film: Film; index: number }) {
   useEffect(() => {
     if (!owns) return;
     const root = document.documentElement;
-    root.style.setProperty('--accent', film.identity.accent);
-    root.style.setProperty('--on-accent', film.identity.onAccent);
-    root.style.setProperty('--ground', film.identity.ground);
+    const { identity } = film;
+    root.style.setProperty('--ground', identity.ground);
+    root.style.setProperty('--figure', identity.figure);
+    root.style.setProperty('--figure-muted', identity.figureMuted);
+    root.style.setProperty('--figure-faint', identity.figureFaint);
+    root.style.setProperty('--accent', identity.accent);
+    root.style.setProperty('--on-accent', identity.onAccent);
     return () => {
-      root.style.setProperty('--accent', '#ece7de');
-      root.style.setProperty('--on-accent', '#08080a');
-      root.style.setProperty('--ground', '#08080a');
+      for (const prop of [
+        '--ground',
+        '--figure',
+        '--figure-muted',
+        '--figure-faint',
+        '--accent',
+        '--on-accent',
+      ]) {
+        root.style.removeProperty(prop);
+      }
     };
-  }, [owns, film.identity]);
+  }, [owns, film]);
 
   const Composition = {
     documentary: DocumentaryPlate,
@@ -84,17 +100,21 @@ interface PlateProps {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   I — DOCUMENTARY.  Orders from Above.
+   I — THE RECORD.  Orders from Above.
 
-   A record of an interrogation: two men, one desk, a typewriter running.
-   The frame fills the screen in hard monochrome and the title is laid
-   across it at the largest scale on the site, split and pushed to the
-   edges. Down the left margin runs an edge code, the way frame numbers
-   run down a strip of film.
+   The film is shot in black and white, and it is about a bureaucrat: a
+   man who moved six million people with paperwork and then said he was
+   following orders. Every other plate on this site is a dark room, so
+   this one is the other end of black and white — PAPER. Black serif on a
+   bone ground, ruled like a document, with the footage mounted in it the
+   way a photograph is fixed into a dossier.
 
-   The closer is the roll of festivals. Sixteen wins is the single most
-   remarkable fact about this film, and a number in a box wastes it — so
-   every festival is named, as a mass.
+   Scrolling into it is a hard cut from a dark room into daylight, and
+   that is the point: the whole page changes state for this film.
+
+   It closes on the roll of festivals. Sixteen wins is the most remarkable
+   fact about this film, and a number in a box wastes it, so every
+   festival is named.
    ═══════════════════════════════════════════════════════════════════ */
 function DocumentaryPlate({ film, numeral }: PlateProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -102,7 +122,7 @@ function DocumentaryPlate({ film, numeral }: PlateProps) {
     target: ref,
     offset: ['start end', 'end start'],
   });
-  const y = useTransform(scrollYProgress, [0, 1], ['-9%', '9%']);
+  const y = useTransform(scrollYProgress, [0, 1], ['-6%', '6%']);
 
   const wins = film.awards.filter((a) => a.result === 'Winner');
   // Several festivals gave it more than one prize. Listing the name once
@@ -114,64 +134,70 @@ function DocumentaryPlate({ film, numeral }: PlateProps) {
     <PlateLink film={film}>
       <div
         ref={ref}
-        className="relative flex h-[96svh] min-h-[600px] items-end overflow-hidden"
+        className="gutter relative flex min-h-[100svh] flex-col justify-center py-[clamp(4rem,10vh,7rem)]"
       >
-        <motion.div style={{ y }} className="absolute inset-[-9%] z-0">
-          <video
-            className="plate-media h-full w-full object-cover"
-            src={film.preview}
-            poster={film.poster}
-            autoPlay
-            loop
-            muted
-            playsInline
-          />
-        </motion.div>
-        <div className="absolute inset-0 z-0 bg-gradient-to-t from-[var(--ground)] via-[var(--ground)]/40 to-[var(--ground)]/60" />
-
-        {/* Edge code, running down the left margin of the frame. */}
-        <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 hidden w-[var(--gutter)] items-center justify-center lg:flex">
-          <span className="edge-code meta-sm text-bone-faint">
-            {film.title} · {film.year} · {film.runtime}
+        {/* The masthead of the record. */}
+        <div className="flex items-baseline justify-between gap-6 border-b border-[var(--rule-strong)] pb-4">
+          <PlateIndex numeral={numeral} film={film} />
+          <span className="meta text-figure-faint hidden sm:block">
+            {film.runtime} · {film.genres.join(' · ')}
           </span>
         </div>
 
-        <div className="gutter relative z-10 w-full pb-[clamp(2rem,6vh,3.5rem)]">
-          <PlateIndex numeral={numeral} film={film} />
+        <div className="mt-[clamp(2rem,5vh,3.5rem)] grid gap-[clamp(2rem,5vw,4rem)] lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <h3 className="voice">
+              <PlateTitle lines={film.titleLines} />
+            </h3>
 
-          {/* The title at full width — the largest type on the site. */}
-          <h3 className="voice mt-5">
-            <PlateTitle lines={film.titleLines} />
-          </h3>
+            <p className="prose-lg text-figure-muted mt-8 max-w-[var(--plate-measure)]">
+              {film.logline}
+            </p>
 
-          <div className="mt-8 grid gap-x-10 gap-y-7 border-t border-[var(--rule)] pt-6 lg:grid-cols-12">
-            <div className="lg:col-span-5">
-              <p className="prose-lg text-bone-muted max-w-[var(--plate-measure)]">
-                {film.logline}
-              </p>
-              <div className="mt-7">
-                <PlateAction />
-              </div>
-            </div>
-
-            {/* The roll of festivals. Every win, named. */}
-            <div className="lg:col-span-6 lg:col-start-7">
-              <p className="meta accent mb-3.5">
-                Winner · {wins.length} awards across {festivals.length}{' '}
-                festivals
-              </p>
-              <ul className="meta-sm text-bone-faint columns-2 gap-x-8 [column-fill:balance] sm:columns-3">
-                {festivals.map((festival) => (
-                  <li
-                    key={festival}
-                    className="mb-2 break-inside-avoid leading-snug"
-                  >
-                    {festival}
-                  </li>
-                ))}
-              </ul>
+            <div className="mt-9">
+              <PlateAction />
             </div>
           </div>
+
+          {/* The footage, mounted on the page like a fixed photograph. */}
+          <Rise delay={0.12} className="lg:col-span-5 lg:col-start-8">
+            <figure className="relative">
+              <div className="relative aspect-[4/3] w-full overflow-hidden">
+                <motion.div style={{ y }} className="absolute inset-[-6%]">
+                  <video
+                    className="plate-media h-full w-full object-cover"
+                    src={film.preview}
+                    poster={film.poster}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                  />
+                </motion.div>
+              </div>
+              <figcaption className="meta-sm text-figure-faint mt-2.5 flex justify-between gap-4">
+                <span>{film.title}</span>
+                <span>{film.year}</span>
+              </figcaption>
+            </figure>
+          </Rise>
+        </div>
+
+        {/* The roll of festivals, ruled off at the foot of the page. */}
+        <div className="mt-[clamp(2.5rem,6vh,4rem)] border-t border-[var(--rule-strong)] pt-5">
+          <p className="meta mb-4">
+            Winner · {wins.length} awards across {festivals.length} festivals
+          </p>
+          <ul className="meta-sm text-figure-muted columns-2 gap-x-8 [column-fill:balance] sm:columns-3 lg:columns-4">
+            {festivals.map((festival) => (
+              <li
+                key={festival}
+                className="mb-2 break-inside-avoid leading-snug"
+              >
+                {festival}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </PlateLink>
@@ -218,6 +244,7 @@ function LiturgicalPlate({ film, numeral }: PlateProps) {
             initial={{ opacity: 0, y: 26 }}
             animate={inView ? { opacity: 1, y: 0 } : undefined}
             transition={{ duration: 1.8, ease: EASE, delay: 0.25 }}
+            style={{ borderRadius: ARCH }}
             className="relative mt-8 aspect-[2/3] w-[min(46vw,11.5rem)] overflow-hidden"
           >
             <Image
@@ -227,7 +254,10 @@ function LiturgicalPlate({ film, numeral }: PlateProps) {
               sizes="(max-width: 768px) 56vw, 14rem"
               className="plate-media object-cover"
             />
-            <div className="absolute inset-0 ring-1 ring-inset ring-[var(--rule)]" />
+            <div
+              style={{ borderRadius: ARCH }}
+              className="absolute inset-0 ring-1 ring-inset ring-[var(--rule-strong)]"
+            />
           </motion.div>
 
           {/* The inscription. */}
@@ -237,12 +267,12 @@ function LiturgicalPlate({ film, numeral }: PlateProps) {
 
           <div className="accent-rule mt-7 h-px w-12" />
 
-          <p className="prose-lg text-bone-muted mt-7 max-w-[var(--plate-measure)]">
+          <p className="prose-lg text-figure-muted mt-7 max-w-[var(--plate-measure)]">
             {film.logline}
           </p>
 
           {headline && (
-            <p className="meta text-bone-faint mt-7">
+            <p className="meta text-figure-faint mt-7">
               {headline.result} · {headline.category} · {headline.festival}
             </p>
           )}
@@ -301,18 +331,18 @@ function SystemicPlate({ film, numeral }: PlateProps) {
               <PlateTitle lines={film.titleLines} />
             </h3>
 
-            <p className="prose-lg text-bone-muted mt-7 max-w-[var(--plate-measure)]">
+            <p className="prose-lg text-figure-muted mt-7 max-w-[var(--plate-measure)]">
               {film.logline}
             </p>
 
             {/* The manifest. */}
-            <dl className="meta text-bone-faint mt-9 grid max-w-lg grid-cols-3 gap-x-6 gap-y-1 border-t border-[var(--rule)] pt-5">
+            <dl className="meta text-figure-faint mt-9 grid max-w-lg grid-cols-3 gap-x-6 gap-y-1 border-t border-[var(--rule)] pt-5">
               <dt>Runtime</dt>
               <dt>Year</dt>
               <dt>Format</dt>
-              <dd className="text-bone-muted">{film.runtime}</dd>
-              <dd className="text-bone-muted">{film.year}</dd>
-              <dd className="text-bone-muted">{film.format}</dd>
+              <dd className="text-figure-muted">{film.runtime}</dd>
+              <dd className="text-figure-muted">{film.year}</dd>
+              <dd className="text-figure-muted">{film.format}</dd>
             </dl>
 
             <div className="mt-9">
@@ -377,7 +407,7 @@ function PlateIndex({
           {numeral}
         </span>
         <span className="accent-rule h-px w-9" />
-        <span className="meta text-bone-muted">
+        <span className="meta text-figure-muted">
           {film.format} · {film.year}
         </span>
       </div>
@@ -388,7 +418,7 @@ function PlateIndex({
 /** The one call to action, identical on every plate so it stays findable. */
 function PlateAction() {
   return (
-    <span className="meta text-bone-faint group-hover:text-bone inline-flex items-center gap-2.5 transition-colors duration-500">
+    <span className="meta text-figure-faint group-hover:text-figure inline-flex items-center gap-2.5 transition-colors duration-500">
       View the film
       <span
         aria-hidden

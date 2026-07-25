@@ -32,15 +32,29 @@
 :root {
   --brass: #b78f52;
 
-  /* The live accent. Each film chapter takes this over while it holds the
-     viewport, so rules, counters and hover states carry the colour of
-     whatever is on screen; between films it settles back to bone. */
+  /* The live theme. Each film takes ALL of these over while it holds the
+     viewport — not just an accent — so a plate is a different room rather
+     than a different tint. Orders from Above inverts the page to paper
+     entirely, which is why --figure has to be a variable and not a
+     constant. Between films everything settles back to bone on ink.
+
+     Measured contrast, figure : ground —
+       bone on ink      16.3:1     ink on paper      15.9:1
+       muted on ink      7.9:1     muted on paper     7.4:1
+       faint on ink      4.5:1     faint on paper     5.5:1
+     and every accent clears 4.5:1 on its own ground, in both directions. */
+  --ground: #08080a;
+  --figure: #ece7de;
+  --figure-muted: #a8a29a;
+  --figure-faint: #7c776e;
   --accent: #ece7de;
   --on-accent: #08080a;
-  --ground: #08080a;
+
+  /* Rules are derived from the figure, so they invert with it. */
+  --rule: color-mix(in oklab, var(--figure) 16%, transparent);
+  --rule-strong: color-mix(in oklab, var(--figure) 32%, transparent);
+
   --gutter: clamp(1.25rem, 5vw, 5rem);
-  --rule: rgba(236, 231, 222, 0.14);
-  --rule-strong: rgba(236, 231, 222, 0.28);
 }
 
 /* ─── Base ─────────────────────────────────────────────────────── */
@@ -51,7 +65,9 @@
 
 html {
   background-color: var(--ground);
-  transition: background-color 1.2s var(--ease-out-expo);
+  /* Long enough that walking into the paper plate reads as a change of
+     light rather than as a flash. */
+  transition: background-color 1s var(--ease-out-expo);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
@@ -59,7 +75,8 @@ html {
 
 body {
   background-color: transparent;
-  color: var(--color-bone);
+  color: var(--figure);
+  transition: color 1s var(--ease-out-expo);
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.6;
@@ -73,7 +90,7 @@ body {
 }
 
 :focus-visible {
-  outline: 1px solid var(--color-bone);
+  outline: 1px solid var(--figure);
   outline-offset: 4px;
 }
 
@@ -85,10 +102,10 @@ body {
   background: var(--ground);
 }
 ::-webkit-scrollbar-thumb {
-  background: #26262b;
+  background: color-mix(in oklab, var(--figure) 22%, transparent);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a3a41;
+  background: color-mix(in oklab, var(--figure) 38%, transparent);
 }
 
 /* ─── Type scale ───────────────────────────────────────────────── */
@@ -233,7 +250,7 @@ body {
   background: radial-gradient(
     ellipse at center,
     transparent 35%,
-    rgba(8, 8, 10, 0.75) 100%
+    color-mix(in oklab, var(--ground) 78%, transparent) 100%
   );
 }
 
@@ -335,8 +352,16 @@ body {
 /* The hairline grid behind the systemic plate. */
 .grid-rule {
   background-image:
-    linear-gradient(to right, rgba(236, 231, 222, 0.055) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(236, 231, 222, 0.055) 1px, transparent 1px);
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--accent) 14%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--accent) 14%, transparent) 1px,
+      transparent 1px
+    );
   background-size: 4.5rem 4.5rem;
 }
 
@@ -355,6 +380,48 @@ body {
   clip-path: polygon(38% 0%, 62% 0%, 100% 100%, 0% 100%);
   mask-image: radial-gradient(75% 60% at 50% 22%, #000 0%, transparent 100%);
   filter: blur(64px);
+}
+
+/* ─── Type over footage ────────────────────────────────────────────
+   A scrim can only ever darken the frame beneath it, so a light plate
+   theme would leave near-black type over a washed-out picture. Anything
+   sitting directly on footage therefore reverts to the dark default,
+   whatever theme the surrounding film carries.
+   ─────────────────────────────────────────────────────────────── */
+
+.on-media {
+  --ground: #08080a;
+  --figure: #ece7de;
+  --figure-muted: #a8a29a;
+  --figure-faint: #9a958c;
+  --accent: #ece7de;
+  --on-accent: #08080a;
+  color: var(--figure);
+}
+
+/* ─── Themed foreground ────────────────────────────────────────────
+   These replace fixed bone utilities so every piece of type inverts with
+   its plate. Tailwind colour utilities can't reference a live variable
+   that changes per-section, so they are declared here.
+   ─────────────────────────────────────────────────────────────── */
+
+.text-figure {
+  color: var(--figure);
+}
+.text-figure-muted {
+  color: var(--figure-muted);
+}
+.text-figure-faint {
+  color: var(--figure-faint);
+}
+.hover\:text-figure:hover {
+  color: var(--figure);
+}
+.group:hover .group-hover\:text-figure {
+  color: var(--figure);
+}
+.group:hover .group-hover\:text-figure-muted {
+  color: var(--figure-muted);
 }
 
 /* ─── Accent helpers ───────────────────────────────────────────── */

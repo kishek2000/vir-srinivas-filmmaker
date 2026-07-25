@@ -73,7 +73,7 @@ export function Hero() {
         </video>
         <div className="vignette absolute inset-0" />
         {/* Grounds the type at the foot of the frame without drowning it. */}
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[var(--color-ink)] via-[var(--color-ink)]/35 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[var(--ground)] via-[var(--ground)]/35 to-transparent" />
       </motion.div>
 
       <motion.div
@@ -107,7 +107,7 @@ export function Hero() {
           transition={{ duration: 1, ease: EASE, delay: 0.9 }}
           className="mt-6 flex flex-col gap-3 border-t border-[var(--rule)] pt-5 sm:mt-8 sm:flex-row sm:items-end sm:justify-between sm:gap-6"
         >
-          <p className="meta text-bone-muted flex gap-x-5 gap-y-2">
+          <p className="meta text-figure-muted flex gap-x-5 gap-y-2">
             {ROLES.map((role) => (
               <span key={role}>{role}</span>
             ))}
@@ -117,7 +117,7 @@ export function Hero() {
             <button
               type="button"
               onClick={() => setMuted((m) => !m)}
-              className="meta text-bone-muted hover:text-bone flex items-center gap-2.5 transition-colors duration-500"
+              className="meta text-figure-muted hover:text-figure flex items-center gap-2.5 transition-colors duration-500"
               aria-pressed={!muted}
             >
               <SoundBars active={!muted && playing} />

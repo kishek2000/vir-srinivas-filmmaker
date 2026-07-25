@@ -72,7 +72,7 @@ function LedgerBlock({ ledger, index }: { ledger: Ledger; index: number }) {
       <div className="grid gap-6 border-t border-[var(--rule)] pt-6 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-3">
           <h3 className="display display-sm">{ledger.title}</h3>
-          <p className="meta-sm text-bone-faint mt-2">
+          <p className="meta-sm text-figure-faint mt-2">
             {ledger.kind}
             {' · '}
             {wins} {wins === 1 ? 'win' : 'wins'}
@@ -110,7 +110,7 @@ function AwardRow({ award, index }: { award: Award; index: number }) {
       <span className="flex-1 text-[0.95rem] leading-snug">
         {award.category}
       </span>
-      <span className="text-bone-muted w-full text-[0.8125rem] leading-snug sm:w-auto sm:max-w-[42%] sm:text-right">
+      <span className="text-figure-muted w-full text-[0.8125rem] leading-snug sm:w-auto sm:max-w-[42%] sm:text-right">
         {award.festival}
       </span>
     </motion.li>
@@ -146,7 +146,7 @@ function Tally({ value, label }: { value: number; label: string }) {
   return (
     <div ref={ref}>
       <dd className="display display-md tabular-nums leading-none">{shown}</dd>
-      <dt className="meta-sm text-bone-faint mt-3">{label}</dt>
+      <dt className="meta-sm text-figure-faint mt-3">{label}</dt>
     </div>
   );
 }

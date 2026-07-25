@@ -30,26 +30,34 @@ export interface WatchGroup {
 }
 
 /**
- * Each film gets its own world on the page. The palettes below are not
- * invented — they were sampled from the films' own posters and frames:
+ * Each film gets its own world on the page. The hues are not invented —
+ * they were sampled from the films' own posters:
  *
- *   Orders from Above  no saturated pixels at all. It is a true
- *                      black-and-white film and won Cannes World's Best
- *                      Black & White Film; its identity is the absence
- *                      of colour, so the page holds pure neutral.
+ *   Orders from Above  no saturated pixels at all. A true black-and-white
+ *                      film, and the winner of Cannes World's Best Black
+ *                      & White Film.
  *   The Proselyte      candle amber (hue 30-40°) against a blue-black
- *                      ground (hue 240-250°) — chiaroscuro, light
- *                      falling into a dark room.
- *   Gradient Descent   red and nothing else (hue 0°), over the machine
- *                      text that builds the face on its poster.
+ *                      ground (hue 240-250°).
+ *   Gradient Descent   red (hue 0°) and nothing else.
  *
  * `register` picks the composition: how the plate is laid out and which
  * typographic voice it speaks in.
  *
- * The accents are the sampled hues lightened until they clear 4.5:1
- * against their own ground, because they carry small mono text as well as
- * marks. The hue is the film's; only the lightness is ours. `onAccent` is
- * the colour that sits on top of an accent fill.
+ * Every colour on a plate is themed, not just an accent — ground, figure
+ * and rules all flip, so the three worlds are genuinely different rooms
+ * rather than three shades of the same black:
+ *
+ *   Orders from Above  inverts to PAPER. The film is about a bureaucrat
+ *                      and the paperwork of atrocity, and it is shot in
+ *                      black and white — so the plate uses the other end
+ *                      of that range. Black type on a bone ground, ruled
+ *                      like a record. Scrolling into it is a hard cut
+ *                      from a dark room into daylight.
+ *   The Proselyte      a chapel: a genuinely blue dark, not a black one,
+ *                      with gold and a shaft of candlelight.
+ *   Gradient Descent   a black room with red in it — heat and machinery.
+ *
+ * All contrast pairs are measured; see the table in globals.css.
  */
 export type Register = 'documentary' | 'liturgical' | 'systemic';
 
@@ -61,6 +69,12 @@ export interface Identity {
   onAccent: string;
   /** The ground the plate sits on. */
   ground: string;
+  /** Primary type on that ground. Flips to near-black on a light plate. */
+  figure: string;
+  /** Secondary type — body copy, loglines. */
+  figureMuted: string;
+  /** Field labels and small print. Still has to clear AA. */
+  figureFaint: string;
 }
 
 export interface Film {
@@ -242,9 +256,12 @@ export const films: Film[] = [
     slug: 'orders-from-above',
     identity: {
       register: 'documentary',
-      accent: '#ECE7DE',
-      onAccent: '#08080A',
-      ground: '#08080A',
+      accent: '#1A1A14',
+      onAccent: '#E9E5DB',
+      ground: '#E9E5DB',
+      figure: '#14140F',
+      figureMuted: '#4A473F',
+      figureFaint: '#5C584E',
     },
     title: 'Orders from Above',
     titleLines: ['Orders', 'from Above'],
@@ -338,9 +355,12 @@ export const films: Film[] = [
     slug: 'the-proselyte',
     identity: {
       register: 'liturgical',
-      accent: '#D8A45C',
-      onAccent: '#06070F',
-      ground: '#06070F',
+      accent: '#E3AC55',
+      onAccent: '#080C1E',
+      ground: '#080C1E',
+      figure: '#F0E8DA',
+      figureMuted: '#A9A398',
+      figureFaint: '#7E7B74',
     },
     title: 'The Proselyte',
     titleLines: ['The', 'Proselyte'],
@@ -365,9 +385,12 @@ export const films: Film[] = [
     slug: 'gradient-descent',
     identity: {
       register: 'systemic',
-      accent: '#E15A5A',
-      onAccent: '#0A0708',
-      ground: '#0A0708',
+      accent: '#F0605C',
+      onAccent: '#0D0405',
+      ground: '#0D0405',
+      figure: '#EFE4E2',
+      figureMuted: '#AFA09E',
+      figureFaint: '#867775',
     },
     title: 'Gradient Descent',
     titleLines: ['Gradient', 'Descent'],
