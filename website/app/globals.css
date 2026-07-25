@@ -25,6 +25,11 @@
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
+  /* One per film. See app/layout.tsx for why each was chosen. */
+  --font-typewriter: var(--font-courier-prime), 'Courier New', monospace;
+  --font-liturgical: var(--font-cormorant), ui-serif, Georgia, serif;
+  --font-condensed: var(--font-bebas), 'Haettenschweiler', sans-serif;
+
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 }
@@ -270,119 +275,145 @@ body {
 }
 
 /* ─── Per-film registers ───────────────────────────────────────────
-   Three films, three voices.
-
-   The temptation was one plate template nudged three ways. That reads as
-   a house style, not as three pictures — so each register changes the
-   TYPEFACE, the scale and the skeleton, not just the alignment. All of it
-   is drawn from the films' own material: the monochrome of one, the
-   polyptych poster of another, the machine-text face of the third.
+   Three films, three rooms. Each changes its GROUND, its TYPEFACE and
+   its TEXTURE — not a tint and a size on a shared page. Every choice is
+   traced to the film's own material.
    ─────────────────────────────────────────────────────────────── */
 
-/* ── I. Documentary — Orders from Above ────────────────────────────
-   A record of an interrogation. Enormous serif, split across two lines
-   and pushed hard to the edges of the frame; a mono rail down the side
-   like the edge code on a strip of film. Pure monochrome, because the
-   film contains no colour whatsoever. */
+/* ══ I. THE RECORDING — Orders from Above ═════════════════════════
+   A recorded interrogation in one brown room. Courier Prime, uppercase
+   and tracked, is the screenwriting standard and reads as a transcript;
+   the frame behind it carries scanlines and grain, as a surveillance
+   dub of a 1961 recording would. Warm tan on brown-black — monochrome,
+   but never cold. */
 .register-documentary {
   --plate-measure: 42ch;
 }
 .register-documentary .plate-media {
-  /* Fully desaturated, then warmed by the sepia ground showing through. */
-  filter: grayscale(1) contrast(1.14) brightness(0.66) sepia(0.18);
+  filter: grayscale(1) contrast(1.2) brightness(0.6) sepia(0.4);
 }
 .register-documentary .voice {
-  font-family: var(--font-display);
-  font-size: clamp(3.25rem, 13vw, 13rem);
-  line-height: 0.82;
-  letter-spacing: -0.035em;
+  font-family: var(--font-typewriter);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 6.4vw, 6rem);
+  line-height: 1.02;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
-
-/* The edge code, set vertically down the left margin. */
+/* Horizontal scanlines, as on a tape dub. */
+.scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.34) 0px,
+    rgba(0, 0, 0, 0.34) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+/* The edge code, running down the margin like frame numbers on film. */
 .edge-code {
   writing-mode: vertical-rl;
   text-orientation: mixed;
+  font-family: var(--font-typewriter);
 }
 
-/* ── II. Liturgical — The Proselyte ────────────────────────────────
-   The poster is literally a polyptych: four stacked panels, faces lit in
-   sequence. So the plate is an altarpiece — narrow, vertical, symmetrical,
-   and the title is an INSCRIPTION rather than a headline: small, wide,
-   letterspaced, the way words are cut into stone above a door. Restraint
-   is the drama here; it is the only plate that does not shout. */
+/* ══ II. THE CONFESSION — The Proselyte ═══════════════════════════
+   A priest, a killer, and the seal between them. Cormorant set light and
+   wide is an inscription rather than a headline. The palette is the
+   film's: blood bleeding down from the top of the frame, liturgical gold
+   for anything that speaks. The one plate that does not raise its
+   voice. */
 .register-liturgical {
   --plate-measure: 30ch;
+  /* Blood, secondary to the gold and used only structurally. */
+  --blood: #8b1e1e;
 }
 .register-liturgical .plate-media {
-  filter: saturate(1.2) contrast(1.08) brightness(0.95);
+  filter: saturate(1.22) contrast(1.1) brightness(0.96);
 }
 .register-liturgical .voice {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 4.2vw, 3.75rem);
-  line-height: 1.15;
-  letter-spacing: 0.38em;
+  font-family: var(--font-liturgical);
+  font-weight: 300;
+  font-size: clamp(1.75rem, 4.6vw, 4.25rem);
+  line-height: 1.1;
+  letter-spacing: 0.34em;
   /* Letterspacing leaves a trailing gap after the last glyph, which drags
-     a centred block right of true centre. Pull that gap back so every
-     line is optically centred, not just nominally. */
-  margin-right: -0.38em;
+     a centred block right of true centre. Pull it back. */
+  margin-right: -0.34em;
   text-transform: uppercase;
 }
-
-/* ── III. Systemic — Gradient Descent ──────────────────────────────
-   The poster builds a human face out of machine text. So this plate
-   abandons the serif entirely: the title is MONOSPACE, tracked out and
-   uppercase, addressed the way a system addresses a record. Everything
-   sits on a hairline grid, and the margins carry coordinates. */
-.register-systemic {
-  --plate-measure: 38ch;
-}
-.register-systemic .plate-media {
-  /* On a white ground the poster needs no darkening — it is the one dark
-     object in the room, which is the point. */
-  filter: saturate(1.02) contrast(1.04);
-}
-.register-systemic .voice {
-  font-family: var(--font-mono);
-  font-size: clamp(1.75rem, 5.4vw, 4.75rem);
-  line-height: 1.02;
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
-  font-weight: 500;
+/* A wash of blood seeping in along the top edge of the plate. */
+.blood-wash {
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--blood) 42%, transparent) 0%,
+    color-mix(in oklab, var(--blood) 14%, transparent) 38%,
+    transparent 100%
+  );
+  filter: blur(26px);
 }
 
-/* ─── Register furniture ───────────────────────────────────────── */
-
-/* The hairline grid behind the systemic plate. */
-.grid-rule {
-  background-image:
-    linear-gradient(
-      to right,
-      color-mix(in oklab, var(--figure) 9%, transparent) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in oklab, var(--figure) 9%, transparent) 1px,
-      transparent 1px
-    );
-  background-size: 4.5rem 4.5rem;
+/* And a single line running down out of it. */
+.blood-bleed {
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--blood) 85%, transparent) 0%,
+    color-mix(in oklab, var(--blood) 30%, transparent) 26%,
+    transparent 72%
+  );
 }
-
-/* A single shaft of light for the liturgical plate. */
+/* A single shaft of candlelight. */
 .light-shaft {
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    color-mix(in oklab, var(--accent) 13%, transparent) 14%,
-    color-mix(in oklab, var(--accent) 5%, transparent) 42%,
-    transparent 76%
+    color-mix(in oklab, var(--accent) 22%, transparent) 14%,
+    color-mix(in oklab, var(--accent) 7%, transparent) 42%,
+    transparent 78%
   );
-  /* Tapered, so it widens as it falls the way a real shaft does. The mask
-     dissolves the clip edges — without it the polygon reads as a flat
-     grey trapezoid rather than as light. */
   clip-path: polygon(38% 0%, 62% 0%, 100% 100%, 0% 100%);
   mask-image: radial-gradient(75% 60% at 50% 22%, #000 0%, transparent 100%);
   filter: blur(64px);
+}
+
+/* ══ III. THE WHITE ROOM — Gradient Descent ═══════════════════════
+   Every frame of this film is a bright fluorescent office: rows of people
+   in white shirts at white desks, being processed. So the page inverts.
+   Bebas has no lowercase at all — a system addressing a record, not a
+   person saying a name — set enormous over a 60px grid, with a terminal
+   green for anything reporting status. */
+.register-systemic {
+  --plate-measure: 38ch;
+  /* Bright terminal green for non-text marks only; --accent carries the
+     darker green that has to clear AA as type. */
+  --signal: #00c853;
+}
+.register-systemic .plate-media {
+  /* On a white ground the poster needs no darkening. It is the one dark
+     object in the room, which is the point. */
+  filter: saturate(1.02) contrast(1.04);
+}
+.register-systemic .voice {
+  font-family: var(--font-condensed);
+  font-weight: 400;
+  font-size: clamp(3rem, 10.5vw, 10rem);
+  line-height: 0.9;
+  letter-spacing: 0.005em;
+}
+
+/* The office grid. */
+.grid-rule {
+  background-image:
+    linear-gradient(
+      color-mix(in oklab, var(--figure) 8%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--figure) 8%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 3.75rem 3.75rem;
 }
 
 /* ─── Type over footage ────────────────────────────────────────────

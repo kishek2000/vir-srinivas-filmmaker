@@ -134,7 +134,7 @@ function DocumentaryPlate({ film, numeral }: PlateProps) {
       <div
         ref={ref}
         className="on-media relative flex h-[96svh] min-h-[600px] items-end overflow-hidden"
-        style={{ backgroundColor: '#17120E' }}
+        style={{ backgroundColor: '#0C0A07' }}
       >
         <motion.div style={{ y }} className="absolute inset-[-9%] z-0">
           <video
@@ -147,7 +147,12 @@ function DocumentaryPlate({ film, numeral }: PlateProps) {
             playsInline
           />
         </motion.div>
-        <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#17120E] via-[#17120E]/45 to-[#17120E]/60" />
+        <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#0C0A07] via-[#0C0A07]/45 to-[#0C0A07]/62" />
+        {/* Scanlines, as on a tape dub of the original recording. */}
+        <div
+          aria-hidden
+          className="scanlines pointer-events-none absolute inset-0 z-0 opacity-70 mix-blend-multiply"
+        />
 
         {/* Edge code, running down the left margin of the frame. */}
         <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 hidden w-[var(--gutter)] items-center justify-center lg:flex">
@@ -221,6 +226,20 @@ function LiturgicalPlate({ film, numeral }: PlateProps) {
         ref={ref}
         className="relative flex min-h-[96svh] flex-col items-center justify-center overflow-hidden py-[clamp(3.5rem,9vh,6rem)]"
       >
+        {/* Blood: a wash seeping in along the top edge, and a single line
+            running down from it. */}
+        <div
+          aria-hidden
+          className="blood-wash pointer-events-none absolute inset-x-0 top-0 z-0 h-[22%]"
+        />
+        <motion.div
+          initial={{ scaleY: 0 }}
+          animate={inView ? { scaleY: 1 } : undefined}
+          transition={{ duration: 2.6, ease: EASE }}
+          style={{ transformOrigin: 'top' }}
+          className="blood-bleed pointer-events-none absolute top-0 left-1/2 z-0 h-[46%] w-[2px] -translate-x-1/2"
+        />
+
         <motion.div
           initial={{ opacity: 0, scaleY: 0.65 }}
           animate={inView ? { opacity: 1, scaleY: 1 } : undefined}
@@ -318,10 +337,16 @@ function SystemicPlate({ film, numeral }: PlateProps) {
 
         <div className="gutter relative z-10 grid w-full items-center gap-[clamp(2.5rem,6vw,4.5rem)] lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <PlateIndex numeral={numeral} film={film} />
+            <div className="mb-6 flex items-center gap-3">
+              <span
+                aria-hidden
+                className="size-2 rounded-full"
+                style={{ backgroundColor: 'var(--signal)' }}
+              />
+              <PlateIndex numeral={numeral} film={film} />
+            </div>
 
-            {/* Monospace, uppercase, tracked — the system's voice. */}
-            <h3 className="voice mt-6">
+            <h3 className="voice">
               <PlateTitle lines={film.titleLines} />
             </h3>
 

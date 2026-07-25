@@ -47,18 +47,18 @@ export interface WatchGroup {
  * and rules all flip, so the three worlds are genuinely different rooms
  * rather than three shades of the same black:
  *
- *   Orders from Above  a warm sepia dark. The film is a B&W interrogation
- *                      shot in one low-lit room, so the plate is that
- *                      room: brown-black, gold, the frame running full
- *                      bleed behind the type.
- *   The Proselyte      a chapel: a genuinely blue dark, not a black one,
- *                      with gold and a shaft of candlelight.
- *   Gradient Descent   inverts to CLINICAL WHITE. Every frame of this
- *                      film is a bright fluorescent office full of people
- *                      in white shirts, so its plate is that room: near
- *                      white, faintly gridded, black monospace, and the
- *                      poster's red as the only colour. Scrolling into it
- *                      is a hard cut out of the dark.
+ *   Orders from Above  THE RECORDING. Brown-black and warm tan, typed in
+ *                      Courier over a scanlined frame — a tape dub of a
+ *                      1961 interrogation.
+ *   The Proselyte      THE CONFESSION. Near-black with blood running down
+ *                      from the top edge and liturgical gold for anything
+ *                      that speaks. Cormorant, set as an inscription.
+ *   Gradient Descent   THE WHITE ROOM. Every frame of this film is a
+ *                      bright fluorescent office full of people in white
+ *                      shirts being processed, so the page inverts: near
+ *                      white, gridded, enormous condensed caps, terminal
+ *                      green. Scrolling into it is a hard cut out of the
+ *                      dark.
  *
  * All contrast pairs are measured; see the table in globals.css.
  */
@@ -259,12 +259,12 @@ export const films: Film[] = [
     slug: 'orders-from-above',
     identity: {
       register: 'documentary',
-      accent: '#D9B87C',
-      onAccent: '#17120E',
-      ground: '#17120E',
-      figure: '#F0E7DA',
-      figureMuted: '#A99C8C',
-      figureFaint: '#8B8073',
+      accent: '#D4C5A9',
+      onAccent: '#0C0A07',
+      ground: '#0C0A07',
+      figure: '#E4D8BE',
+      figureMuted: '#AC9E80',
+      figureFaint: '#8D8168',
     },
     title: 'Orders from Above',
     titleLines: ['Orders', 'from Above'],
@@ -358,12 +358,12 @@ export const films: Film[] = [
     slug: 'the-proselyte',
     identity: {
       register: 'liturgical',
-      accent: '#E3AC55',
-      onAccent: '#080C1E',
-      ground: '#080C1E',
-      figure: '#F0E8DA',
-      figureMuted: '#A9A398',
-      figureFaint: '#7E7B74',
+      accent: '#D9AE3A',
+      onAccent: '#0A0605',
+      ground: '#0A0605',
+      figure: '#E8E2D5',
+      figureMuted: '#A8A199',
+      figureFaint: '#807A72',
     },
     title: 'The Proselyte',
     titleLines: ['The', 'Proselyte'],
@@ -388,12 +388,12 @@ export const films: Film[] = [
     slug: 'gradient-descent',
     identity: {
       register: 'systemic',
-      accent: '#C42B26',
-      onAccent: '#F2F2F0',
-      ground: '#F2F2F0',
-      figure: '#121213',
-      figureMuted: '#4A4A4C',
-      figureFaint: '#5E5E61',
+      accent: '#00753A',
+      onAccent: '#FAFAFA',
+      ground: '#FAFAFA',
+      figure: '#0A0A0A',
+      figureMuted: '#494949',
+      figureFaint: '#5C5C5C',
     },
     title: 'Gradient Descent',
     titleLines: ['Gradient', 'Descent'],
