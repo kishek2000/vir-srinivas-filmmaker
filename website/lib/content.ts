@@ -540,6 +540,29 @@ export function themeVars(identity: Identity): Record<string, string> {
   };
 }
 
+export interface Still {
+  src: string;
+  film: string;
+  year: string;
+}
+
+/**
+ * The homepage background: two frames from each film.
+ *
+ * A trailer for one film made the whole site look like it was about that
+ * film. These are ordered so consecutive frames come from different
+ * pictures — the point of the sequence is the range between them, not any
+ * single image.
+ */
+export const stills: Still[] = [
+  { src: '/stills/ofa-1.jpg', film: 'Orders from Above', year: '2021' },
+  { src: '/stills/proselyte-1.jpg', film: 'The Proselyte', year: '2022' },
+  { src: '/stills/gradient-1.jpg', film: 'Gradient Descent', year: '2024' },
+  { src: '/stills/ofa-2.jpg', film: 'Orders from Above', year: '2021' },
+  { src: '/stills/proselyte-2.jpg', film: 'The Proselyte', year: '2022' },
+  { src: '/stills/gradient-2.jpg', film: 'Gradient Descent', year: '2024' },
+];
+
 export function getFilm(slug: string): Film | undefined {
   return films.find((film) => film.slug === slug);
 }

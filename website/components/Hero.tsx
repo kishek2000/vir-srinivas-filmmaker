@@ -1,43 +1,48 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'motion/react';
+import Image from 'next/image';
+import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
-import { NAME, ROLES } from '@/lib/content';
+import { NAME, ROLES, stills } from '@/lib/content';
 import { EASE } from './Reveal';
 
+const HOLD_MS = 5200;
+
 /**
- * The showreel runs full-bleed and silent behind the name. There is no
- * tagline here by design — the work is not described, only shown.
+ * The homepage is the name over the work, and nothing else.
+ *
+ * It used to run the Orders from Above trailer here, which quietly made the
+ * whole site look like it was about one film. It now runs stills from all
+ * three — two each — so the first thing you see is the range: a black and
+ * white interrogation, a chiaroscuro thriller, a cold fluorescent office.
+ *
+ * There is no tagline by design. The work is not described, only shown.
  */
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [muted, setMuted] = useState(true);
-  const [playing, setPlaying] = useState(false);
+  const [index, setIndex] = useState(0);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
   });
 
-  // The reel sinks slightly slower than the page, and dims as it leaves.
-  const mediaY = useTransform(scrollYProgress, [0, 1], ['0%', '18%']);
+  // The stills sink slightly slower than the page, and dim as they leave.
+  const mediaY = useTransform(scrollYProgress, [0, 1], ['0%', '16%']);
   const mediaOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.15]);
-  const titleY = useTransform(scrollYProgress, [0, 1], ['0%', '-32%']);
+  const titleY = useTransform(scrollYProgress, [0, 1], ['0%', '-30%']);
   const titleOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = muted;
-    // Some browsers ignore the autoplay attribute but honour an explicit
-    // call; if sound was just turned on and playback is refused, fall back
-    // to muted rather than leaving a silent, stalled frame.
-    void video.play().catch(() => {
-      if (!muted) setMuted(true);
-    });
-  }, [muted]);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const id = window.setInterval(
+      () => setIndex((i) => (i + 1) % stills.length),
+      HOLD_MS,
+    );
+    return () => window.clearInterval(id);
+  }, []);
 
+  const still = stills[index];
   const letters = NAME.split('');
 
   return (
@@ -49,31 +54,38 @@ export function Hero() {
         style={{ y: mediaY, opacity: mediaOpacity }}
         className="absolute inset-0 z-0"
       >
-        {/* The poster sits behind the video, so a slow load or a blocked
-            autoplay still shows a frame of the film, never a black box. */}
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-cover bg-center grayscale-[0.15] contrast-[1.06] brightness-[0.82]"
-          style={{ backgroundImage: 'url(/hero-poster.jpg)' }}
-        />
-        <video
-          ref={videoRef}
-          className="relative h-full w-full object-cover grayscale-[0.15] contrast-[1.06] brightness-[0.82] transition-opacity duration-1000"
-          style={{ opacity: playing ? 1 : 0 }}
-          poster="/hero-poster.jpg"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          onPlaying={() => setPlaying(true)}
-          onPause={() => setPlaying(false)}
-        >
-          <source src="/hero-reel.mp4" type="video/mp4" />
-        </video>
+        <AnimatePresence initial={false}>
+          <motion.div
+            key={still.src}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.4, ease: 'easeInOut' }}
+            className="absolute inset-0"
+          >
+            {/* A slow drift, so a held frame reads as a photograph being
+                looked at rather than as a stalled video. */}
+            <motion.div
+              initial={{ scale: 1.0 }}
+              animate={{ scale: 1.07 }}
+              transition={{ duration: (HOLD_MS + 1400) / 1000, ease: 'linear' }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={still.src}
+                alt=""
+                fill
+                priority={index === 0}
+                sizes="100vw"
+                className="object-cover brightness-[0.72] contrast-[1.05]"
+              />
+            </motion.div>
+          </motion.div>
+        </AnimatePresence>
+
         <div className="vignette absolute inset-0" />
         {/* Grounds the type at the foot of the frame without drowning it. */}
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[var(--ground)] via-[var(--ground)]/35 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[var(--ground)] via-[var(--ground)]/40 to-transparent" />
       </motion.div>
 
       <motion.div
@@ -94,7 +106,9 @@ export function Hero() {
                     delay: 0.15 + i * 0.028,
                   }}
                 >
-                  {char === ' ' ? ' ' : char}
+                  {/* A plain space is whitespace-only and collapses to
+                      zero width inside a flex row, closing up the name. */}
+                  {char === ' ' ? '\u00A0' : char}
                 </motion.span>
               </span>
             ))}
@@ -113,47 +127,31 @@ export function Hero() {
             ))}
           </p>
 
-          <div className="flex items-center">
-            <button
-              type="button"
-              onClick={() => setMuted((m) => !m)}
-              className="meta text-figure-muted hover:text-figure flex items-center gap-2.5 transition-colors duration-500"
-              aria-pressed={!muted}
-            >
-              <SoundBars active={!muted && playing} />
-              {muted ? 'Sound off' : 'Sound on'}
-            </button>
-          </div>
+          {/* Naming the frame is the one piece of information here: it says
+              what you are looking at, and that there is more than one film. */}
+          <p
+            aria-live="off"
+            className="meta text-figure-faint flex items-center gap-2.5"
+          >
+            <span className="hidden sm:inline">Still from</span>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={still.src}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5, ease: 'easeInOut' }}
+                className="text-figure-muted"
+              >
+                {still.film} · {still.year}
+              </motion.span>
+            </AnimatePresence>
+          </p>
         </motion.div>
       </motion.div>
 
       <ScrollCue />
     </section>
-  );
-}
-
-/** Four bars that idle flat and animate only while sound is actually on. */
-function SoundBars({ active }: { active: boolean }) {
-  return (
-    <span aria-hidden className="flex h-3 items-end gap-[2px]">
-      {[0, 1, 2, 3].map((i) => (
-        <motion.span
-          key={i}
-          className="w-[2px] bg-current"
-          initial={{ height: 3 }}
-          animate={active ? { height: [3, 12, 5, 10, 3] } : { height: 3 }}
-          transition={
-            active
-              ? {
-                  duration: 1.1 + i * 0.17,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }
-              : { duration: 0.3 }
-          }
-        />
-      ))}
-    </span>
   );
 }
 
