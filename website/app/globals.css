@@ -68,6 +68,9 @@
 
 html {
   background-color: var(--ground);
+  /* The navigation is permanent, so an anchor that lands flush with the top
+     of the viewport lands underneath it. */
+  scroll-padding-top: 5.25rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
