@@ -1,0 +1,445 @@
+@import 'tailwindcss';
+
+/* ───────────────────────────────────────────────────────────────
+   Design tokens
+
+   Cinema black with a warm bone foreground — the palette of a
+   projection booth, not a UI kit. One accent (brass) reserved
+   exclusively for awards. No gradients: the films carry the colour.
+   ─────────────────────────────────────────────────────────────── */
+
+@theme {
+  --color-ink: #08080a;
+  --color-ink-raised: #0f0f12;
+  --color-ink-edge: #1a1a1f;
+  /* The site's own three tiers. Films override them with their own; every
+     combination is measured, and the faint tier carries field labels so it
+     has to clear AA rather than merely look recessive. */
+  --color-bone: #ece7de;
+  --color-bone-muted: #a8a29a;
+  --color-bone-faint: #7c776e;
+  --color-brass: #b78f52;
+
+  --font-display: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* One per film. See app/layout.tsx for why each was chosen. */
+  --font-typewriter: var(--font-courier-prime), 'Courier New', monospace;
+  --font-liturgical: var(--font-cormorant), ui-serif, Georgia, serif;
+  --font-condensed: var(--font-bebas), 'Haettenschweiler', sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+:root {
+  --brass: #b78f52;
+
+  /* The site's own theme. Each film scopes its own copy of these onto the
+     element that carries it — ground included — so a plate is a different
+     room rather than a different tint, and paints correctly on first
+     render.
+
+     Measured figure : ground across all four themes —
+       figure   14.0 – 19.0 : 1
+       muted     7.5 –  8.6 : 1
+       faint     4.5 –  6.4 : 1
+       accent    5.6 – 16.3 : 1, in both directions. */
+  --ground: #08080a;
+  --figure: #ece7de;
+  --figure-muted: #a8a29a;
+  --figure-faint: #7c776e;
+  --accent: #ece7de;
+  --on-accent: #08080a;
+
+  /* Rules are derived from the figure, so they invert with it. */
+  --rule: color-mix(in oklab, var(--figure) 16%, transparent);
+  --rule-strong: color-mix(in oklab, var(--figure) 32%, transparent);
+
+  --gutter: clamp(1.25rem, 5vw, 5rem);
+}
+
+/* ─── Base ─────────────────────────────────────────────────────── */
+
+* {
+  border-color: var(--rule);
+}
+
+html {
+  background-color: var(--ground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: transparent;
+  color: var(--figure);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+:focus-visible {
+  outline: 1px solid var(--figure);
+  outline-offset: 4px;
+}
+
+/* Scrollbar — thin, dark, out of the way. */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ground);
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--figure) 22%, transparent);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in oklab, var(--figure) 38%, transparent);
+}
+
+/* ─── Type scale ───────────────────────────────────────────────── */
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 0.86;
+  letter-spacing: -0.02em;
+}
+
+/* The name, once, at the top of the film. */
+.display-xl {
+  font-size: clamp(3.75rem, 15vw, 15.5rem);
+}
+
+/* Film titles in the index. */
+.display-lg {
+  font-size: clamp(2.75rem, 9vw, 8.5rem);
+}
+
+/* Section openers. */
+.display-md {
+  font-size: clamp(2.25rem, 5.5vw, 4.75rem);
+}
+
+.display-sm {
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+}
+
+/* Small caps meta — years, runtimes, festival names, labels. */
+.meta {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.meta-sm {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Long-form reading copy. */
+.prose-lg {
+  font-size: clamp(1.0625rem, 1.5vw, 1.3125rem);
+  line-height: 1.62;
+  letter-spacing: -0.005em;
+}
+
+/* ─── Film grain ───────────────────────────────────────────────────
+   A single static SVG noise layer over the whole page. Static, not
+   animated — animated grain reads as a gimmick and costs a repaint
+   every frame.
+   ─────────────────────────────────────────────────────────────── */
+
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ─── Reveal primitives ────────────────────────────────────────── */
+
+/* Text that rises out of a mask. Wrap each line in .reveal-line. */
+.reveal-line {
+  display: block;
+  overflow: hidden;
+}
+
+.reveal-line > * {
+  display: block;
+}
+
+/* ─── Link underline that draws in from the left ───────────────── */
+
+.link-draw {
+  position: relative;
+  display: inline-block;
+}
+
+.link-draw::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.15em;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.link-draw:hover::after,
+.link-draw:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Inverse: starts underlined, retracts on hover. */
+.link-retract::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.link-retract:hover::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+/* ─── Layout helpers ───────────────────────────────────────────── */
+
+.gutter {
+  padding-inline: var(--gutter);
+}
+
+.rule-top {
+  border-top: 1px solid var(--rule);
+}
+
+.rule-bottom {
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ─── Media treatment ──────────────────────────────────────────── */
+
+/* Everything behind type gets pulled down and slightly desaturated so
+   the bone foreground always clears contrast. */
+.film-wash {
+  filter: grayscale(0.35) contrast(1.05) brightness(0.62);
+}
+
+.vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 35%,
+    color-mix(in oklab, var(--ground) 78%, transparent) 100%
+  );
+}
+
+/* ─── Motion preferences ───────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ─── Per-film registers ───────────────────────────────────────────
+   Three films, three rooms. Each changes its GROUND, its TYPEFACE and
+   its TEXTURE — not a tint and a size on a shared page. Every choice is
+   traced to the film's own material.
+   ─────────────────────────────────────────────────────────────── */
+
+/* ══ I. THE RECORDING — Orders from Above ═════════════════════════
+   A recorded interrogation in one brown room. Courier Prime, uppercase
+   and tracked, is the screenwriting standard and reads as a transcript;
+   the frame behind it carries scanlines and grain, as a surveillance
+   dub of a 1961 recording would. Warm tan on brown-black — monochrome,
+   but never cold. */
+.register-documentary {
+  --plate-measure: 42ch;
+}
+.register-documentary .plate-media {
+  filter: grayscale(1) contrast(1.2) brightness(0.6) sepia(0.4);
+}
+.register-documentary .voice {
+  font-family: var(--font-typewriter);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 6.4vw, 6rem);
+  line-height: 1.02;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+/* Horizontal scanlines, as on a tape dub. */
+.scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.34) 0px,
+    rgba(0, 0, 0, 0.34) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+/* The edge code, running down the margin like frame numbers on film. */
+.edge-code {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-typewriter);
+}
+
+/* ══ II. THE CONFESSION — The Proselyte ═══════════════════════════
+   A priest, a killer, and the seal between them. Cormorant set light and
+   wide is an inscription rather than a headline. The palette is the
+   film's: blood bleeding down from the top of the frame, liturgical gold
+   for anything that speaks. The one plate that does not raise its
+   voice. */
+.register-liturgical {
+  --plate-measure: 30ch;
+  /* Blood, secondary to the gold and used only structurally. */
+  --blood: #8b1e1e;
+}
+.register-liturgical .plate-media {
+  filter: saturate(1.22) contrast(1.1) brightness(0.96);
+}
+.register-liturgical .voice {
+  font-family: var(--font-liturgical);
+  font-weight: 300;
+  font-size: clamp(1.75rem, 4.6vw, 4.25rem);
+  line-height: 1.1;
+  letter-spacing: 0.34em;
+  /* Letterspacing leaves a trailing gap after the last glyph, which drags
+     a centred block right of true centre. Pull it back. */
+  margin-right: -0.34em;
+  text-transform: uppercase;
+}
+/* A wash of blood seeping in along the top edge of the plate. */
+.blood-wash {
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--blood) 42%, transparent) 0%,
+    color-mix(in oklab, var(--blood) 14%, transparent) 38%,
+    transparent 100%
+  );
+  filter: blur(26px);
+}
+
+/* And a single line running down out of it. */
+.blood-bleed {
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--blood) 85%, transparent) 0%,
+    color-mix(in oklab, var(--blood) 30%, transparent) 26%,
+    transparent 72%
+  );
+}
+/* A single shaft of candlelight. */
+.light-shaft {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in oklab, var(--accent) 22%, transparent) 14%,
+    color-mix(in oklab, var(--accent) 7%, transparent) 42%,
+    transparent 78%
+  );
+  clip-path: polygon(38% 0%, 62% 0%, 100% 100%, 0% 100%);
+  mask-image: radial-gradient(75% 60% at 50% 22%, #000 0%, transparent 100%);
+  filter: blur(64px);
+}
+
+/* ══ III. THE WHITE ROOM — Gradient Descent ═══════════════════════
+   Every frame of this film is a bright fluorescent office: rows of people
+   in white shirts at white desks, being processed. So the page inverts.
+   Bebas has no lowercase at all — a system addressing a record, not a
+   person saying a name — set enormous over a 60px grid, with a terminal
+   green for anything reporting status. */
+.register-systemic {
+  --plate-measure: 38ch;
+  /* Bright terminal green for non-text marks only; --accent carries the
+     darker green that has to clear AA as type. */
+  --signal: #00c853;
+}
+.register-systemic .plate-media {
+  /* On a white ground the poster needs no darkening. It is the one dark
+     object in the room, which is the point. */
+  filter: saturate(1.02) contrast(1.04);
+}
+.register-systemic .voice {
+  font-family: var(--font-condensed);
+  font-weight: 400;
+  font-size: clamp(3rem, 10.5vw, 10rem);
+  line-height: 0.9;
+  letter-spacing: 0.005em;
+}
+
+/* The office grid. */
+.grid-rule {
+  background-image:
+    linear-gradient(
+      color-mix(in oklab, var(--figure) 8%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--figure) 8%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 3.75rem 3.75rem;
+}
+
+/* ─── Themed foreground ────────────────────────────────────────────
+   These replace fixed bone utilities so every piece of type inverts with
+   its plate. Tailwind colour utilities can't reference a live variable
+   that changes per-section, so they are declared here.
+   ─────────────────────────────────────────────────────────────── */
+
+.text-figure {
+  color: var(--figure);
+}
+.text-figure-muted {
+  color: var(--figure-muted);
+}
+.text-figure-faint {
+  color: var(--figure-faint);
+}
+.hover\:text-figure:hover {
+  color: var(--figure);
+}
+.group:hover .group-hover\:text-figure {
+  color: var(--figure);
+}
+.group:hover .group-hover\:text-figure-muted {
+  color: var(--figure-muted);
+}
+
+/* ─── Accent helpers ───────────────────────────────────────────── */
+
+.accent {
+  color: var(--accent);
+}
+.accent-rule {
+  background-color: color-mix(in oklab, var(--accent) 34%, transparent);
+}
