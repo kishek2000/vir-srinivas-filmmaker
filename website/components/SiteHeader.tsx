@@ -28,19 +28,31 @@ const SECTIONS = [
 
 export function SiteHeader() {
   const { scrollY } = useScroll();
-  const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [last, setLast] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [barHeight, setBarHeight] = useState(0);
+  const barRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
-  useMotionValueEvent(scrollY, 'change', (y) => {
-    setScrolled(y > 80);
-    // Never retract while the menu is open — the panel hangs off the
-    // header, so hiding one takes the other with it.
-    setHidden(!mobileOpen && y > last && y > 400);
-    setLast(y);
-  });
+  useMotionValueEvent(scrollY, 'change', (y) => setScrolled(y > 80));
+
+  /**
+   * The release strip is an arrival announcement; the navigation is chrome.
+   * Together they are 99px, which is a tenth of a phone screen to hold
+   * permanently over a full-bleed site — so only the navigation stays. The
+   * strip slides out from under it on the first scroll, and since it is
+   * dismissible its height can also become zero at any moment, which is why
+   * this is measured rather than assumed.
+   */
+  useEffect(() => {
+    const el = barRef.current;
+    if (!el) return;
+    const measure = () => setBarHeight(el.getBoundingClientRect().height);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   // Any navigation closes the menu, including a hash jump on this page.
   useEffect(() => setMobileOpen(false), [pathname]);
@@ -56,16 +68,22 @@ export function SiteHeader() {
 
   const onFilm = films.some((f) => pathname === `/${f.slug}`);
 
+  // Hold the whole stack in place while the mobile panel is open, or the
+  // strip would slide out from under a menu that is hanging off it.
+  const lift = scrolled && !mobileOpen ? -barHeight : 0;
+
   return (
     <motion.header
-      animate={{ y: hidden ? '-110%' : '0%' }}
-      transition={{ duration: 0.55, ease: EASE }}
+      animate={{ y: lift }}
+      transition={{ duration: 0.5, ease: EASE }}
       // The chrome keeps the site's own colours rather than borrowing the
       // colours of whichever section happens to be beneath it — it is a
       // fixed layer above the page, and reads as one.
       className="fixed inset-x-0 top-0 z-50"
     >
-      <ReleaseBar />
+      <div ref={barRef}>
+        <ReleaseBar />
+      </div>
 
       <div
         className="gutter flex items-center justify-between gap-6 py-4 transition-colors duration-700"
