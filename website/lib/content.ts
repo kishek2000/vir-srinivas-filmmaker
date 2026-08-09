@@ -97,6 +97,8 @@ export interface Film {
   poster: string;
   /** 1200x630 share card, cut from the film's own frames. */
   ogImage: string;
+  /** Small landscape frame, used in the navigation menu. */
+  thumb: string;
   /** Muted, looping clip run behind this film's plate. */
   preview?: string;
   /**
@@ -288,16 +290,13 @@ export const films: Film[] = [
     roles: ['Writer', 'Director', 'Producer'],
     poster: '/ofa-poster.jpeg',
     ogImage: '/og-orders-from-above.jpg',
+    thumb: '/stills/ofa-1.jpg',
     preview: '/ofa-loop.mp4',
     previewPoster: '/stills/ofa-1.jpg',
     imdb: 'https://www.imdb.com/title/tt14858134/',
     watch: {
       label: 'Watch the full film',
       href: 'https://tubitv.com/movies/695064/orders-from-above',
-    },
-    trailer: {
-      label: 'Watch the trailer',
-      href: 'https://www.youtube.com/watch?v=J65m0Y2dNd4',
     },
     accolade: 'Winner of 16 international awards',
     awards: ORDERS_FROM_ABOVE_AWARDS,
@@ -309,12 +308,6 @@ export const films: Film[] = [
             name: 'Tubi',
             href: 'https://tubitv.com/movies/695064/orders-from-above',
             note: 'Free, with ads',
-            free: true,
-          },
-          {
-            name: 'YouTube',
-            href: 'https://www.youtube.com/watch?v=J65m0Y2dNd4',
-            note: 'Full film',
             free: true,
           },
         ],
@@ -389,6 +382,7 @@ export const films: Film[] = [
     roles: ['Writer', 'Director', 'Producer'],
     poster: '/proselyte-poster.jpeg',
     ogImage: '/og-the-proselyte.jpg',
+    thumb: '/stills/proselyte-1.jpg',
     imdb: 'https://www.imdb.com/title/tt14755002/',
     watch: {
       label: 'Watch the film',
@@ -420,6 +414,7 @@ export const films: Film[] = [
     roles: ['Writer', 'Director', 'Producer'],
     poster: '/gd-poster.jpg',
     ogImage: '/og-gradient-descent.jpg',
+    thumb: '/stills/gradient-1.jpg',
     imdb: 'https://www.imdb.com/title/tt31491453/',
     watch: {
       label: 'Watch the film',
