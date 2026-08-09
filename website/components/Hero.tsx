@@ -84,12 +84,20 @@ export function Hero() {
             className="absolute inset-0"
           >
             {/* A slow drift, so a held frame reads as a photograph being
-                looked at rather than as a stalled video. */}
-            <motion.div
-              initial={{ scale: 1.0 }}
-              animate={{ scale: running ? 1.07 : 1.0 }}
-              transition={{ duration: (HOLD_MS + 1400) / 1000, ease: 'linear' }}
-              className="absolute inset-0"
+                looked at rather than as a stalled video.
+
+                This is a CSS animation rather than a motion one because
+                AnimatePresence carries `initial={false}` — which suppresses
+                the mount animation of everything inside it, so the very
+                first still sat perfectly static and only the second onwards
+                drifted. CSS keyframes are outside that machinery. */}
+            <div
+              key={`${still.src}-drift`}
+              className="absolute inset-0 still-drift"
+              style={{
+                animationDuration: `${(HOLD_MS + 1400) / 1000}s`,
+                animationPlayState: running ? 'running' : 'paused',
+              }}
             >
               <Image
                 src={still.src}
@@ -99,7 +107,7 @@ export function Hero() {
                 sizes="100vw"
                 className="object-cover brightness-[0.72] contrast-[1.05]"
               />
-            </motion.div>
+            </div>
           </motion.div>
         </AnimatePresence>
 
