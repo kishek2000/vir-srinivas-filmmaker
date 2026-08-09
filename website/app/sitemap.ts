@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { films } from '@/lib/content';
 
-const SITE = 'https://virsrinivas.com';
+const SITE = 'https://www.virsrinivas.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

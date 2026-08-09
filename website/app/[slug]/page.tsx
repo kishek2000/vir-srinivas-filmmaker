@@ -35,7 +35,14 @@ export async function generateMetadata({
       title: `${film.title} — ${NAME}`,
       description,
       url: `/${film.slug}`,
-      images: [{ url: film.poster, width: 1200, height: 630 }],
+      images: [
+        {
+          url: film.ogImage,
+          width: 1200,
+          height: 630,
+          alt: `${film.title} — ${film.format}, ${film.year}`,
+        },
+      ],
     },
   };
 }

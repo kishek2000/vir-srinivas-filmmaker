@@ -234,7 +234,7 @@ function ReelHero({ film }: { film: Film }) {
         <video
           className="plate-media h-full w-full object-cover"
           src={film.preview}
-          poster={film.poster}
+          poster={film.previewPoster}
           autoPlay
           loop
           muted

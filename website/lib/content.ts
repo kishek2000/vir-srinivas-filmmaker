@@ -95,8 +95,17 @@ export interface Film {
   synopsis: string;
   roles: string[];
   poster: string;
-  /** Muted, looping clip used behind the index row on hover. */
+  /** 1200x630 share card, cut from the film's own frames. */
+  ogImage: string;
+  /** Muted, looping clip run behind this film's plate. */
   preview?: string;
+  /**
+   * First frame for `preview`. The one-sheet cannot serve here — a 2:3
+   * portrait behind a landscape <video> crops badly, and a `poster`
+   * attribute is fetched raw rather than through the image optimiser, so
+   * it has to be a small landscape frame.
+   */
+  previewPoster?: string;
   imdb?: string;
   /** The complete film, where it can actually be watched. */
   watch?: { label: string; href: string };
@@ -278,7 +287,9 @@ export const films: Film[] = [
       'Adolf Eichmann is finally captured and brought to Israel to stand trial. Without enough evidence to prosecute him, Police Captain Avner Less must extract a confession from the mastermind of the Holocaust.',
     roles: ['Writer', 'Director', 'Producer'],
     poster: '/ofa-poster.jpeg',
+    ogImage: '/og-orders-from-above.jpg',
     preview: '/ofa-loop.mp4',
+    previewPoster: '/stills/ofa-1.jpg',
     imdb: 'https://www.imdb.com/title/tt14858134/',
     watch: {
       label: 'Watch the full film',
@@ -377,6 +388,7 @@ export const films: Film[] = [
       'A Catholic priest with a dark past wrestles with his faith after he hears a confession from an active serial killer. Bound by the seal of confession, he must choose between the law he serves and the law he swore to.',
     roles: ['Writer', 'Director', 'Producer'],
     poster: '/proselyte-poster.jpeg',
+    ogImage: '/og-the-proselyte.jpg',
     imdb: 'https://www.imdb.com/title/tt14755002/',
     watch: {
       label: 'Watch the film',
@@ -406,7 +418,8 @@ export const films: Film[] = [
     synopsis:
       'A homeless man is recruited by an artificial intelligence company and forced to do horrifying work.',
     roles: ['Writer', 'Director', 'Producer'],
-    poster: '/gd-poster.png',
+    poster: '/gd-poster.jpg',
+    ogImage: '/og-gradient-descent.jpg',
     imdb: 'https://www.imdb.com/title/tt31491453/',
     watch: {
       label: 'Watch the film',

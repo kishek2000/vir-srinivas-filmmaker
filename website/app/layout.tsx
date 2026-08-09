@@ -59,7 +59,9 @@ const condensed = Bebas_Neue({
   display: 'swap',
 });
 
-const SITE = 'https://virsrinivas.com';
+// The apex 308-redirects to www, so www is the canonical host. Pointing
+// canonicals and OG URLs at the apex made every one of them a redirect.
+const SITE = 'https://www.virsrinivas.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
@@ -77,7 +79,14 @@ export const metadata: Metadata = {
     title: `${NAME} — Writer, Director, Producer`,
     description:
       'Award-winning writer, producer and director. Orders from Above, The Proselyte, Gradient Descent.',
-    images: [{ url: '/ofa-poster.jpeg', width: 1200, height: 630 }],
+    images: [
+      {
+        url: '/og-default.jpg',
+        width: 1200,
+        height: 630,
+        alt: `${NAME} — writer, director, producer`,
+      },
+    ],
   },
   twitter: { card: 'summary_large_image' },
   alternates: { canonical: '/' },
